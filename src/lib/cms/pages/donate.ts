@@ -26,7 +26,7 @@ const defaults: DonateContent = {
   heroEyebrow: 'Give Today',
   heroHeadline: 'Donate to Healthy Steps Foundation',
   heroLead:
-    'Every gift — no matter the size — reaches a real family in Wakiso, Uganda. US donors can give by check or by SWIFT bank transfer. International donors must use SWIFT bank transfer.',
+    'Every gift, no matter the size, reaches a real family in Wakiso, Uganda. US donors can give by check or by SWIFT bank transfer. International donors must use SWIFT bank transfer.',
   heroImage: media(
     '/images/WhatsApp Image 2026-05-21 at 20.31.38 (2).jpeg',
     'Community members supported by Healthy Steps Foundation in Ndejje, Wakiso, Uganda',
@@ -37,7 +37,7 @@ const defaults: DonateContent = {
     "Choose how you'd like to give below. US donors can give by check or by SWIFT bank transfer. International donors must use SWIFT bank transfer.",
 
   secureTitle: 'Secure Giving',
-  secureText: 'SWIFT or check — no card data ever stored.',
+  secureText: 'SWIFT or check. No card data is ever stored.',
 
   giftTitle: 'Your Gift at Work',
   giftExamples: [
@@ -52,13 +52,13 @@ const defaults: DonateContent = {
   ],
 
   questionsTitle: 'Questions?',
-  questionsText: "We're happy to help — reach out any time.",
+  questionsText: "We're happy to help. Reach out any time.",
 
   trustPoints: [
     {
       icon: 'Shield',
       label: 'Secure Giving',
-      desc: 'SWIFT or check — no card data ever stored',
+      desc: 'SWIFT or check. No card data is ever stored',
     },
     {
       icon: 'Heart',
@@ -96,7 +96,7 @@ export const donateSchema: PageSchema<DonateContent> = {
       id: 'form',
       label: 'Giving form',
       description:
-        'Only the wording above the form. The bank details, amounts and fee are set in the code — they must match what the bank and the confirmation emails say.',
+        'Only the wording above the form. The bank details, amounts and fee are set in the code, since they must match what the bank and the confirmation emails say.',
       fields: [
         text('formTitle', 'Heading'),
         textarea('formLead', 'Body text', { rows: 3 }),
@@ -112,7 +112,7 @@ export const donateSchema: PageSchema<DonateContent> = {
         list('giftExamples', 'What each amount does', {
           itemNoun: 'amount',
           titleKey: 'amount',
-          help: 'These are illustrations for donors, not promises — keep them honest.',
+          help: 'These are illustrations for donors, not promises, so keep them honest.',
           blank: { amount: '', description: '' },
           fields: [
             text('amount', 'Amount', { placeholder: 'e.g. $50' }),
@@ -135,7 +135,7 @@ export const donateSchema: PageSchema<DonateContent> = {
           titleKey: 'label',
           min: 1,
           max: 3,
-          help: 'Three reads best — they sit in a single row.',
+          help: 'Three reads best. They sit in a single row.',
           blank: { icon: 'Shield', label: '', desc: '' },
           fields: [
             icon('icon', 'Icon'),

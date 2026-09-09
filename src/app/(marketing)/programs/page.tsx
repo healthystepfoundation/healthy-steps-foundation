@@ -10,7 +10,7 @@ import { programsIndexSchema } from '@/lib/cms/pages/programs';
 
 export const metadata: Metadata = {
   title: 'Our Programs',
-  description: 'Six programs supporting families in Wakiso, Uganda — food, clothing, education, vocation, medical care, and mental health resources.',
+  description: 'Six programs supporting families in Wakiso, Uganda: food, clothing, education, vocation, medical care, and mental health resources.',
 };
 
 export default async function ProgramsPage(): Promise<React.JSX.Element> {

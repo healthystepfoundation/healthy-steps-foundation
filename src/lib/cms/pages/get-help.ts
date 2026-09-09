@@ -61,7 +61,7 @@ const defaults: GetHelpContent = {
     {
       title: 'No Judgment',
       description:
-        "Every family faces seasons of hardship. Needing help is not a failure — it's human.",
+        "Every family faces seasons of hardship. Needing help is not a failure. It's human.",
     },
     {
       title: 'Open to Everyone',
@@ -77,7 +77,7 @@ const defaults: GetHelpContent = {
 
   ctaTitle: 'Ready to Reach Out?',
   ctaLead:
-    "You don't need to have everything figured out. Just reach out — we'll walk through everything together.",
+    "You don't need to have everything figured out. Just reach out and we'll walk through everything together.",
   ctaEmailPrefix: 'Or email us at',
 };
 
@@ -126,7 +126,7 @@ export const getHelpSchema: PageSchema<GetHelpContent> = {
           titleKey: 'title',
           min: 1,
           max: 4,
-          help: 'Four reads best — they sit in a single row on a wide screen.',
+          help: 'Four reads best. They sit in a single row on a wide screen.',
           blank: { title: 'New promise', description: '' },
           fields: [text('title', 'Title'), textarea('description', 'Description', { rows: 3 })],
         }),

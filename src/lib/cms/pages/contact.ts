@@ -28,7 +28,7 @@ const defaults: ContactContent = {
   heroEyebrow: 'Reach Out',
   heroTitle: 'Get in Touch',
   heroLead:
-    "Whether you need support, want to partner with us, or just have a question — we'd love to hear from you. No enquiry is too small.",
+    "Whether you need support, want to partner with us, or just have a question, we'd love to hear from you. No enquiry is too small.",
   heroImage: media(
     '/images/WhatsApp%20Image%202026-05-21%20at%2020.31.38%20%2811%29.jpeg',
     'Healthy Steps Foundation staff member conducting intake with community families in Ndejje, Uganda',
@@ -46,7 +46,7 @@ const defaults: ContactContent = {
   locationHeading: 'Our Location',
   mapsLinkLabel: 'Open in Google Maps',
   mapEyebrow: 'Find Us',
-  mapTitle: 'Ndejje Division, Wakiso — Uganda',
+  mapTitle: 'Ndejje Division, Wakiso, Uganda',
   mapCaption: 'Mirimu, Ndejje Ward, Ndejje Division, Wakiso District, Uganda',
 };
 
@@ -72,7 +72,7 @@ export const contactSchema: PageSchema<ContactContent> = {
       id: 'strip',
       label: 'Green contact strip',
       description:
-        'The email address, phone numbers and address are not edited here — they also appear in donation receipts and reminder emails, so they are changed once in the code and update everywhere at the same time.',
+        'The email address, phone numbers and address are not edited here. They also appear in donation receipts and reminder emails, so they are changed once in the code and update everywhere at the same time.',
       fields: [
         text('stripEmailLabel', 'Email label'),
         text('stripPhoneLabel', 'Phone label'),

@@ -9,7 +9,7 @@ import { storiesSchema } from '@/lib/cms/pages/stories';
 export const metadata: Metadata = {
   title: 'Stories | Healthy Steps Foundation',
   description:
-    'Real stories from families and partners impacted by Healthy Steps Foundation — hope, resilience, and dignity in Uganda.',
+    'Real stories from families and partners impacted by Healthy Steps Foundation: hope, resilience, and dignity in Uganda.',
 };
 
 export default async function StoriesPage(): Promise<React.JSX.Element> {

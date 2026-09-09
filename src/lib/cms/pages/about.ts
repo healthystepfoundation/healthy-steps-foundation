@@ -105,17 +105,17 @@ const defaults: AboutContent = {
     {
       title: 'Reach Out',
       description:
-        'Call us, email us, or visit us in Ndejje. No complicated application — we respond to need. Urgent cases receive same-day attention.',
+        'Call us, email us, or visit us in Ndejje. There is no complicated application; we respond to need. Urgent cases receive same-day attention.',
     },
     {
       title: 'Compassionate Conversation',
       description:
-        "We listen to understand your family's situation — private, judgment-free, and respectful of your dignity from the very first interaction.",
+        "We listen to understand your family's situation. Every conversation is private, judgment-free, and respectful of your dignity from the very first interaction.",
     },
     {
       title: 'Tailored Support',
       description:
-        'We match your family with the right program or combination of programs for your specific need — food, clothing, school fees, medical care, and more.',
+        'We match your family with the right program or combination of programs for your specific need: food, clothing, school fees, medical care, and more.',
     },
     {
       title: 'Follow-Up & Stability',

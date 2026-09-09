@@ -136,7 +136,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
         <div>
           <p className="font-bold text-forest-green-900 mb-1">Zero Transfer Fees</p>
           <p className="text-sm text-warm-gray-600 leading-relaxed">
-            Giving by check avoids the $45 SWIFT transfer fee — every dollar of your gift
+            Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift
             reaches families in Wakiso, Uganda.
           </p>
         </div>
@@ -304,7 +304,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
           <h3 className="font-bold text-warm-gray-900">Prefer to Just Email Us?</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-4">
-          Once your check is in the mail, you can also reach us directly — we&apos;ll confirm receipt
+          Once your check is in the mail, you can also reach us directly and we&apos;ll confirm receipt
           and send a personal thank-you within 2 business days.
         </p>
         <a
@@ -339,7 +339,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
                 Thank You, {successData.firstName}!
               </h2>
               <p className="text-warm-gray-500 text-sm">
-                We&apos;ve recorded your pledge — mail your check whenever you&apos;re ready.
+                We&apos;ve recorded your pledge. Mail your check whenever you&apos;re ready.
               </p>
               <p className="text-xs text-warm-gray-400 mt-2 font-mono">
                 Pledge Confirmation #{successData.invoiceNumber}
@@ -350,7 +350,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
                 </p>
               ) : (
                 <p className="text-xs text-amber-600 mt-1">
-                  We couldn&apos;t email your confirmation — please contact us at {ORG.email}{' '}
+                  We couldn&apos;t email your confirmation. Please contact us at {ORG.email}{' '}
                   referencing invoice #{successData.invoiceNumber}.
                 </p>
               )}

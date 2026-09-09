@@ -339,7 +339,7 @@ export default function DonationForm({
                 </p>
               ) : (
                 <p className="text-xs text-amber-600 mt-1">
-                  We couldn&apos;t email your confirmation — please save these details or contact us at{' '}
+                  We couldn&apos;t email your confirmation. Please save these details or contact us at{' '}
                   {ORG.email} referencing invoice #{successData.invoiceNumber}.
                 </p>
               )}
@@ -362,7 +362,7 @@ export default function DonationForm({
               {successData.coverBankFee && (
                 <div className="flex justify-between">
                   <span className="text-warm-gray-500">Bank fee covered</span>
-                  <span className="font-semibold text-forest-green-600">Yes — 100% reaches families</span>
+                  <span className="font-semibold text-forest-green-600">Yes, 100% reaches families</span>
                 </div>
               )}
               <div className="flex justify-between font-bold border-t border-forest-green-200 pt-2 text-base">

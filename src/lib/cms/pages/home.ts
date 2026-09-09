@@ -58,7 +58,7 @@ const defaults: HomeContent = {
   videoEyebrow: 'Videos and Pictures',
   videoTitle: 'See Healthy Steps in the Field',
   videoLead:
-    'Filmed during our June outreach in Wakiso — food packages, medical care, and mental wellness support reaching families, one healthy step at a time.',
+    'Filmed during our June outreach in Wakiso: food packages, medical care, and mental wellness support reaching families, one healthy step at a time.',
   videoFile: media('/outreach-june.mp4', ''),
   videoPoster: media(
     '/images/field/video-poster.jpg',
@@ -148,7 +148,7 @@ export const homeSchema: PageSchema<HomeContent> = {
           titleKey: 'label',
           min: 1,
           max: 4,
-          help: 'Four reads best — they sit in a 2×2 grid. Plain digits count up on scroll; anything else is shown as written.',
+          help: 'Four reads best. They sit in a 2×2 grid. Plain digits count up on scroll; anything else is shown as written.',
           blank: { value: '', suffix: '', label: '' },
           fields: [
             text('value', 'Number', { placeholder: 'e.g. 1200' }),

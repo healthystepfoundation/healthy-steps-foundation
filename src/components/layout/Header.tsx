@@ -210,10 +210,10 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
         )}
       >
         {/* Logo — shrinks as you scroll so the bar reclaims vertical space */}
-        <Link href="/" className="group flex shrink-0 items-center" aria-label="Healthy Steps Foundation — home">
+        <Link href="/" className="group flex shrink-0 items-center" aria-label="Healthy Steps Foundation home">
           <Image
             src="/HSF_logo.png"
-            alt="Healthy Steps Foundation — A path to mental wellness"
+            alt="Healthy Steps Foundation, a path to mental wellness"
             width={440}
             height={126}
             priority

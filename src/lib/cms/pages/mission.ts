@@ -206,7 +206,7 @@ export const missionSchema: PageSchema<MissionContent> = {
           titleKey: 'label',
           min: 1,
           max: 5,
-          help: 'Five reads best — they sit in a single row on a wide screen.',
+          help: 'Five reads best. They sit in a single row on a wide screen.',
           blank: { label: 'New element', desc: '' },
           fields: [text('label', 'Label'), textarea('desc', 'Description', { rows: 3 })],
         }),

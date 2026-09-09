@@ -48,7 +48,7 @@ export const eventsSchema: PageSchema<EventsContent> = {
             text('title', 'Event name'),
             text('date', 'Date', {
               placeholder: '2026-10-03',
-              help: 'Year first, then month, then day — for example 2026-10-03 for 3 October 2026.',
+              help: 'Year first, then month, then day, for example 2026-10-03 for 3 October 2026.',
             }),
             text('startTime', 'Start time', { placeholder: '10:00', help: '24-hour clock.' }),
             text('endTime', 'End time', { placeholder: '12:00' }),

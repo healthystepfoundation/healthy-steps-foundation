@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 });
 
 function pendingOr(value: string): string {
-  return value && value.length > 0 ? value : 'Pending — contact us for this detail';
+  return value && value.length > 0 ? value : 'Pending (contact us for this detail)';
 }
 
 function InstructionRow({ label, value }: { label: string; value: string }): React.JSX.Element {
@@ -132,7 +132,7 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
             label="Type"
             value={
               record.donationType === 'recurring'
-                ? `Recurring — ${record.recurringFrequency ?? ''}`
+                ? `Recurring (${record.recurringFrequency ?? 'frequency pending'})`
                 : 'One-time gift'
             }
           />
@@ -170,7 +170,7 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
         </View>
 
         <Text style={styles.footer}>
-          This document confirms your donation pledge. It is not a receipt of funds received —
+          This document confirms your donation pledge. It is not a receipt of funds received:
           funds are recorded as received once your {record.method === 'swift' ? 'SWIFT transfer' : 'check'}{' '}
           has been processed. Please email proof of your{' '}
           {record.method === 'swift' ? 'transfer' : 'mailed check'} to {ORG.email} referencing invoice #

@@ -222,7 +222,7 @@ export const NEWS_UPDATES: NewsUpdate[] = [
     title: 'Healthy Steps Foundation Events',
     date: '2026-06-13',
     excerpt:
-      'From a drumming and paint night in Longwood, Florida to a staple food distribution for 100 villagers in Kampala — recapping recent HSF events, and what is next for back-to-school and Christmas.',
+      'From a drumming and paint night in Longwood, Florida to a staple food distribution for 100 villagers in Kampala: recapping recent HSF events, and what is next for back-to-school and Christmas.',
     image: '/images/field/distribution-wide.jpg',
     body: [
       'Thank you for participating and donating to recent Healthy Steps Foundation (HSF) events. On May 23, 2026, our organization sponsored the African Drumming, and Paint and Refreshments events in Longwood, Florida. Both events showcased your talents and provided fun and laughter.',

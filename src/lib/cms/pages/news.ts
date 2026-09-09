@@ -62,7 +62,7 @@ const defaults: NewsContent = {
   ctaEyebrow: 'Stay Connected',
   ctaTitle: 'Have Questions About an Event?',
   ctaLead:
-    'Reach out any time — we would love to share more about what your prayers and donations make possible.',
+    'Reach out any time. We would love to share more about what your prayers and donations make possible.',
   ctaEmailLabel: 'Email Us',
   ctaPhoneLabel: 'Call Us',
 };
@@ -95,7 +95,7 @@ export const newsSchema: PageSchema<NewsContent> = {
           itemNoun: 'update',
           titleKey: 'title',
           min: 1,
-          help: 'Put the newest first — the one at the top is the one shown in full.',
+          help: 'Put the newest first. The one at the top is the one shown in full.',
           blank: {
             slug: '',
             title: 'New update',
@@ -110,7 +110,7 @@ export const newsSchema: PageSchema<NewsContent> = {
             text('title', 'Title'),
             text('date', 'Date', {
               placeholder: '2026-06-13',
-              help: 'Year first, then month, then day — for example 2026-06-13 for 13 June 2026.',
+              help: 'Year first, then month, then day, for example 2026-06-13 for 13 June 2026.',
             }),
             textarea('excerpt', 'Short summary', {
               rows: 3,
@@ -118,8 +118,8 @@ export const newsSchema: PageSchema<NewsContent> = {
             }),
             image('image', 'Photo'),
             strings('body', 'Letter text', 'paragraph'),
-            text('signOffName', 'Signed by — name'),
-            text('signOffTitle', 'Signed by — role'),
+            text('signOffName', 'Signed by (name)'),
+            text('signOffTitle', 'Signed by (role)'),
             text('slug', 'Internal reference', {
               help: 'A short unique name used behind the scenes. Letters, numbers and dashes.',
             }),

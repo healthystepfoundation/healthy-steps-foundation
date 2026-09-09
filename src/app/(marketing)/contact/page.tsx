@@ -10,7 +10,7 @@ import { contactSchema } from '@/lib/cms/pages/contact';
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
-    "Get in touch with Healthy Steps Foundation in Ndejje, Wakiso, Uganda. Whether you need support, want to partner, or have a question — we'd love to hear from you.",
+    "Get in touch with Healthy Steps Foundation in Ndejje, Wakiso, Uganda. Whether you need support, want to partner, or have a question, we'd love to hear from you.",
 };
 
 // Ndejje Division, Wakiso District, Uganda — approximate coordinates
@@ -200,7 +200,7 @@ export default async function ContactPage(): Promise<React.JSX.Element> {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Healthy Steps Foundation — Ndejje Division, Wakiso, Uganda"
+                title="Healthy Steps Foundation, Ndejje Division, Wakiso, Uganda"
               />
             </div>
             <p className="text-warm-gray-400 text-xs mt-3 text-center">{content.mapCaption}</p>

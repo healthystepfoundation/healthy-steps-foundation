@@ -45,7 +45,7 @@ const defaults: StaffPageContent = {
     {
       name: 'Pius Olockywinu',
       title: 'Secretary',
-      bio: 'Pius keeps the foundation running with care and precision — managing communications, records, and day-to-day coordination so the team can focus entirely on the families they serve.',
+      bio: 'Pius keeps the foundation running with care and precision, managing communications, records, and day-to-day coordination so the team can focus entirely on the families they serve.',
       photo: media('/Picture3.jpg', 'Pius Olockywinu, Secretary of Healthy Steps Foundation'),
     },
   ],
@@ -92,7 +92,7 @@ export const staffSchema: PageSchema<StaffPageContent> = {
           itemNoun: 'team member',
           titleKey: 'name',
           min: 1,
-          help: 'Cards lay out in rows of three. Portrait photos crop best — the card is square and anchored to the top of the image.',
+          help: 'Cards lay out in rows of three. Portrait photos crop best; the card is square and anchored to the top of the image.',
           blank: { name: 'New team member', title: '', bio: '', photo: { src: '', alt: '' } },
           fields: [
             text('name', 'Full name'),
@@ -113,7 +113,7 @@ export const staffSchema: PageSchema<StaffPageContent> = {
           titleKey: 'label',
           min: 1,
           max: 3,
-          help: 'Three reads best — they sit in a single row.',
+          help: 'Three reads best. They sit in a single row.',
           blank: { number: '', label: '', sub: '' },
           fields: [
             text('number', 'Large number', { placeholder: 'e.g. 100%' }),

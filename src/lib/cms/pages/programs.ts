@@ -25,7 +25,7 @@ const defaults: ProgramsIndexContent = {
   heroEyebrow: 'What We Do',
   heroTitle: 'Our Programs',
   heroLead:
-    'Six carefully designed programs that work together to support the whole family — not just one need, but every dimension of a flourishing life.',
+    'Six carefully designed programs that work together to support the whole family, not just one need but every dimension of a flourishing life.',
   heroImage: media(
     '/images/WhatsApp%20Image%202026-05-21%20at%2020.31.34%20%281%29.jpeg',
     'A community member receiving a food package from Healthy Steps Foundation staff through a distribution window in Ndejje',
@@ -37,12 +37,12 @@ const defaults: ProgramsIndexContent = {
     {
       icon: 'Heart',
       label: 'Holistic Approach',
-      desc: 'We address mental health, food, education, clothing, medical, and skills — because real change is never one-dimensional.',
+      desc: 'We address mental health, food, education, clothing, medical, and skills, because real change is never one-dimensional.',
     },
     {
       icon: 'Users',
       label: 'Family-Centred',
-      desc: 'Every program is designed around the whole family unit — parents, children, and elderly relatives all matter.',
+      desc: 'Every program is designed around the whole family unit. Parents, children, and elderly relatives all matter.',
     },
     {
       icon: 'ArrowRight',
@@ -92,7 +92,7 @@ export const programsIndexSchema: PageSchema<ProgramsIndexContent> = {
           titleKey: 'label',
           min: 1,
           max: 3,
-          help: 'Three reads best — they sit in a single row.',
+          help: 'Three reads best. They sit in a single row.',
           blank: { icon: 'Heart', label: 'New reason', desc: '' },
           fields: [
             icon('icon', 'Icon'),
@@ -105,7 +105,7 @@ export const programsIndexSchema: PageSchema<ProgramsIndexContent> = {
     {
       id: 'grid',
       label: 'Program cards',
-      description: 'Only the wording here — the cards come from each program page.',
+      description: 'Only the wording here. The cards come from each program page.',
       fields: [
         text('gridEyebrow', 'Heading'),
         text('gridTitle', 'Text under the heading'),

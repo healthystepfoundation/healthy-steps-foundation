@@ -12,7 +12,7 @@ export default function AdminLoginPage(): React.JSX.Element {
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-warm-gray-100 p-8">
         <h1 className="text-xl font-bold font-serif text-warm-gray-900 mb-1">Staff Login</h1>
         <p className="text-sm text-warm-gray-500 mb-6">
-          Healthy Steps Foundation — donation records
+          Healthy Steps Foundation donation records
         </p>
         <LoginForm />
       </div>

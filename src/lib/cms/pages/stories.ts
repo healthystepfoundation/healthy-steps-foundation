@@ -22,14 +22,14 @@ const defaults: StoriesContent = {
   heroEyebrow: 'Impact Stories',
   heroTitle: 'Real Families, Real Change',
   heroLead:
-    'Behind every program is a family with a story. Here are a few of the lives touched by Healthy Steps Foundation — told with permission, shared with dignity.',
+    'Behind every program is a family with a story. Here are a few of the lives touched by Healthy Steps Foundation, told with permission and shared with dignity.',
 
   gridEyebrow: 'Community Voices',
   gridTitle: 'Stories from the Community',
 
   moreTitle: 'More Stories Coming Soon',
   moreText:
-    'Every family we serve has a story worth telling. As we collect more testimonials from the community, we will share them here — always with full permission, always with dignity and care.',
+    'Every family we serve has a story worth telling. As we collect more testimonials from the community, we will share them here, always with full permission and always with dignity and care.',
 
   programsEyebrow: 'Where Change Happens',
   programsTitle: 'Six Programs, Countless Stories',

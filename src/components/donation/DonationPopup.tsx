@@ -85,7 +85,7 @@ export default function DonationPopup(): React.JSX.Element | null {
               <h2 className="relative mb-2 font-serif text-2xl font-bold">Make an Impact Today</h2>
               <p className="relative text-sm leading-relaxed text-forest-green-100/85">
                 Partner with us to help families in Wakiso, Uganda access mental health
-                support, emergency food, education, and essential resources — with dignity.
+                support, emergency food, education, and essential resources, with dignity.
               </p>
             </div>
 

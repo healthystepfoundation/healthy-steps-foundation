@@ -98,7 +98,7 @@ export default async function ProgramPage({ params }: Props): Promise<React.JSX.
                   Support {program.name}
                 </h2>
                 <p className="text-forest-green-200 leading-relaxed max-w-lg">
-                  Your donation goes directly to this program — funding food, fees, training, or care for
+                  Your donation goes directly to this program, funding food, fees, training, or care for
                   families in Ndejje who need it most.
                 </p>
               </div>

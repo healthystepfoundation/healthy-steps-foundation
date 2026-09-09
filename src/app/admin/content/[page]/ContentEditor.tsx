@@ -192,7 +192,7 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
             ) : status === 'saved' && !dirty ? (
               <span className="inline-flex items-center gap-1.5 font-medium text-forest-green-700">
                 <Check size={15} />
-                Saved — the live page is updating now
+                Saved. The live page is updating now
               </span>
             ) : dirty ? (
               <span className="text-warm-gray-500">You have unsaved changes</span>

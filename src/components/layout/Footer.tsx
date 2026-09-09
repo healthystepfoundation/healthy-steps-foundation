@@ -29,7 +29,7 @@ export default function Footer({ content }: FooterProps): React.JSX.Element {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
           {/* Brand */}
           <div>
-            <Link href="/" className="mb-5 inline-block" aria-label="Healthy Steps Foundation — home">
+            <Link href="/" className="mb-5 inline-block" aria-label="Healthy Steps Foundation home">
               <div className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 shadow-lift transition-transform duration-300 hover:scale-[1.02]">
                 <Image
                   src="/HSF_logo.png"

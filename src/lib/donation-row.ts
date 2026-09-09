@@ -1,8 +1,5 @@
 // Pure mapper between the Postgres `donations` row shape (snake_case) and the
-// app's DonationRecord type (camelCase). Deliberately has NO 'server-only' and NO
-// '@/*' alias imports — it's shared by both the Next.js app (via supabase.ts) and
-// the standalone Netlify scheduled function (via reminders.ts), which bundle in
-// different environments and can't rely on the same module resolution rules.
+// app's DonationRecord type (camelCase). Shared by supabase.ts and reminders.ts.
 import type { DonationRecord } from '../types';
 
 export interface DonationRow {

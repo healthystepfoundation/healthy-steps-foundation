@@ -4,9 +4,9 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-03
+**Last updated**: 2026-09-09
 **Phase**: 1 — feature complete, pre-launch
-**Deployed to**: Netlify, from `main`
+**Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 
 ---
 
@@ -17,7 +17,7 @@ timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *
 | 1 | Real impact statistics | Client | ⛔ Outstanding — placeholder numbers still live. Editable in the CMS (Homepage → Impact numbers), so this no longer needs a developer |
 | 2 | Supabase `site_content` table + `site-media` bucket | User | ✅ **Working** — confirmed indirectly on 2026-08-29: the live homepage renders a CMS-saved image served from Supabase Storage (that is what tripped Netlify's secrets scan). Saves and uploads are real |
 | 3 | Resend account and env vars | Client / user | ⛔ Outstanding — donation *emails* only; the CMS does not need it |
-| 4 | Verify the Netlify deploy is green | User | 🟡 The 2026-08-29 deploy failed on secrets scanning (see timeline); the fix shipped in `a162bd9`, and 22 more commits have landed since (through `e4b79c5`). Confirm the latest deploy went green |
+| 4 | Verify the first Vercel deploy is green | User | 🟡 The site moved from Netlify to Vercel on 2026-09-09; env vars are being moved to the Vercel dashboard by hand. Add the new `CRON_SECRET` var while there, then confirm the deploy and the cron job appear green in Vercel |
 | 5 | Final cross-device smoke test | User | ⚠️ Not started |
 | 6 | Update the saved "Watch Videos" heading in the editor | User / client | ⚠️ One manual edit: `/admin/content` → Homepage → Video → Heading → "Videos and Pictures". The saved override shadows the new code default |
 | 7 | Sync `CLAUDE.md` and `README.md` with the trimmed site | Developer | ⚠️ Both still describe the pre-September homepage, program pages, footer and Food Closet name |
@@ -26,8 +26,11 @@ Everything else needed for launch is built.
 
 ### Next steps, in order
 
-1. **Confirm the latest Netlify deploy is green** — the secrets-scan fix, the August feedback
-   round and the September trim (`dba94b9`..`e4b79c5`) are all unverified in production.
+1. **Confirm the first Vercel deploy is green** — move all env vars into the Vercel dashboard
+   (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, plus
+   the new `CRON_SECRET`; Resend vars when they exist), then check the deploy and that the
+   recurring-reminders cron shows up under the project's Cron Jobs tab. The August feedback
+   round and the September trim (`dba94b9`..`e4b79c5`) are also still unverified in production.
 2. **Change the saved video-section heading** to "Videos and Pictures" in `/admin/content`.
 3. **Visual QA on a phone** — the four-section homepage, the enlarged header, the video+gallery
    grid and lightbox, the two-column footer, and the new heading hierarchy on inner pages.
@@ -38,6 +41,28 @@ Everything else needed for launch is built.
 ---
 
 ## Timeline
+
+### 2026-09-09 — Deploy target moved from Netlify to Vercel
+
+The user connected the GitHub repo to Vercel; Vercel now builds and deploys `main` directly
+(it detects Next.js natively — no build config needed). Changes on our side:
+
+- **The Netlify scheduled function became a Vercel Cron job.**
+  `netlify/functions/recurring-reminders.ts` is deleted; the daily reminder run now lives at
+  `src/app/api/cron/recurring-reminders/route.ts`, scheduled by the new `vercel.json`
+  (`0 6 * * *`, same 06:00 UTC as before). The route requires the
+  `Authorization: Bearer ${CRON_SECRET}` header Vercel sends with cron invocations — without
+  it anyone could trigger reminder emails to donors — so **`CRON_SECRET` is a new required
+  env var** (any random secret, e.g. `openssl rand -hex 32`).
+- **`netlify.toml` is deleted.** Its `SECRETS_SCAN_OMIT_KEYS` workaround is moot — Vercel has
+  no equivalent secrets scanner blocking the build.
+- `reminders.ts` / `donation-row.ts` keep their self-contained clients (harmless), but the
+  comments explaining the Netlify bundler constraint are gone; `README.md` and `CLAUDE.md`
+  deployment sections updated.
+
+Env vars are the user's manual step: everything Netlify had, plus `CRON_SECRET`, into the
+Vercel project settings. The admin "run now" reminders route is unchanged, so reminders can
+still be triggered by hand if the cron misbehaves.
 
 ### 2026-09-02 → 2026-09-03 — Second feedback round: strip the site down (`2e35dea`..`e4b79c5`, 8 commits)
 
@@ -364,7 +389,7 @@ homepage. Save, upload, and `next/image` remote loading all work in production.
 
 **Twenty-two commits are on `main` and unverified in production** (`dba94b9`..`e4b79c5`), including
 the secrets-scan fix itself, four deleted components, and several CMS schema changes. All build
-clean locally (26 routes, CMS tests green). Confirm the latest Netlify deploy before assuming the
+clean locally (26 routes, CMS tests green). Confirm the first Vercel deploy before assuming the
 site is fine.
 
 **Saved CMS overrides can shadow code changes.** Now that real saves exist, editing a default in

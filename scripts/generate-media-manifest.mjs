@@ -1,9 +1,9 @@
 // Regenerates src/lib/cms/media-manifest.ts from whatever is in /public.
 //
 // The content editor's photo picker needs a list of the images that ship with the
-// site. It cannot read the filesystem at runtime: on Netlify, /public is served
-// from the CDN and is not guaranteed to exist inside the serverless function
-// bundle. So the list is baked into a module at author time instead.
+// site. It cannot read the filesystem at runtime: in production, /public is
+// served from the CDN and is not guaranteed to exist inside the serverless
+// function bundle. So the list is baked into a module at author time instead.
 //
 // Run `npm run media:manifest` after adding files to /public.
 

@@ -1,13 +1,8 @@
-// Deliberately framework-agnostic: no 'server-only', no 'next/*', no '@/*' path
-// alias imports. This file is imported two ways:
-//   1. by src/app/api/admin/reminders/run/route.ts, bundled by Next.js (which
-//      understands the '@/*' alias and 'server-only')
-//   2. by netlify/functions/recurring-reminders.ts via a relative import, bundled
-//      standalone by Netlify's function bundler (which does NOT understand the
-//      '@/*' alias, and would choke on 'server-only' outside Next's RSC bundling)
-// Keeping this module self-contained with only relative imports and its own
-// Supabase/Resend clients (rather than reusing the 'server-only'-guarded
-// src/lib/supabase.ts / src/lib/email.ts) keeps it portable across both.
+// Recurring-reminder engine, called from two route handlers: the admin "run
+// now" endpoint (api/admin/reminders/run) and the daily Vercel Cron endpoint
+// (api/cron/recurring-reminders — schedule in vercel.json). It builds its own
+// Supabase/Resend clients with lazy env-var checks so importing it never
+// throws at module-load time, only when a run actually starts.
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { mapDonationRow, type DonationRow } from './donation-row';

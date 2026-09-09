@@ -66,13 +66,14 @@ Healthy Steps Foundation takes a **holistic approach** to mental health wellness
 - Use `ease: 'easeOut' as const` (not plain string) to satisfy TypeScript
 - `FadeUp` component (`src/components/ui/FadeUp.tsx`) is the standard scroll animation wrapper
 
-### Netlify Deployment (confirmed real target — 2026-07-13)
-- `netlify.toml` at root — `@netlify/plugin-nextjs` runs the Next.js runtime (SSR/SSG, image
-  optimization, routing) on Netlify without a static export. Node 20.
-- `[functions] directory = "netlify/functions"` — standalone functions (e.g.
-  `recurring-reminders.ts`) live here alongside the functions the plugin generates for the app.
-- `vercel.json` was removed (2026-07-13) — Netlify is the confirmed deploy target and keeping both
-  configs invited drift. Do not re-add it without confirming Vercel is actually being used.
+### Vercel Deployment (confirmed real target — 2026-09-09)
+- Deploys via the GitHub → Vercel integration on pushes to `main`. No build config needed —
+  Vercel detects Next.js natively.
+- `vercel.json` at root exists **only** to declare the cron schedule for
+  `/api/cron/recurring-reminders` (daily, 06:00 UTC).
+- `netlify.toml` and `netlify/functions/` were removed (2026-09-09) — Netlify was the previous
+  target; the scheduled function became a Vercel Cron-invoked App Router route. Do not re-add
+  Netlify config without confirming a switch back.
 
 ---
 
@@ -136,7 +137,7 @@ Healthy Steps Foundation takes a **holistic approach** to mental health wellness
       they were invented. Never re-add fabricated testimonials.
 - [ ] **Donation backend env vars** — see "DONATION SYSTEM (BACKEND)" section below; code is built
       but needs Supabase/Resend accounts + env vars before it can run end-to-end.
-- [ ] **Testing + deployment** — final Netlify deploy and smoke test
+- [ ] **Testing + deployment** — final Vercel deploy and smoke test
 
 ---
 
@@ -400,31 +401,27 @@ Submitting either donation form now does real work, not just a client-side modal
 2. A PDF **pledge confirmation** (not a payment receipt — funds haven't arrived yet) is rendered
    with `@react-pdf/renderer` (`src/lib/pdf/donation-pledge.tsx`) and emailed to the donor via
    Resend (`src/lib/email.ts`), attached to the confirmation email.
-3. Recurring donors get periodic reminder emails since SWIFT/check giving is manual — a Netlify
-   Scheduled Function (`netlify/functions/recurring-reminders.ts`, daily at 06:00 UTC) calls
+3. Recurring donors get periodic reminder emails since SWIFT/check giving is manual — a Vercel
+   Cron job (schedule in `vercel.json`, daily at 06:00 UTC) hits
+   `src/app/api/cron/recurring-reminders/route.ts`, which requires the
+   `Authorization: Bearer ${CRON_SECRET}` header Vercel sends and calls
    `runDueRecurringReminders()` in `src/lib/reminders.ts`.
 4. Staff can see all submitted pledges and mark them "received" at `/admin/donations`, gated by a
    single shared password (`src/middleware.ts` + `src/lib/admin-auth.ts`, signed session cookie,
    12h TTL).
 
-### Required env vars (`.env.local` locally, Netlify dashboard for production)
+### Required env vars (`.env.local` locally, Vercel dashboard for production)
 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL` (needs a
 verified sending domain in Resend — a Gmail address won't work), `ADMIN_PASSWORD`,
-`ADMIN_SESSION_SECRET` (random 32+ byte secret, e.g. `openssl rand -hex 32`). None of these
-accounts have been created yet — that's on the client/user, not something built here.
-
-### Why `src/lib/reminders.ts` and `src/lib/donation-row.ts` avoid `@/*` and `server-only`
-Netlify's function bundler doesn't resolve the `@/*` tsconfig path alias, and the `server-only`
-package throws when imported outside Next's RSC bundling — so anything reachable from
-`netlify/functions/recurring-reminders.ts` (via a relative import) has to be self-contained with
-relative imports only and build its own Supabase/Resend clients rather than reusing
-`src/lib/supabase.ts` / `src/lib/email.ts` (which ARE `server-only`-guarded, since those are only
-ever used from Next.js route handlers).
+`ADMIN_SESSION_SECRET` (random 32+ byte secret, e.g. `openssl rand -hex 32`), and
+`CRON_SECRET` (random secret; Vercel automatically sends it as a Bearer header when invoking
+cron routes — the reminders cron refuses to run without it). Supabase env vars are live in
+production; Resend is still outstanding.
 
 ### Key files
 `supabase/schema.sql` (run once in Supabase's SQL editor), `src/app/api/donations/route.ts`,
 `src/app/api/admin/**`, `src/app/admin/**`, `src/lib/{supabase,email,admin-auth,reminders,donation-row}.ts`,
-`src/lib/pdf/donation-pledge.tsx`, `netlify/functions/recurring-reminders.ts`.
+`src/lib/pdf/donation-pledge.tsx`, `src/app/api/cron/recurring-reminders/route.ts` + `vercel.json`.
 
 ---
 
@@ -643,7 +640,8 @@ src/
 - [x] 19 real HSF field photos integrated throughout
 - [x] All non-African/non-Ugandan stock photos replaced
 - [x] Mobile responsive (all pages, `text-4xl sm:text-5xl lg:text-6xl` pattern)
-- [x] netlify.toml for stable Netlify deployment (vercel.json removed 2026-07-13)
+- [x] Vercel deployment via GitHub integration; reminders as a Vercel Cron route (Netlify
+      config removed 2026-09-09)
 - [x] Real donation backend — Supabase + Resend + PDF invoicing + admin view + recurring
       reminders (see "DONATION SYSTEM (BACKEND)" section) — code complete, awaiting env vars
 - [x] SWIFT bank details — dfcu Bank filled in, `swiftBicCode: 'DFCUUGKA'` confirmed (2026-07-17)
@@ -652,7 +650,7 @@ src/
 - [x] News page (`/news`) — fundraising newsletter content, driven by `NEWS_UPDATES` (2026-07-17)
 - [ ] **Real impact statistics** (awaiting from client)
 - [x] **Real testimonials** — Charles Kasibante + Patricia Kayeny, Makerere Kikoni (2026-07-30)
-- [ ] Final testing + go-live on Netlify
+- [ ] Final testing + go-live on Vercel
 
 ### Phase 2: Enhancement (30-60 days post-launch)
 - [ ] Get Help page — eligibility, application process, resources
@@ -729,12 +727,13 @@ Still a code change, deliberately:
 
 ---
 
-**Last Updated**: 2026-08-15
-**Version**: 3.3
+**Last Updated**: 2026-09-09
+**Version**: 3.4 — deploy target moved from Netlify to Vercel (GitHub integration); recurring
+reminders are now a Vercel Cron route (`/api/cron/recurring-reminders`, needs `CRON_SECRET`)
 **Status**: Phase 1 — Feature Complete (19 pages), real donation backend built (Supabase + Resend
 + PDF invoicing + admin view + recurring reminders). Content editor covers all 19 pages plus
 programs, testimonials, events and the footer. dfcu SWIFT/BIC code and US check mailing address
 are confirmed. Awaiting real impact stats and Supabase/Resend account provisioning from client.
 **Next Step**: Provision Supabase/Resend accounts + env vars (unblocks both the donation backend
 AND the content editor) → get real impact stats from client → visual QA of the editor on a phone →
-go live on Netlify
+go live on Vercel

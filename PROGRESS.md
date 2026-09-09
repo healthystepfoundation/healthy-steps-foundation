@@ -31,7 +31,9 @@ Everything else needed for launch is built.
    the new `CRON_SECRET`; Resend vars when they exist), then check the deploy and that the
    recurring-reminders cron shows up under the project's Cron Jobs tab. The August feedback
    round and the September trim (`dba94b9`..`e4b79c5`) are also still unverified in production.
-2. **Change the saved video-section heading** to "Videos and Pictures" in `/admin/content`.
+2. **Change the saved video-section heading** to "Videos and Pictures" in `/admin/content`, and
+   while in the editor, re-save any field whose saved text still shows an em dash (the 2026-09-09
+   copy pass only changed the code defaults; saved overrides shadow them).
 3. **Visual QA on a phone** — the four-section homepage, the enlarged header, the video+gallery
    grid and lightbox, the two-column footer, and the new heading hierarchy on inner pages.
 4. Get the real impact statistics and a clothing-market photograph from the client; both are
@@ -42,7 +44,30 @@ Everything else needed for launch is built.
 
 ## Timeline
 
-### 2026-09-09 — Deploy target moved from Netlify to Vercel
+### 2026-09-09 — Program hero trim + em dashes purged from all copy (`1fed49b`, `b15ef13`)
+
+Two follow-ups the same day as the Vercel move, both continuing the client's
+"nothing duplicated, nothing artificial" direction:
+
+**Program heroes lost their last duplicate elements** (`1fed49b`). The "All Programs" button
+(duplicated the navbar's Programs menu) and the "Our Programs" pill badge above the program name
+are both removed from `ProgramHero.tsx`, which renders the hero on all six program pages. A
+program hero now reads: name, description, "Support This Program". This was the only hero
+anywhere still linking to `/programs`; the homepage hero's version went in the August round.
+
+**Every em dash removed from user-facing copy** (`b15ef13`, 27 files) so the content reads
+naturally, at the user's request. Each occurrence was rewritten (commas, colons, or split into
+two sentences), not mechanically replaced, across page copy, CMS defaults in
+`src/lib/cms/pages/*.ts`, the donation forms and popup, the pledge PDF, metadata descriptions,
+alt text and aria-labels, and the admin editor's labels and help text. Untouched on purpose:
+code comments (never rendered) and the currency converter's "—" empty-value placeholder,
+which is a glyph, not prose.
+
+⚠️ **Saved CMS overrides can still contain em dashes.** These edits change the code defaults;
+any text staff have saved in `/admin/content` shadows them and keeps whatever punctuation it
+was saved with. Skim the live pages after deploy and re-save any field still showing one.
+
+### 2026-09-09 — Deploy target moved from Netlify to Vercel (`98478cf`)
 
 The user connected the GitHub repo to Vercel; Vercel now builds and deploys `main` directly
 (it detects Next.js natively — no build config needed). Changes on our side:
@@ -394,7 +419,8 @@ site is fine.
 
 **Saved CMS overrides can shadow code changes.** Now that real saves exist, editing a default in
 `src/lib/cms/pages/*.ts` only shows where staff have not saved that field — the "Watch Videos"
-heading is the live example. When a copy change does not appear, check `/admin/content` before
+heading is one live example, and the 2026-09-09 em dash removal is another (any saved field can
+still carry an em dash until re-saved). When a copy change does not appear, check `/admin/content` before
 suspecting the deploy.
 
 **`CLAUDE.md` and `README.md` are behind the site.** `CLAUDE.md` still describes the hero logo,

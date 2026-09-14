@@ -3,7 +3,7 @@ import HeroSection from '@/components/home/HeroSection';
 import StatsSection from '@/components/home/StatsSection';
 import VideoSection from '@/components/home/VideoSection';
 import { getPageContent } from '@/lib/cms/content';
-import { getUpcomingEvents } from '@/lib/cms/collections';
+import { getEventsBanner, getUpcomingEvents } from '@/lib/cms/collections';
 import { homeSchema } from '@/lib/cms/pages/home';
 
 // EventsBanner picks "the next upcoming event" from today's date — without
@@ -12,11 +12,15 @@ import { homeSchema } from '@/lib/cms/pages/home';
 export const revalidate = 3600;
 
 export default async function HomePage(): Promise<React.JSX.Element> {
-  const [content, events] = await Promise.all([getPageContent(homeSchema), getUpcomingEvents()]);
+  const [content, events, banner] = await Promise.all([
+    getPageContent(homeSchema),
+    getUpcomingEvents(),
+    getEventsBanner(),
+  ]);
 
   return (
     <>
-      <EventsBanner events={events} />
+      <EventsBanner events={events} label={banner.label} headline={banner.headline} />
       <HeroSection content={content} />
       <StatsSection content={content} />
       <VideoSection content={content} />

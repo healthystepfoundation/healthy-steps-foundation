@@ -45,7 +45,7 @@ const defaults: MissionContent = {
   missionEyebrow: 'Mission Statement',
   missionTitle: 'What We Are Called to Do',
   missionText:
-    'Healthy Steps Foundation is a faith-based organization that seeks to partner with families to improve mental health wellness. Our holistic approach includes researching and introducing techniques and programs designed to treat individuals suffering with mental health challenges in a respectful and dignified manner.',
+    'To be a bridge to improved mental health wellness through partnerships with families, educators, medical professionals, church, government, and local leaders. To establish relationships with the communities we serve and provide tailored programs for those suffering from mental health challenges in a respectful and dignified manner.',
   missionQuote:
     'We believe that mental health cannot be separated from the physical, economic, and spiritual realities of everyday life. True wellness requires all of these to be addressed together.',
 

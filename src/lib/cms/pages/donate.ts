@@ -13,9 +13,6 @@ export type DonateContent = {
   secureTitle: string;
   secureText: string;
 
-  giftTitle: string;
-  giftExamples: ContentItem[];
-
   questionsTitle: string;
   questionsText: string;
 
@@ -38,18 +35,6 @@ const defaults: DonateContent = {
 
   secureTitle: 'Secure Giving',
   secureText: 'SWIFT or check. No card data is ever stored.',
-
-  giftTitle: 'Your Gift at Work',
-  giftExamples: [
-    { amount: '$25', description: "Covers a child's school supplies for one term" },
-    { amount: '$50', description: 'Feeds a family of 4 for an entire month' },
-    { amount: '$100', description: "Sponsors a child's school fees for one term" },
-    { amount: '$250', description: 'Funds one adult through vocational training' },
-    {
-      amount: '$500',
-      description: 'Covers Family Medical and counseling support for a full year',
-    },
-  ],
 
   questionsTitle: 'Questions?',
   questionsText: "We're happy to help. Reach out any time.",
@@ -108,17 +93,6 @@ export const donateSchema: PageSchema<DonateContent> = {
       fields: [
         text('secureTitle', 'Green card heading'),
         textarea('secureText', 'Green card text', { rows: 2 }),
-        text('giftTitle', '"Your gift at work" heading'),
-        list('giftExamples', 'What each amount does', {
-          itemNoun: 'amount',
-          titleKey: 'amount',
-          help: 'These are illustrations for donors, not promises, so keep them honest.',
-          blank: { amount: '', description: '' },
-          fields: [
-            text('amount', 'Amount', { placeholder: 'e.g. $50' }),
-            textarea('description', 'What it covers', { rows: 2 }),
-          ],
-        }),
         text('questionsTitle', 'Questions card heading'),
         textarea('questionsText', 'Questions card text', {
           rows: 2,

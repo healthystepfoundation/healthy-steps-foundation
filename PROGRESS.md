@@ -4,7 +4,7 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-09
+**Last updated**: 2026-09-14
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 
@@ -43,6 +43,62 @@ Everything else needed for launch is built.
 ---
 
 ## Timeline
+
+### 2026-09-14 — Third client feedback round: copy corrections + editable events banner
+
+The client's emailed corrections, applied across the CMS defaults, plus one feature request.
+
+**The events-banner sentence is now editable.** The events list was already in the admin
+(Shared → Upcoming Events), but the banner's displayed line ("Next Outreach: …") was hardcoded
+and showed only the next single event. The Upcoming Events editor gained a "Banner wording"
+group: a bold label (default "Upcoming Outreach") and a banner text (default
+"Back to School Events, October 3, 10, and 17"). When the banner text is empty the banner
+falls back to the automatic "next event, date" line. The banner still hides once every event
+date has passed, and "Add to calendar" still uses the next upcoming event. The Oct 10 default
+event was renamed from "Community Outreach" to "Back to School Outreach" to match the client's
+"Back to School Events, October 3, 10, and 17".
+
+**Copy corrections, by page:**
+- **Homepage**: hero lead reads "…improve mental health wellness **by** providing…"; the
+  Our Impact subtitle is now "Real numbers. Real families support programs." (literal
+  application of "add 'support programs' to the end of the sentence" — worth confirming the
+  intended phrasing); the video section is now "**Healthy Steps In Action**" with subtitle
+  "June outreach in Makerere Kikoni" and body "Healthy Steps provided food packages and
+  medical care to the community." (location corrected from Wakiso; the video caption small
+  print now also says Makerere Kikoni).
+- **About Us**: hero lead is the client's new sentence, with the "100 to 300 families" goal
+  sentence deleted; Our Story paragraphs 1 and 2 rewritten to the client's wording; the
+  mission card is the client's new bridge-partnership statement (also applied to the Our
+  Mission page so the two stay identical — one grammar fix: "in a respectful and dignified
+  manner", the client wrote "respectfully"); **the whole Where We Work section is deleted**
+  (page section, schema fields and defaults; the following two sections swapped backgrounds
+  to keep the alternation); Who We Serve drops "in Ndejje Division, Wakiso"; the eligibility
+  list's last item is "…spiritual counseling" (was "resources"); How We Serve step 1 drops
+  "or visit us in Ndejje" (call or email only); the Partnership value starts at "Every
+  family…"; the Community value reads "We seek to build stronger families together. We are
+  friends and neighbors committed to changing and improving lives for the betterment of the
+  community." (deliberately no Ndejje — the client does not want outreach to sound
+  restricted).
+- **Staff**: hero lead is the client's new two-sentence version; Isaac's bio ends at
+  "holistic family care." (Ndejje, Wakiso deleted); the numbers-strip captions are
+  "Our team is committed" (100%) and "Every Program has purpose" (6).
+- **Donate**: the "Your Gift at Work" sidebar card is **removed entirely** (page, schema
+  fields, defaults) — the client says those gift amounts are not correct.
+- **Footer (every page)**: the "A faith-based organization…" blurb under the logo is
+  **removed entirely** — the client does not want the statement repeated on every page. The
+  field is gone from the Footer editor too.
+
+⚠️ **Saved CMS overrides shadow all of these code-default changes.** Any of these fields that
+staff have saved in `/admin/content` will keep showing the old text until re-saved or reset
+there. After deploy, compare the live pages against this list and reset/re-save any field
+still showing the old wording.
+
+⚠️ **Orphaned overrides, by design**: the Where We Work fields, `footerBlurb`, and
+`giftTitle`/`giftExamples` were removed with their page elements, so any saved text for them
+is silently dropped. Nothing user-visible is lost because the elements are gone.
+
+Verified: production build green (27 routes), `npm run test:cms` green, lint unchanged (only
+the pre-existing `CurrencyConverter.tsx` error).
 
 ### 2026-09-09 — Program hero trim + em dashes purged from all copy (`1fed49b`, `b15ef13`)
 
@@ -439,6 +495,13 @@ restore from history.
 ---
 
 ## Open questions for the client
+
+0. **Two readings from the 2026-09-14 corrections to confirm:**
+   - "Under Our Impact add 'support programs' to the end of the sentence" was applied
+     literally as "Real numbers. Real families support programs." — confirm that phrasing
+     (alternative: "Real family support programs").
+   - The new mission statement was applied with "in a respectful and dignified manner"
+     (the client's email said "respectfully", read as a typo).
 
 1. **A photograph of the clothing market** — nothing in the supplied set or the existing library
    shows it, so Clothing Closet is using a related HSF photo instead.

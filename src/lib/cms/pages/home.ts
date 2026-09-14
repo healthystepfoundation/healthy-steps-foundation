@@ -28,7 +28,7 @@ export type HomeContent = {
 const defaults: HomeContent = {
   heroHeadline: 'Every Family Deserves to Be Whole',
   heroLead:
-    'A faith-based organization partnering with families in Uganda to improve mental health wellness, providing holistic support across food, clothing, education, medical care, and vocational skills on a temporary basis.',
+    'A faith-based organization partnering with families in Uganda to improve mental health wellness by providing holistic support across food, clothing, education, medical care, and vocational skills on a temporary basis.',
   heroDonateLabel: 'Donate Now',
   heroDonateHref: '/donate',
   heroTrustPoints: [
@@ -43,7 +43,7 @@ const defaults: HomeContent = {
   ),
 
   statsEyebrow: 'Our Impact',
-  statsTitle: 'Real numbers.\nReal families.',
+  statsTitle: 'Real numbers.\nReal families support programs.',
   stats: [
     { value: '1200', suffix: '+', label: 'Families Served' },
     { value: '6', suffix: '', label: 'Active Programs' },
@@ -55,17 +55,17 @@ const defaults: HomeContent = {
     'Three women smiling with their Healthy Steps Foundation food packages in Wakiso, Uganda',
   ),
 
-  videoEyebrow: 'Videos and Pictures',
-  videoTitle: 'See Healthy Steps in the Field',
+  videoEyebrow: 'Healthy Steps In Action',
+  videoTitle: 'June outreach in Makerere Kikoni',
   videoLead:
-    'Filmed during our June outreach in Wakiso: food packages, medical care, and mental wellness support reaching families, one healthy step at a time.',
+    'Healthy Steps provided food packages and medical care to the community.',
   videoFile: media('/outreach-june.mp4', ''),
   videoPoster: media(
     '/images/field/video-poster.jpg',
     'A young woman smiling as she carries a Healthy Steps Foundation food package during the June outreach in Wakiso, Uganda',
   ),
   videoCaptionTitle: 'June Community Outreach',
-  videoCaptionMeta: 'Wakiso, Uganda · 1:44',
+  videoCaptionMeta: 'Makerere Kikoni, Uganda · 1:44',
 
   galleryPhotos: [
     {

@@ -3,10 +3,14 @@ import type { ContentItem, PageSchema } from '../types';
 import { UPCOMING_EVENTS } from '@/lib/constants';
 
 export type EventsContent = {
+  bannerLabel: string;
+  bannerHeadline: string;
   items: ContentItem[];
 };
 
 const defaults: EventsContent = {
+  bannerLabel: 'Upcoming Outreach',
+  bannerHeadline: 'Back to School Events, October 3, 10, and 17',
   items: UPCOMING_EVENTS.map((event) => ({
     slug: event.slug,
     title: event.title,
@@ -27,10 +31,25 @@ export const eventsSchema: PageSchema<EventsContent> = {
   defaults,
   groups: [
     {
+      id: 'banner',
+      label: 'Banner wording',
+      description: 'The sentence shown in the banner itself.',
+      fields: [
+        text('bannerLabel', 'Bold label', {
+          placeholder: 'Upcoming Outreach',
+          help: 'The bold words before the colon.',
+        }),
+        text('bannerHeadline', 'Banner text', {
+          placeholder: 'Back to School Events, October 3, 10, and 17',
+          help: 'Shown after the label. Leave empty to show the next event and its date automatically.',
+        }),
+      ],
+    },
+    {
       id: 'items',
       label: 'Events',
       description:
-        'The banner shows the next event that has not happened yet, so past events can be left in place or deleted.',
+        'The "Add to calendar" link uses the next event that has not happened yet, and the banner hides itself once every date here has passed. Past events can be left in place or deleted.',
       fields: [
         list('items', 'Events', {
           itemNoun: 'event',

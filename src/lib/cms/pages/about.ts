@@ -18,11 +18,6 @@ export type AboutContent = {
   missionTitle: string;
   missionText: string;
 
-  whereEyebrow: string;
-  whereTitle: string;
-  whereParagraphs: string[];
-  whereImage: MediaValue;
-
   whoEyebrow: string;
   whoTitle: string;
   whoParagraphs: string[];
@@ -43,7 +38,7 @@ const defaults: AboutContent = {
   heroEyebrow: 'Who We Are',
   heroTitle: 'About Us',
   heroLead:
-    'We are a faith-based organization partnering with families in Wakiso, Uganda, providing holistic mental health support and the resources needed to build healthy, whole, and hopeful lives on a temporary basis. Our goal is to reach out to and serve 100 to 300 families.',
+    'We partner with families across Wakiso, Uganda, to provide holistic mental health support and resources needed to build healthy, whole, and hopeful lives on a temporary basis.',
   heroImage: media(
     '/images/field/mother-child.jpg',
     'A Healthy Steps Foundation worker speaking with a mother carrying her baby at a community outreach in Wakiso, Uganda',
@@ -52,8 +47,8 @@ const defaults: AboutContent = {
   storyEyebrow: 'Our Story',
   storyTitle: "Born from a Community's Need",
   storyParagraphs: [
-    "Healthy Steps Foundation was born from a deep conviction: that mental health wellness cannot be separated from food on the table, clothes on a child's back, or a parent's ability to earn a living. Families in the surrounding communities are faced with many insecurities that left unaddressed leads permanent burdens on their mental and spiritual health.",
-    'Rooted in faith and guided by a commitment to serve, we began partnering with families by teaching them new techniques and skills measurable outcomes. Our model is holistic, therefore, our goal is to walk alongside those we serve during the most challenging times.',
+    "Healthy Steps Foundation was born from a deep conviction: that mental health wellness cannot be separated from food on the table, clothes on a child's back, or a parent's ability to earn a living. Families in the surrounding communities are faced with many insecurities. When these insecurities are left unaddressed this leads to permanent burdens on their mental and spiritual well-being.",
+    'Rooted in faith and guided by a commitment to serve, we desire to partner with families to teach them new techniques and skills with measurable and lasting outcomes. Our model is holistic, therefore, our goal is to walk alongside those we serve during the most challenging times.',
     'Today, Healthy Steps Foundation runs six integrated programs. We are a community-focused organisation with a heart to serve neighbors as if they were our families.',
   ],
   storyImage: media(
@@ -67,24 +62,12 @@ const defaults: AboutContent = {
     'A Uganda where every individual, family, and community has access to mental health wellness resources regardless of their income, circumstances, or background.',
   missionTitle: 'Our Mission',
   missionText:
-    'Healthy Steps Foundation is a faith-based organization that seeks to partner with families to improve mental health wellness. Our holistic approach includes researching and introducing techniques and programs designed to treat individuals suffering with mental health challenges in a respectful and dignified manner.',
-
-  whereEyebrow: 'Where We Work',
-  whereTitle: 'Ndejje, Wakiso, Uganda',
-  whereParagraphs: [
-    "We are based in Mirimu, Ndejje Ward, Ndejje Division, a growing semi-urban community in Wakiso District, just outside Kampala in Uganda's Central Region.",
-    "Wakiso is one of Uganda's most populous districts, but rapid growth has created significant gaps in mental health services, education access, and food security. Many families live on less than $2 a day, with limited access to healthcare and schools that require fees most cannot afford.",
-    'Healthy Steps Foundation is embedded in this community; we are not visitors. Our staff live here, our families are neighbours, and our work is shaped by the people we serve.',
-  ],
-  whereImage: media(
-    '/images/field/distribution-wide.jpg',
-    'Healthy Steps Foundation team distributing food packages to community members in Ndejje, Wakiso',
-  ),
+    'To be a bridge to improved mental health wellness through partnerships with families, educators, medical professionals, church, government, and local leaders. To establish relationships with the communities we serve and provide tailored programs for those suffering from mental health challenges in a respectful and dignified manner.',
 
   whoEyebrow: 'Who We Serve',
   whoTitle: 'Families in Temporary Crisis',
   whoParagraphs: [
-    'We support families in Ndejje Division, Wakiso, who are facing short-term hardship that threatens their mental, physical, or economic wellbeing, on an emergency, temporary basis.',
+    'We support families who are facing short-term hardship that threatens their mental, physical, or economic wellbeing, on an emergency, temporary basis.',
     'We are not a long-term welfare programme. We help families through their crisis period, providing the specific support they need when they need it, so they can stabilise and move forward with dignity and self-sufficiency.',
     'Healthy Steps Foundation is not a medical organization and does not operate a medical treatment facility. Through committed partnerships with spiritual leaders, volunteer mental health professionals, and local clinics, we connect families to the right resources, respectfully and confidentially.',
   ],
@@ -96,7 +79,7 @@ const defaults: AboutContent = {
     'A medical emergency with no means to pay',
     'Economic hardship affecting mental health',
     'Need for vocational skills to earn income',
-    'Need for mental wellness or spiritual resources',
+    'Need for mental wellness or spiritual counseling',
   ],
 
   processEyebrow: 'How We Serve',
@@ -105,7 +88,7 @@ const defaults: AboutContent = {
     {
       title: 'Reach Out',
       description:
-        'Call us, email us, or visit us in Ndejje. There is no complicated application; we respond to need. Urgent cases receive same-day attention.',
+        'Call us or email us. There is no complicated application; we respond to need. Urgent cases receive same-day attention.',
     },
     {
       title: 'Compassionate Conversation',
@@ -137,7 +120,7 @@ const defaults: AboutContent = {
       icon: 'Users',
       title: 'Partnership',
       description:
-        'We work alongside families, not just for them. Every family we serve is a partner in their own healing; we walk with them, not ahead of them.',
+        'Every family we serve is a partner in their own healing; we walk with them, not ahead of them.',
     },
     {
       icon: 'Shield',
@@ -155,7 +138,7 @@ const defaults: AboutContent = {
       icon: 'Target',
       title: 'Community',
       description:
-        'We build stronger families together. We are not outsiders doing work for communities; we are neighbours embedded in the life of Ndejje.',
+        'We seek to build stronger families together. We are friends and neighbors committed to changing and improving lives for the betterment of the community.',
     },
     {
       icon: 'Eye',
@@ -171,7 +154,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
   slug: 'about',
   label: 'About Us',
   group: 'Pages',
-  description: 'Our story, vision and mission, where we work, who we serve, how we serve, and the six core values.',
+  description: 'Our story, vision and mission, who we serve, how we serve, and the six core values.',
   path: '/about',
   defaults,
   groups: [
@@ -208,16 +191,6 @@ export const aboutSchema: PageSchema<AboutContent> = {
         textarea('visionText', 'Left card text', { rows: 5 }),
         text('missionTitle', 'Right card heading'),
         textarea('missionText', 'Right card text', { rows: 6 }),
-      ],
-    },
-    {
-      id: 'where',
-      label: 'Where We Work',
-      fields: [
-        text('whereEyebrow', 'Heading'),
-        text('whereTitle', 'Text under the heading'),
-        strings('whereParagraphs', 'Body text', 'paragraph'),
-        image('whereImage', 'Photo'),
       ],
     },
     {

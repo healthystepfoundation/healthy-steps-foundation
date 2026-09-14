@@ -121,44 +121,8 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
         </div>
       </section>
 
-      {/* Where We Work */}
-      <section className="py-20 px-6 bg-warm-white">
-        <div className="container mx-auto max-w-4xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <FadeUp delay={0.15}>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden order-2 lg:order-1 shadow-xl">
-                <Image
-                  src={content.whereImage.src}
-                  alt={content.whereImage.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-            </FadeUp>
-
-            <FadeUp>
-              <div className="order-1 lg:order-2">
-                <div className="w-10 h-0.5 bg-amber-500 mb-4" />
-                <h2 className="text-3xl sm:text-4xl font-bold font-serif text-warm-gray-900 mb-3">
-                  {content.whereEyebrow}
-                </h2>
-                <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-warm-gray-700 mb-6">
-                  {content.whereTitle}
-                </p>
-                <div className="space-y-4 text-warm-gray-600 leading-relaxed">
-                  {content.whereParagraphs.map((paragraph, i) => (
-                    <p key={i}>{paragraph}</p>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-      </section>
-
       {/* Who We Serve */}
-      <section className="py-20 px-6 bg-forest-green-50">
+      <section className="py-20 px-6 bg-warm-white">
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeUp>
@@ -196,7 +160,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* How We Serve */}
-      <section className="py-20 px-6 bg-warm-white">
+      <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="mb-12">
             <div className="w-10 h-0.5 bg-amber-500 mb-4" />

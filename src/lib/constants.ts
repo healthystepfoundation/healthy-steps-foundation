@@ -186,13 +186,14 @@ export const UPCOMING_EVENTS: UpcomingEvent[] = [
       'School supplies and support to help children head back to class, first come, first served.',
   },
   {
-    slug: 'community-outreach-oct-10',
-    title: 'Community Outreach',
+    slug: 'back-to-school-oct-10',
+    title: 'Back to School Outreach',
     date: '2026-10-10',
     startTime: '10:00',
     endTime: '12:00',
     location: 'Location announced the Sunday before',
-    description: 'Our regular food and clothing market for families in the community.',
+    description:
+      'School supplies and support to help children head back to class, first come, first served.',
   },
   {
     slug: 'back-to-school-oct-17',

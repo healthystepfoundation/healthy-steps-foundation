@@ -77,6 +77,12 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   }));
 }
 
+/** The wording of the homepage events banner, with editor changes applied. */
+export async function getEventsBanner(): Promise<{ label: string; headline: string }> {
+  const content = await getPageContent(eventsSchema);
+  return { label: content.bannerLabel, headline: content.bannerHeadline };
+}
+
 export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
   const content = await getPageContent(eventsSchema);
 

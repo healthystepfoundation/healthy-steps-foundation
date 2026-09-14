@@ -40,9 +40,6 @@ export default function Footer({ content }: FooterProps): React.JSX.Element {
                 />
               </div>
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-forest-green-200">
-              {content.footerBlurb}
-            </p>
           </div>
 
           {/* Contact */}

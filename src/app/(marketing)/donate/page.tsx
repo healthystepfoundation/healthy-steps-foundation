@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Suspense } from 'react';
-import { Heart, RefreshCw, Mail, Phone } from 'lucide-react';
+import { RefreshCw, Mail, Phone } from 'lucide-react';
 import DonatePageClient from './DonatePageClient';
 import { ORG } from '@/lib/constants';
 import { ContentIcon } from '@/lib/icons';
@@ -85,26 +85,6 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
                 <p className="text-forest-green-200 text-sm leading-relaxed">
                   {content.secureText}
                 </p>
-              </div>
-
-              {/* Your gift at work */}
-              <div className="bg-white rounded-2xl shadow-md p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <Heart size={18} className="text-amber-500 fill-amber-500" />
-                  <h3 className="font-bold text-warm-gray-900">{content.giftTitle}</h3>
-                </div>
-                <ul className="space-y-3">
-                  {content.giftExamples.map((example, i) => (
-                    <li key={i} className="flex gap-3 items-start">
-                      <span className="shrink-0 font-bold text-forest-green-600 text-sm w-12">
-                        {str(example.amount)}
-                      </span>
-                      <span className="text-warm-gray-600 text-sm leading-snug">
-                        {str(example.description)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               {/* Questions */}

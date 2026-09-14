@@ -12,8 +12,14 @@ function formatEventDate(iso: string): string {
 
 export default function EventsBanner({
   events,
+  label,
+  headline,
 }: {
   events: UpcomingEvent[];
+  /** The bold words before the colon, e.g. "Upcoming Outreach". */
+  label: string;
+  /** Overrides the automatic "next event, date" line when set in the editor. */
+  headline: string;
 }): React.JSX.Element | null {
   const today = new Date().toISOString().slice(0, 10);
   const nextEvent = events
@@ -21,6 +27,9 @@ export default function EventsBanner({
     .sort((a, b) => a.date.localeCompare(b.date))[0];
 
   if (!nextEvent) return null;
+
+  const bannerText =
+    headline.trim() !== '' ? headline : `${nextEvent.title}, ${formatEventDate(nextEvent.date)}`;
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-forest-green-900 via-forest-green-800 to-forest-green-900 text-white">
@@ -35,8 +44,7 @@ export default function EventsBanner({
             <CalendarDays size={14} className="text-amber-400" />
           </span>
           <span>
-            <span className="font-semibold">Next Outreach:</span> {nextEvent.title},{' '}
-            {formatEventDate(nextEvent.date)}
+            {label.trim() !== '' && <span className="font-semibold">{label}:</span>} {bannerText}
           </span>
         </div>
         <div className="flex items-center gap-4">

@@ -21,7 +21,7 @@ const defaults: StaffPageContent = {
   heroEyebrow: 'The Team',
   heroTitle: 'Meet Our Team',
   heroLead:
-    'Every member of our team is committed to serving with Healthy Steps Foundation. Our team treats everyone like a family, regardless to where they live.',
+    'Every member of Healthy Steps Foundation is committed to serving. Our team treats everyone like family regardless of where they live.',
   heroImage: media(
     '/images/WhatsApp%20Image%202026-05-21%20at%2020.31.38%20%2814%29.jpeg',
     'Healthy Steps Foundation staff members greeting children at a community outreach event in Ndejje, Uganda',
@@ -33,7 +33,7 @@ const defaults: StaffPageContent = {
     {
       name: 'Isaac Oyirwoth',
       title: 'Director',
-      bio: 'Isaac leads Healthy Steps Foundation with a deep commitment to mental health advocacy and holistic family care across Ndejje, Wakiso. He oversees all six programs and ensures every family is served with dignity and purpose.',
+      bio: 'Isaac leads Healthy Steps Foundation with a deep commitment to mental health advocacy and holistic family care. He oversees all six programs and ensures every family is served with dignity and purpose.',
       photo: media('/Picture1.jpg', 'Isaac Oyirwoth, Director of Healthy Steps Foundation'),
     },
     {
@@ -51,8 +51,8 @@ const defaults: StaffPageContent = {
   ],
 
   strip: [
-    { number: '100%', label: 'Community-Based', sub: 'Our team lives where they work' },
-    { number: '6', label: 'Programs Managed', sub: 'Every program has a dedicated lead' },
+    { number: '100%', label: 'Community-Based', sub: 'Our team is committed' },
+    { number: '6', label: 'Programs Managed', sub: 'Every Program has purpose' },
     { number: '5+', label: 'Languages Spoken', sub: 'Luganda, English & local dialects' },
   ],
 

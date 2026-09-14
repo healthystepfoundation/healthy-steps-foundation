@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { ORG } from '@/lib/constants';
 import type { SiteContent } from '@/lib/cms/pages/site';
 
@@ -51,14 +51,6 @@ export default function Footer({ content }: FooterProps): React.JSX.Element {
               {content.footerContactHeading}
             </h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm leading-relaxed text-forest-green-200">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-amber-400" />
-                <span>
-                  {ORG.location.village}, {ORG.location.ward}
-                  <br />
-                  {ORG.location.district}, {ORG.location.country}
-                </span>
-              </li>
               <li>
                 <a
                   href={`mailto:${ORG.email}`}

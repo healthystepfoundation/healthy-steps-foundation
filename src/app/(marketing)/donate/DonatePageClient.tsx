@@ -15,7 +15,6 @@ interface MethodOption {
   icon: React.ComponentType<{ size?: number; className?: string }>;
   label: string;
   sublabel: string;
-  badge: string | null;
 }
 
 const VALID_FUNDS: DonationFund[] = [
@@ -29,14 +28,12 @@ const METHODS: MethodOption[] = [
     icon: Globe,
     label: 'International Transfer',
     sublabel: 'SWIFT bank transfer, available worldwide',
-    badge: null,
   },
   {
     id: 'us-check',
     icon: FileText,
     label: 'US Donors: Give by Check',
-    sublabel: 'Mail a check · No transfer fees',
-    badge: 'Zero Fees',
+    sublabel: 'Zero transfer fee when you donate by check',
   },
 ];
 
@@ -58,7 +55,7 @@ export default function DonatePageClient(): React.JSX.Element {
       <div>
         <p className="text-sm font-semibold text-warm-gray-700 mb-3">How would you like to give?</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {METHODS.map(({ id, icon: Icon, label, sublabel, badge }) => {
+          {METHODS.map(({ id, icon: Icon, label, sublabel }) => {
             const isActive = method === id;
             return (
               <button
@@ -87,17 +84,13 @@ export default function DonatePageClient(): React.JSX.Element {
                   </p>
                   <p className="text-xs text-warm-gray-500 mt-1 leading-snug">{sublabel}</p>
                 </div>
-                {isActive ? (
+                {isActive && (
                   <span className="absolute top-3 right-3 w-5 h-5 bg-forest-green-500 rounded-full flex items-center justify-center">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
-                ) : badge ? (
-                  <span className="absolute top-3 right-3 bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap">
-                    {badge}
-                  </span>
-                ) : null}
+                )}
               </button>
             );
           })}

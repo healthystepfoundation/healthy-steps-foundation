@@ -119,12 +119,12 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
 
           {/* Photo carried over from the removed Where We Work section */}
           <FadeUp delay={0.2}>
-            <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden shadow-xl mt-8">
+            <div className="relative aspect-[4/3] sm:aspect-[16/9] rounded-2xl overflow-hidden shadow-xl mt-8">
               <Image
                 src={content.purposeImage.src}
                 alt={content.purposeImage.alt}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="(max-width: 1024px) 100vw, 896px"
               />
             </div>

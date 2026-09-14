@@ -15,13 +15,6 @@ export type ContactContent = {
   formEyebrow: string;
   formTitle: string;
   formLead: string;
-
-  locationHeading: string;
-  mapsLinkLabel: string;
-
-  mapEyebrow: string;
-  mapTitle: string;
-  mapCaption: string;
 };
 
 const defaults: ContactContent = {
@@ -42,18 +35,12 @@ const defaults: ContactContent = {
   formEyebrow: 'Send a Message',
   formTitle: "We'd Love to Hear From You",
   formLead: "Fill in the form below and we'll get back to you as soon as we can.",
-
-  locationHeading: 'Our Location',
-  mapsLinkLabel: 'Open in Google Maps',
-  mapEyebrow: 'Find Us',
-  mapTitle: 'Ndejje Division, Wakiso, Uganda',
-  mapCaption: 'Mirimu, Ndejje Ward, Ndejje Division, Wakiso District, Uganda',
 };
 
 export const contactSchema: PageSchema<ContactContent> = {
   slug: 'contact',
   label: 'Contact',
-  description: 'The contact page wording, the sidebar cards, and the map caption.',
+  description: 'The contact page wording: hero, contact strip and message form.',
   group: 'Pages',
   path: '/contact',
   defaults,
@@ -87,23 +74,6 @@ export const contactSchema: PageSchema<ContactContent> = {
         text('formEyebrow', 'Heading'),
         text('formTitle', 'Text under the heading'),
         textarea('formLead', 'Body text', { rows: 2 }),
-      ],
-    },
-    {
-      id: 'sidebar',
-      label: 'Sidebar cards',
-      fields: [
-        text('locationHeading', 'Location card heading'),
-        text('mapsLinkLabel', 'Google Maps link label'),
-      ],
-    },
-    {
-      id: 'map',
-      label: 'Map',
-      fields: [
-        text('mapEyebrow', 'Heading'),
-        text('mapTitle', 'Text under the heading'),
-        text('mapCaption', 'Caption under the map'),
       ],
     },
   ],

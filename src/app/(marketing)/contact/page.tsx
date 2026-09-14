@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Clock, ExternalLink } from 'lucide-react';
+import { Mail, Phone, Clock } from 'lucide-react';
 import { ORG } from '@/lib/constants';
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/contact/ContactForm';
@@ -13,21 +13,8 @@ export const metadata: Metadata = {
     "Get in touch with Healthy Steps Foundation in Ndejje, Wakiso, Uganda. Whether you need support, want to partner, or have a question, we'd love to hear from you.",
 };
 
-// Ndejje Division, Wakiso District, Uganda — approximate coordinates
-const MAP_SRC =
-  'https://maps.google.com/maps?q=Ndejje+Division+Wakiso+Uganda&t=&z=14&ie=UTF8&iwloc=&output=embed';
-
-
 export default async function ContactPage(): Promise<React.JSX.Element> {
   const content = await getPageContent(contactSchema);
-
-  const locationParts = [
-    ORG.location.village,
-    ORG.location.ward,
-    ORG.location.division,
-    ORG.location.district,
-    ORG.location.country,
-  ];
 
   return (
     <>
@@ -117,91 +104,19 @@ export default async function ContactPage(): Promise<React.JSX.Element> {
         </div>
       </section>
 
-      {/* Form + Sidebar */}
+      {/* Message form */}
       <section className="py-20 px-6 bg-warm-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-
-            {/* Contact Form — 2 cols */}
-            <div className="lg:col-span-2">
-              <FadeUp>
-                <div className="w-10 h-0.5 bg-amber-500 mb-4" />
-                <h2 className="text-3xl sm:text-4xl font-bold font-serif text-warm-gray-900 mb-3">
-                  {content.formEyebrow}
-                </h2>
-                <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-warm-gray-700 mb-2">
-                  {content.formTitle}
-                </p>
-                <p className="text-warm-gray-500 mb-8">{content.formLead}</p>
-                <ContactForm />
-              </FadeUp>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-5">
-
-              {/* Location card */}
-              <FadeUp delay={0.1}>
-                <div className="bg-white rounded-2xl p-7 shadow-md border border-warm-gray-100">
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 bg-forest-green-50 rounded-xl flex items-center justify-center shrink-0">
-                      <MapPin size={18} className="text-forest-green-600" />
-                    </div>
-                    <h3 className="font-bold text-warm-gray-900 font-serif">
-                      {content.locationHeading}
-                    </h3>
-                  </div>
-                  <div className="space-y-1 mb-5">
-                    {locationParts.map((part) => (
-                      <p key={part} className="text-warm-gray-600 text-sm leading-relaxed">
-                        {part}
-                      </p>
-                    ))}
-                  </div>
-                  <a
-                    href="https://maps.google.com/?q=Ndejje+Division,+Wakiso+District,+Uganda"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-green-600 hover:text-forest-green-700 group transition-colors"
-                  >
-                    {content.mapsLinkLabel}
-                    <ExternalLink size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </a>
-                </div>
-              </FadeUp>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Live Map */}
-      <section className="py-16 px-6 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <FadeUp className="mb-8">
+        <div className="container mx-auto max-w-3xl">
+          <FadeUp>
             <div className="w-10 h-0.5 bg-amber-500 mb-4" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif text-warm-gray-900 mb-3">
-              {content.mapEyebrow}
+              {content.formEyebrow}
             </h2>
-            <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-warm-gray-700">
-              {content.mapTitle}
+            <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-warm-gray-700 mb-2">
+              {content.formTitle}
             </p>
-          </FadeUp>
-
-          <FadeUp delay={0.1}>
-            <div className="rounded-2xl overflow-hidden shadow-xl border border-warm-gray-100" style={{ height: '480px' }}>
-              <iframe
-                src={MAP_SRC}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Healthy Steps Foundation, Ndejje Division, Wakiso, Uganda"
-              />
-            </div>
-            <p className="text-warm-gray-400 text-xs mt-3 text-center">{content.mapCaption}</p>
+            <p className="text-warm-gray-500 mb-8">{content.formLead}</p>
+            <ContactForm />
           </FadeUp>
         </div>
       </section>

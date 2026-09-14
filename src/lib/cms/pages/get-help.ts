@@ -94,8 +94,8 @@ export const getHelpSchema: PageSchema<GetHelpContent> = {
       label: 'Hero',
       description: 'The phone number on the call button comes from the site contact details.',
       fields: [
-        text('heroEyebrow', 'Small label above the heading'),
-        text('heroTitle', 'Heading'),
+        text('heroEyebrow', 'Heading'),
+        text('heroTitle', 'Text under the heading'),
         textarea('heroLead', 'Introduction paragraph', { rows: 4 }),
         text('heroCallLabel', 'Call button label'),
       ],

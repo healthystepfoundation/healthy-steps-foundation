@@ -80,8 +80,8 @@ export const newsSchema: PageSchema<NewsContent> = {
       label: 'Hero',
       description: 'The photo behind the hero comes from the newest post below.',
       fields: [
-        text('heroEyebrow', 'Small label above the heading'),
-        textarea('heroTitle', 'Heading', { rows: 2 }),
+        text('heroEyebrow', 'Heading'),
+        textarea('heroTitle', 'Text under the heading', { rows: 2 }),
         textarea('heroLead', 'Introduction paragraph', { rows: 3 }),
       ],
     },

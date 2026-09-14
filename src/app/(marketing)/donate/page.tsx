@@ -37,12 +37,12 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
         <div className="relative z-10 container mx-auto px-6 py-28 max-w-5xl">
           <div className="max-w-2xl">
             <div className="w-10 h-0.5 bg-amber-400 mb-4" />
-            <p className="text-sm font-semibold uppercase tracking-widest text-forest-green-300 mb-3">
+            <h1 className="mb-3 font-serif text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
               {content.heroEyebrow}
-            </p>
-            <h1 className="mb-8 font-serif text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
-              {content.heroHeadline}
             </h1>
+            <p className="mb-8 font-serif text-xl sm:text-2xl leading-snug font-normal text-white/90">
+              {content.heroHeadline}
+            </p>
             <p className="text-forest-green-100 text-xl leading-relaxed max-w-xl">
               {content.heroLead}
             </p>

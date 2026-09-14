@@ -49,12 +49,12 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
         <div className="absolute inset-0 bg-gradient-to-t from-forest-green-900/55 via-transparent to-transparent" />
         <div className="relative z-10 container mx-auto px-6 py-24">
           <div className="w-10 h-0.5 bg-amber-400 mb-4" />
-          <p className="text-sm font-semibold uppercase tracking-widest text-forest-green-300 mb-3">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-tight text-white max-w-2xl">
             {content.heroEyebrow}
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-tight text-white max-w-2xl whitespace-pre-line">
-            {content.heroTitle}
           </h1>
+          <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-white/90 max-w-2xl mt-3 whitespace-pre-line">
+            {content.heroTitle}
+          </p>
           <p className="text-forest-green-100 text-lg sm:text-xl leading-relaxed max-w-2xl mt-6">
             {content.heroLead}
           </p>

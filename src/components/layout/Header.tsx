@@ -15,7 +15,6 @@ import { cn } from '@/lib/utils';
 const ABOUT_LINKS = [
   { href: '/about', label: 'About Us', desc: 'Who we are and why we started' },
   { href: '/staff', label: 'Our Staff', desc: 'The people behind the work' },
-  { href: '/mission', label: 'Our Mission', desc: 'Our holistic model of care' },
 ] as const;
 
 const SIMPLE_LINKS = [

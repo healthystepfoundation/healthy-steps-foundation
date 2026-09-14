@@ -17,6 +17,7 @@ export type AboutContent = {
   visionText: string;
   missionTitle: string;
   missionText: string;
+  purposeImage: MediaValue;
 
   whoEyebrow: string;
   whoTitle: string;
@@ -63,6 +64,10 @@ const defaults: AboutContent = {
   missionTitle: 'Our Mission',
   missionText:
     'To be a bridge to improved mental health wellness through partnerships with families, educators, medical professionals, church, government, and local leaders. To establish relationships with the communities we serve and provide tailored programs for those suffering from mental health challenges in a respectful and dignified manner.',
+  purposeImage: media(
+    '/images/field/distribution-wide.jpg',
+    'Healthy Steps Foundation team distributing food packages to community members',
+  ),
 
   whoEyebrow: 'Who We Serve',
   whoTitle: 'Families in Temporary Crisis',
@@ -163,8 +168,8 @@ export const aboutSchema: PageSchema<AboutContent> = {
       label: 'Hero',
       description: 'The green panel and photo at the very top of the page.',
       fields: [
-        text('heroEyebrow', 'Small label above the heading'),
-        text('heroTitle', 'Heading'),
+        text('heroEyebrow', 'Heading'),
+        text('heroTitle', 'Text under the heading'),
         textarea('heroLead', 'Introduction paragraph', { rows: 5 }),
         image('heroImage', 'Hero photo'),
       ],
@@ -191,6 +196,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
         textarea('visionText', 'Left card text', { rows: 5 }),
         text('missionTitle', 'Right card heading'),
         textarea('missionText', 'Right card text', { rows: 6 }),
+        image('purposeImage', 'Photo under the cards'),
       ],
     },
     {

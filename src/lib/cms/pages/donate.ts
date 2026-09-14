@@ -71,8 +71,8 @@ export const donateSchema: PageSchema<DonateContent> = {
       label: 'Hero',
       description: 'The full-width photo and headline at the top of the donate page.',
       fields: [
-        text('heroEyebrow', 'Small label above the headline'),
-        text('heroHeadline', 'Headline'),
+        text('heroEyebrow', 'Heading'),
+        text('heroHeadline', 'Text under the heading'),
         textarea('heroLead', 'Introduction paragraph', { rows: 4 }),
         image('heroImage', 'Background photo'),
       ],

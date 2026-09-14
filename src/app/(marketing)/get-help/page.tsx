@@ -28,12 +28,12 @@ export default async function GetHelpPage(): Promise<React.JSX.Element> {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full translate-y-1/2 -translate-x-1/3" />
         </div>
         <div className="container mx-auto max-w-4xl relative z-10">
-          <p className="text-amber-400 text-sm font-semibold uppercase tracking-widest mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-tight mb-3">
             {content.heroEyebrow}
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-tight mb-6">
-            {content.heroTitle}
           </h1>
+          <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-white/90 mb-6">
+            {content.heroTitle}
+          </p>
           <p className="text-forest-green-100 text-lg sm:text-xl leading-relaxed max-w-2xl">
             {content.heroLead}
           </p>

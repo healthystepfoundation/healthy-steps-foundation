@@ -27,6 +27,11 @@ if (supabaseHost && !supabaseHost.endsWith('.supabase.co')) {
 
 const nextConfig: NextConfig = {
   images: { remotePatterns },
+  // The Our Mission page was removed (2026-09-14, client request); its mission
+  // statement lives on About Us. Keep old links and search results working.
+  redirects: async () => [
+    { source: '/mission', destination: '/about', permanent: true },
+  ],
 };
 
 export default nextConfig;

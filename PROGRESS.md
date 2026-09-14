@@ -44,6 +44,35 @@ Everything else needed for launch is built.
 
 ## Timeline
 
+### 2026-09-14 (later the same day) — Mission page removed, hero hierarchy swapped site-wide
+
+Follow-up instructions from the user, same session as the round below:
+
+- **The Our Mission page is deleted entirely** — route, CMS schema, registry entry, and its
+  "Our Mission" link in the header's About dropdown. `/mission` now 301-redirects to `/about`
+  (`next.config.ts`), where the mission statement still lives in the Vision & Mission cards.
+  Any saved editor overrides for the mission page are ignored (the schema is gone).
+- **Hero hierarchy swapped on all eight inner pages** (About, Staff, Programs, Donate,
+  Contact, Get Help, Stories, News), matching what the September rounds did to section
+  headings: the former small eyebrow ("Who We Are", "The Team", "Give Today"…) is now the
+  large serif `<h1>`, and the former heading ("About Us", "Meet Our Team"…) sits under it as
+  a regular-weight serif subtitle. CMS keys unchanged, so saved text keeps applying; the
+  editor labels are now "Heading" / "Text under the heading". The homepage hero (headline
+  only, no eyebrow) and the program heroes (name + description) are untouched.
+- **About page: the Our Purpose section gained the photo** from the deleted Where We Work
+  section (`field/distribution-wide.jpg`), shown full-width under the Vision and Mission
+  cards and editable as "Photo under the cards".
+- **The footer blurb is back, without "faith-based"** — the user clarified the earlier
+  instruction: the sentence under the footer logo should stay, it is only "A faith-based"
+  that had to go. New default: "An organization partnering with families in Wakiso, Uganda
+  to improve mental health wellness through food, clothing, education, medical care and
+  vocational skills, offered on a temporary basis." Same `footerBlurb` key as before, so
+  ⚠️ **a previously saved footer override (which contains the old faith-based wording) will
+  shadow this** and must be reset or re-saved in /admin/content → Footer.
+
+Verified: production build green (26 routes — one fewer, the mission page), `npm run
+test:cms` green.
+
 ### 2026-09-14 — Third client feedback round: copy corrections + editable events banner
 
 The client's emailed corrections, applied across the CMS defaults, plus one feature request.

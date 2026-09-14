@@ -2,7 +2,6 @@ import type { PageContent, PageSchema } from './types';
 import { homeSchema } from './pages/home';
 import { aboutSchema } from './pages/about';
 import { staffSchema } from './pages/staff';
-import { missionSchema } from './pages/mission';
 import { programsIndexSchema } from './pages/programs';
 import { donateSchema } from './pages/donate';
 import { contactSchema } from './pages/contact';
@@ -35,7 +34,6 @@ export const PAGE_SCHEMAS: PageSchema[] = [
   widen(homeSchema),
   widen(aboutSchema),
   widen(staffSchema),
-  widen(missionSchema),
   widen(programsIndexSchema),
   widen(getHelpSchema),
   widen(storiesSchema),

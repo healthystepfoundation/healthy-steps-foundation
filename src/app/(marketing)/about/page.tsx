@@ -22,15 +22,13 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           {/* Left — text panel */}
           <div className="bg-forest-green-900 text-white px-8 py-24 lg:px-16 flex items-center">
             <div className="max-w-lg">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-0.5 bg-amber-400 shrink-0" />
-                <span className="text-amber-300 text-sm font-medium tracking-wide">
-                  {content.heroEyebrow}
-                </span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-[1.05] mb-6">
-                {content.heroTitle}
+              <div className="w-10 h-0.5 bg-amber-400 mb-6" />
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-[1.05] mb-3">
+                {content.heroEyebrow}
               </h1>
+              <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-white/90 mb-6">
+                {content.heroTitle}
+              </p>
               <p className="text-forest-green-100 text-lg sm:text-xl leading-relaxed">
                 {content.heroLead}
               </p>
@@ -118,6 +116,19 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
               </div>
             </FadeUp>
           </div>
+
+          {/* Photo carried over from the removed Where We Work section */}
+          <FadeUp delay={0.2}>
+            <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden shadow-xl mt-8">
+              <Image
+                src={content.purposeImage.src}
+                alt={content.purposeImage.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 896px"
+              />
+            </div>
+          </FadeUp>
         </div>
       </section>
 

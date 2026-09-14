@@ -49,15 +49,13 @@ export default async function StaffPage(): Promise<React.JSX.Element> {
 
         <div className="relative z-10 container mx-auto px-6 py-28">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-0.5 bg-amber-400 shrink-0" />
-              <span className="text-amber-300 text-sm font-medium tracking-wide">
-                {content.heroEyebrow}
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-[1.05] mb-6 text-white">
-              {content.heroTitle}
+            <div className="w-10 h-0.5 bg-amber-400 mb-6" />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-serif leading-[1.05] mb-3 text-white">
+              {content.heroEyebrow}
             </h1>
+            <p className="font-serif text-xl sm:text-2xl leading-snug font-normal text-white/90 mb-6">
+              {content.heroTitle}
+            </p>
             <p className="text-white/80 text-lg sm:text-xl leading-relaxed">{content.heroLead}</p>
           </div>
         </div>

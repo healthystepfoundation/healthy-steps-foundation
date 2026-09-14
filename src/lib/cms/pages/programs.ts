@@ -75,8 +75,8 @@ export const programsIndexSchema: PageSchema<ProgramsIndexContent> = {
       id: 'hero',
       label: 'Hero',
       fields: [
-        text('heroEyebrow', 'Small label above the heading'),
-        text('heroTitle', 'Heading'),
+        text('heroEyebrow', 'Heading'),
+        text('heroTitle', 'Text under the heading'),
         textarea('heroLead', 'Introduction paragraph', { rows: 4 }),
         image('heroImage', 'Hero photo'),
       ],

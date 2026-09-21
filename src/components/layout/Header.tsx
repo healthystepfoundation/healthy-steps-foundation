@@ -138,9 +138,19 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 240, damping: 40, mass: 0.3 });
 
+  // Hysteresis on the compress threshold: collapsing removes ~56px of header
+  // height, which itself shifts scrollY (scroll anchoring, short pages). A
+  // single cutoff lets that shift flip the state straight back, so the bar
+  // shook. Compress only past 96px, expand only back under 8px — the dead
+  // zone between them is wider than the height change, so no feedback loop.
+  const scrolledRef = useRef(false);
   const scrolled = useSyncExternalStore(
     subscribeToScroll,
-    () => window.scrollY > 12,
+    () => {
+      const next = scrolledRef.current ? window.scrollY > 8 : window.scrollY > 96;
+      scrolledRef.current = next;
+      return next;
+    },
     () => false,
   );
 

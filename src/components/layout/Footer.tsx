@@ -32,10 +32,10 @@ export default function Footer({ content }: FooterProps): React.JSX.Element {
             <Link href="/" className="mb-5 inline-block" aria-label="Healthy Steps Foundation home">
               <div className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 shadow-lift transition-transform duration-300 hover:scale-[1.02]">
                 <Image
-                  src="/HSF_logo.png"
+                  src="/HSF_logo.webp"
                   alt="Healthy Steps Foundation"
                   width={200}
-                  height={58}
+                  height={67}
                   className="h-14 w-auto object-contain"
                 />
               </div>

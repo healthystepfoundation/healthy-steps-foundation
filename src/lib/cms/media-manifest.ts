@@ -13,7 +13,7 @@ export interface ManifestAsset {
 export const PUBLIC_MEDIA: ManifestAsset[] = [
   { src: '/file.svg', label: "file", kind: 'image' },
   { src: '/globe.svg', label: "globe", kind: 'image' },
-  { src: '/HSF_logo.png', label: "HSF logo", kind: 'image' },
+  { src: '/HSF_logo.webp', label: "HSF logo", kind: 'image' },
   { src: '/HSFlogo.png', label: "HSFlogo", kind: 'image' },
   { src: '/images/about-community.jpg', label: "about community", kind: 'image' },
   { src: '/images/about-where-we-work.jpg', label: "about where we work", kind: 'image' },

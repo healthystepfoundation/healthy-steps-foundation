@@ -221,10 +221,10 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
         {/* Logo — shrinks as you scroll so the bar reclaims vertical space */}
         <Link href="/" className="group flex shrink-0 items-center" aria-label="Healthy Steps Foundation home">
           <Image
-            src="/HSF_logo.png"
+            src="/HSF_logo.webp"
             alt="Healthy Steps Foundation, a path to mental wellness"
             width={440}
-            height={126}
+            height={148}
             priority
             className={cn(
               'w-auto object-contain transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
@@ -377,10 +377,10 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
               <div className="flex items-center justify-between border-b border-warm-gray-200 px-5 py-4">
                 <Link href="/" onClick={() => setMobileOpen(false)}>
                   <Image
-                    src="/HSF_logo.png"
+                    src="/HSF_logo.webp"
                     alt="Healthy Steps Foundation"
                     width={200}
-                    height={58}
+                    height={67}
                     className="h-11 w-auto object-contain"
                   />
                 </Link>

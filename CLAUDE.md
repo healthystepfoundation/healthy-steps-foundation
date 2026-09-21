@@ -69,8 +69,11 @@ Healthy Steps Foundation takes a **holistic approach** to mental health wellness
 ### Vercel Deployment (confirmed real target — 2026-09-09)
 - Deploys via the GitHub → Vercel integration on pushes to `main`. No build config needed —
   Vercel detects Next.js natively.
-- `vercel.json` at root exists **only** to declare the cron schedule for
-  `/api/cron/recurring-reminders` (daily, 06:00 UTC).
+- `vercel.json` at root exists **only** to declare the cron schedules:
+  `/api/cron/recurring-reminders` (daily, 06:00 UTC) and `/api/cron/keep-alive`
+  (daily, 07:00 UTC — a trivial Supabase query so the free-plan project is never
+  paused for inactivity). Vercel's Hobby plan allows exactly 2 crons per project,
+  both daily — do not add a third or increase the frequency.
 - `netlify.toml` and `netlify/functions/` were removed (2026-09-09) — Netlify was the previous
   target; the scheduled function became a Vercel Cron-invoked App Router route. Do not re-add
   Netlify config without confirming a switch back.

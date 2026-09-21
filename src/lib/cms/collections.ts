@@ -56,6 +56,7 @@ export async function getPrograms(): Promise<ProgramView[]> {
       image: photo.src,
       imageAlt: photo.alt || content.name,
       whoWeServe: content.whoWeServe,
+      donateBlurb: content.donateBlurb,
     };
   });
 }

@@ -10,6 +10,7 @@ export type ProgramContent = {
   icon: string;
   image: MediaValue;
   whoWeServe: string;
+  donateBlurb: string;
 };
 
 /**
@@ -31,6 +32,7 @@ export function makeProgramSchema(program: Program): PageSchema<ProgramContent> 
     icon: program.icon,
     image: media(program.image, program.imageAlt),
     whoWeServe: program.whoWeServe,
+    donateBlurb: program.donateBlurb,
   };
 
   return {
@@ -69,6 +71,17 @@ export function makeProgramSchema(program: Program): PageSchema<ProgramContent> 
           textarea('whoWeServe', 'Who we serve', {
             rows: 5,
             help: 'The green box beside the description.',
+          }),
+        ],
+      },
+      {
+        id: 'donate',
+        label: 'Support strip',
+        description: 'The dark donate band at the bottom of the page.',
+        fields: [
+          textarea('donateBlurb', 'Text under the Support heading', {
+            rows: 3,
+            help: 'Say what a gift to this specific program funds.',
           }),
         ],
       },

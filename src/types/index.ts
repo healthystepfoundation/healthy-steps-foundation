@@ -64,6 +64,8 @@ export interface Program {
   imageAlt: string;
   fund: DonationFund;
   whoWeServe: string;
+  /** The sentence in the dark donate band at the bottom of the program page. */
+  donateBlurb: string;
   relatedSlugs: string[];
 }
 
@@ -87,6 +89,7 @@ export interface ProgramView {
   image: string;
   imageAlt: string;
   whoWeServe: string;
+  donateBlurb: string;
 }
 
 export interface StaffMember {

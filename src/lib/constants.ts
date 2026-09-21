@@ -52,6 +52,8 @@ export const PROGRAMS: Program[] = [
     fund: 'food-closet',
     whoWeServe:
       'Families facing temporary food insecurity due to job loss, illness, or crisis. We serve single-parent households, elderly-headed families caring for grandchildren, and any household where children are at risk of going hungry.',
+    donateBlurb:
+      'Your donation goes directly to this program, funding emergency food for families in Ndejje who need it most.',
     relatedSlugs: ['family-medical', 'children-tuition'],
   },
   {
@@ -67,6 +69,8 @@ export const PROGRAMS: Program[] = [
     fund: 'clothing-closet',
     whoWeServe:
       'Families facing temporary wardrobe needs due to crisis or hardship. This includes children who need school uniforms to attend class, families recovering from loss, and individuals who lack seasonally appropriate clothing.',
+    donateBlurb:
+      'Your donation goes directly to this program, keeping affordable clothing within reach for families in Ndejje who need it most.',
     relatedSlugs: ['food-closet', 'children-tuition'],
   },
   {
@@ -82,6 +86,8 @@ export const PROGRAMS: Program[] = [
     fund: 'children-tuition',
     whoWeServe:
       'Children whose families face temporary financial hardship that puts their education at immediate risk. We prioritise children already enrolled who are at risk of being sent home or dropping out due to unpaid school fees.',
+    donateBlurb:
+      'Your donation goes directly to this program, funding school fees that keep children in the classroom through a family crisis.',
     relatedSlugs: ['food-closet', 'resource-materials'],
   },
   {
@@ -97,6 +103,8 @@ export const PROGRAMS: Program[] = [
     fund: 'adult-vocation',
     whoWeServe:
       'One adult family member per household, prioritising those already experiencing mental health challenges worsened by economic insecurity. We serve unemployed adults, single parents seeking income, and caregivers who need sustainable skills to support their families.',
+    donateBlurb:
+      'Your donation goes directly to this program, funding vocational training that helps one family member build a sustainable income.',
     relatedSlugs: ['food-closet', 'family-medical'],
   },
   {
@@ -112,6 +120,8 @@ export const PROGRAMS: Program[] = [
     fund: 'family-medical',
     whoWeServe:
       'Families without the financial means to access healthcare when they need it most. This includes families with children requiring urgent care, pregnant mothers, elderly members, and individuals whose physical health is affecting their mental wellness.',
+    donateBlurb:
+      'Your donation goes directly to this program, funding medical care for families in Ndejje facing health emergencies.',
     relatedSlugs: ['food-closet', 'resource-materials'],
   },
   {
@@ -127,6 +137,8 @@ export const PROGRAMS: Program[] = [
     fund: 'resource-materials',
     whoWeServe:
       'Families across all our programs who benefit from educational and spiritual resources. We also serve community leaders, teachers, and faith leaders who multiply the impact of these materials within their own networks.',
+    donateBlurb:
+      'Your donation goes directly to this program, funding counseling and resource materials that support holistic family wellness.',
     relatedSlugs: ['children-tuition', 'family-medical'],
   },
 ];

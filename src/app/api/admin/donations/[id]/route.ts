@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { ADMIN_SESSION_COOKIE, verifySessionToken } from '@/lib/admin-auth';
 import { getSupabaseAdmin, mapDonationRow, type DonationRow } from '@/lib/supabase';
+import { renderDonationReceiptPdf } from '@/lib/pdf/donation-receipt';
 import { sendPaymentReceivedEmail } from '@/lib/email';
 
 const updateSchema = z.object({ status: z.literal('received') });
@@ -53,13 +54,14 @@ export async function PATCH(
   let emailStatus: 'sent' | 'failed' = 'failed';
   try {
     const record = mapDonationRow(row as DonationRow);
-    const emailResult = await sendPaymentReceivedEmail(record);
+    const receiptPdf = await renderDonationReceiptPdf(record);
+    const emailResult = await sendPaymentReceivedEmail(record, receiptPdf);
     emailStatus = emailResult.ok ? 'sent' : 'failed';
     if (!emailResult.ok) {
-      console.error('Failed to send payment received email:', emailResult.error);
+      console.error('Failed to send donation receipt email:', emailResult.error);
     }
   } catch (err) {
-    console.error('Failed to send payment received email:', err);
+    console.error('Failed to send donation receipt email:', err);
   }
 
   return NextResponse.json({ success: true, emailStatus });

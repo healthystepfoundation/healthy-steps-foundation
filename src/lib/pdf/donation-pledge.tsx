@@ -1,7 +1,8 @@
 import 'server-only';
-import { Document, Page, Text, View, StyleSheet, renderToBuffer } from '@react-pdf/renderer';
+import { Document, Page, Text, View, Image, StyleSheet, renderToBuffer } from '@react-pdf/renderer';
 import { ORG, SWIFT_DETAILS, US_CHECK_DETAILS, FUND_LABELS } from '@/lib/constants';
 import { formatCurrency } from '@/lib/utils';
+import { HSF_LOGO_PNG_DATA_URI } from './logo';
 import type { DonationRecord } from '@/types';
 
 const styles = StyleSheet.create({
@@ -16,15 +17,29 @@ const styles = StyleSheet.create({
     borderBottom: '2px solid #166534',
     paddingBottom: 12,
   },
+  letterheadRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  logo: {
+    width: 135,
+    height: 45,
+    objectFit: 'contain',
+  },
+  orgBlock: {
+    alignItems: 'flex-end',
+  },
   orgName: {
-    fontSize: 16,
+    fontSize: 12,
     fontFamily: 'Helvetica-Bold',
     color: '#166534',
     marginBottom: 2,
   },
   orgMeta: {
-    fontSize: 9,
+    fontSize: 8,
     color: '#78716c',
+    textAlign: 'right',
   },
   title: {
     fontSize: 13,
@@ -108,11 +123,17 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.orgName}>{ORG.name}</Text>
-          <Text style={styles.orgMeta}>
-            {ORG.location.village}, {ORG.location.division}, {ORG.location.district}, {ORG.location.country}
-          </Text>
-          <Text style={styles.orgMeta}>{ORG.email} · {ORG.phone.join(' / ')}</Text>
+          <View style={styles.letterheadRow}>
+            {/* eslint-disable-next-line jsx-a11y/alt-text -- @react-pdf Image has no alt prop */}
+            <Image src={HSF_LOGO_PNG_DATA_URI} style={styles.logo} />
+            <View style={styles.orgBlock}>
+              <Text style={styles.orgName}>{ORG.name}</Text>
+              <Text style={styles.orgMeta}>
+                {ORG.location.village}, {ORG.location.division}, {ORG.location.district}, {ORG.location.country}
+              </Text>
+              <Text style={styles.orgMeta}>{ORG.email} · {ORG.phone.join(' / ')}</Text>
+            </View>
+          </View>
 
           <Text style={styles.title}>Donation Pledge Confirmation #{record.invoiceNumber}</Text>
           <Text style={styles.subtitle}>Issued {createdDate}</Text>
@@ -174,7 +195,7 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
           funds are recorded as received once your {record.method === 'swift' ? 'SWIFT transfer' : 'check'}{' '}
           has been processed. Please email proof of your{' '}
           {record.method === 'swift' ? 'transfer' : 'mailed check'} to {ORG.email} referencing invoice #
-          {record.invoiceNumber} so we can confirm receipt and send a thank-you acknowledgment.
+          {record.invoiceNumber} so we can confirm receipt and email your official donation receipt.
           {record.donationType === 'recurring'
             ? ` As a recurring ${record.recurringFrequency} donor, we'll also email you a reminder each period since ${record.method === 'swift' ? 'SWIFT' : 'check'} giving is manual, not automatic.`
             : ''}

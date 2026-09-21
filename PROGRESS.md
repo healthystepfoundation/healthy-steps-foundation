@@ -4,9 +4,10 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-14
+**Last updated**: 2026-09-21
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
+**Domain**: healthystepsfoundation.org — bought, pointed at Vercel, and verified in Resend
 
 ---
 
@@ -16,8 +17,8 @@ timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *
 |---|---------|-------|--------|
 | 1 | Real impact statistics | Client | ⛔ Outstanding — placeholder numbers still live. Editable in the CMS (Homepage → Impact numbers), so this no longer needs a developer |
 | 2 | Supabase `site_content` table + `site-media` bucket | User | ✅ **Working** — confirmed indirectly on 2026-08-29: the live homepage renders a CMS-saved image served from Supabase Storage (that is what tripped Netlify's secrets scan). Saves and uploads are real |
-| 3 | Resend account and env vars | Client / user | ⛔ Outstanding — donation *emails* only; the CMS does not need it |
-| 4 | Verify the first Vercel deploy is green | User | 🟡 The site moved from Netlify to Vercel on 2026-09-09; env vars are being moved to the Vercel dashboard by hand. Add the new `CRON_SECRET` var while there, then confirm the deploy and the cron job appear green in Vercel |
+| 3 | Resend env vars in Vercel | User | 🟡 Nearly done — the API key exists and healthystepsfoundation.org is verified in Resend. Remaining: set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` (e.g. `Healthy Steps Foundation <giving@healthystepsfoundation.org>`) in the Vercel dashboard and redeploy. Claude cannot do this: the Vercel account connected to its session is a different one and does not contain this project |
+| 4 | Verify the first Vercel deploy is green | User | 🟡 The site moved from Netlify to Vercel on 2026-09-09; env vars are being moved to the Vercel dashboard by hand. Add `CRON_SECRET` while there — it now gates **two** cron routes (reminders + the Supabase keep-alive) — then confirm the deploy and both cron jobs appear green in Vercel |
 | 5 | Final cross-device smoke test | User | ⚠️ Not started |
 | 6 | Update the saved "Watch Videos" heading in the editor | User / client | ⚠️ One manual edit: `/admin/content` → Homepage → Video → Heading → "Videos and Pictures". The saved override shadows the new code default |
 | 7 | Sync `CLAUDE.md` and `README.md` with the trimmed site | Developer | ⚠️ Both still describe the pre-September homepage, program pages, footer and Food Closet name |
@@ -26,23 +27,80 @@ Everything else needed for launch is built.
 
 ### Next steps, in order
 
-1. **Confirm the first Vercel deploy is green** — move all env vars into the Vercel dashboard
-   (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, plus
-   the new `CRON_SECRET`; Resend vars when they exist), then check the deploy and that the
-   recurring-reminders cron shows up under the project's Cron Jobs tab. The August feedback
-   round and the September trim (`dba94b9`..`e4b79c5`) are also still unverified in production.
-2. **Change the saved video-section heading** to "Videos and Pictures" in `/admin/content`, and
+1. **Finish env vars in the Vercel dashboard and redeploy** — `SUPABASE_URL`,
+   `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `CRON_SECRET`, plus
+   the two new Resend vars (`RESEND_API_KEY`, `RESEND_FROM_EMAIL` on the verified
+   healthystepsfoundation.org domain). Then check the deploy is green and that **both** cron
+   jobs (recurring-reminders 06:00 UTC, keep-alive 07:00 UTC) appear under Cron Jobs.
+2. **End-to-end donation smoke test on production** — submit a $25 test pledge with a real
+   inbox, confirm the pledge email + PDF arrives, mark it received in `/admin/donations`, and
+   confirm the receipt email + PDF arrives.
+3. **Change the saved video-section heading** to "Videos and Pictures" in `/admin/content`, and
    while in the editor, re-save any field whose saved text still shows an em dash (the 2026-09-09
    copy pass only changed the code defaults; saved overrides shadow them).
-3. **Visual QA on a phone** — the four-section homepage, the enlarged header, the video+gallery
+4. **Visual QA on a phone** — the four-section homepage, the enlarged header, the video+gallery
    grid and lightbox, the two-column footer, and the new heading hierarchy on inner pages.
-4. Get the real impact statistics and a clothing-market photograph from the client; both are
+   The 2026-09-21 de-AI pass and horizontal-scroll fix were verified in emulation only.
+5. Get the real impact statistics and a clothing-market photograph from the client; both are
    theirs to enter in the editor, not a developer task.
-5. Bring `CLAUDE.md` and `README.md` in line with the site as it now is.
+6. Bring `CLAUDE.md` and `README.md` in line with the site as it now is.
 
 ---
 
 ## Timeline
+
+### 2026-09-21 — Receipts, de-AI polish, keep-alive cron, new logo + favicon (`575fade`..`a1832f2`, 7 commits)
+
+One long session, seven commits, all pushed and building green:
+
+**Per-program donate strip, editable** (`575fade`). The dark Support band on program pages ended
+with one generic sentence listing food, fees, training and care. Each program now has its own
+`donateBlurb` naming what a gift to that program funds, declared in the program schema so each
+program's editor screen gained a "Support strip" section.
+
+**Header shake fixed** (`8be49a1`). Compressing the header removes ~56px of height; with a single
+12px scroll cutoff that height change could push scrollY back under the threshold and oscillate.
+The threshold now has hysteresis: compress past 96px, expand under 8px.
+
+**Sharper logo** (`ffb868e`). The client supplied a 1600×538 transparent webp; it replaced the
+soft 250×100 `HSF_logo.png` everywhere (header, drawer, footer, media manifest), with the
+`next/image` width/height props corrected to the real aspect ratio. Old png deleted.
+
+**Official donation receipt** (`eef95d9`). "Mark received" now emails a US-nonprofit-style
+receipt PDF (`src/lib/pdf/donation-receipt.tsx`): logo letterhead, receipt no. and date received,
+donor/payment cards, designation table, the standard no-goods-or-services statement, and a
+signature block. Deliberately no 501(c)(3)/EIN claims — HSF is Uganda-registered; check receipts
+point US donors to First Baptist Sweetwater's own acknowledgment (⚠️ client should confirm this
+wording). Both PDFs share the logo letterhead (base64 PNG in `pdf/logo.ts`, since @react-pdf
+cannot decode webp and `/public` is not on the serverless filesystem); donor emails share a
+branded HTML shell; the pledge email subject no longer claims funds were received.
+
+**De-AI polish pass** (`98d7fd7`), at the user's request — presentation only, no copy changes.
+Buttons are flat fills now (gradient, sheen sweep, glow shadows and hover lift removed); the
+homepage hero overlay lightened so the photo keeps its real colour; trust tags became a quiet
+dotted text line; the SCROLL cue and the header's reading-progress bar are gone; the impact
+stats lost their boxed grid and the amber blur smudge. Verified with CDP full-page screenshots
+at 1440px and 390px, before and after.
+
+**Real mobile bug found during that audit**: every page had ~55px of horizontal scroll on
+phones. `cn()` is a plain join (no tailwind-merge), so the header Donate button's
+`hidden sm:inline-flex` lost to the `inline-flex` inside `buttonStyles` — the button never hid
+and pushed the header wider than the viewport. Fixed with a wrapper span; the `cn()` trap is
+documented in `CLAUDE.md`.
+
+**Supabase keep-alive cron** (`88c440f`). Supabase pauses free-plan projects after ~a week of
+inactivity. A second Vercel Cron (`/api/cron/keep-alive`, daily 07:00 UTC) runs two head-only
+count queries. Independent of the reminders cron on purpose; gated by the same `CRON_SECRET`.
+⚠️ Vercel Hobby allows exactly 2 daily crons per project — both slots are now used.
+
+**Favicon** (`a1832f2`). The tab icon was still the Next.js template triangle. Now the
+leaf-and-footprint mark cropped from the logo: `app/favicon.ico` (48px PNG-in-ICO),
+`app/icon.png` (512 transparent), `app/apple-icon.png` (180 on white).
+
+**Resend status**: the client bought healthystepsfoundation.org, pointed it at Vercel and
+verified it in Resend. All code is ready; only `RESEND_API_KEY` + `RESEND_FROM_EMAIL` in the
+Vercel dashboard (and a redeploy) stand between here and live donor emails. The Vercel account
+connected to Claude's session is a different one, so this is the user's manual step.
 
 ### 2026-09-14 (later the same day) — Mission page removed, hero hierarchy swapped site-wide
 
@@ -481,26 +539,25 @@ environmental, not in the source. ESLint still has the one pre-existing error
 dependency.*
 
 **`node_modules` keeps emptying itself.** It was corrupted twice in one session (truncated
-`next/package.json` and `@edge-runtime/primitives`, stray `routes.d 2.ts` files in `.next`), and on
-2026-08-15 it was found completely empty. That is a file-sync tool (iCloud/Dropbox) writing into
-the project directory. Reinstalling fixes it, and it will keep recurring until the folder is
-excluded from sync.
+`next/package.json` and `@edge-runtime/primitives`, stray `routes.d 2.ts` files in `.next`), on
+2026-08-15 it was found completely empty, and **it happened again on 2026-09-21** (`next` binary
+gone mid-session). That is a file-sync tool (iCloud/Dropbox) writing into the project directory.
+Reinstalling fixes it, and it will keep recurring until the folder is excluded from sync.
 
-**No interactive or phone QA has been done on the UI pass, the content editor, or either
-feedback round.** Everything has been verified by local production builds plus a few headless
-desktop screenshots (2026-09-03: header at 1280px, About, Get Help). Highest-value checks now:
-the four-section homepage on a phone, the video+photo grid and its lightbox, the caption
-legibility inside the small video tile, the two-column footer on narrow screens, and the new
-heading/subtitle hierarchy on inner pages.
+**No real-device QA yet.** Everything has been verified by local production builds plus headless
+screenshots (2026-09-03: header at 1280px, About, Get Help; 2026-09-21: full-page CDP captures
+of Home, Programs, Donate, About at 1440px and 390px, including overflow measurements at
+360/390/430px — which is how the mobile horizontal-scroll bug was caught). Still untested on an
+actual phone: the video+photo lightbox, the drawer, and touch behaviour generally.
 
 ~~**A real save has never run.**~~ **RESOLVED 2026-08-29** — the Netlify secrets-scan failure
 proved a saved CMS edit with an uploaded Supabase Storage photo is rendering on the live
 homepage. Save, upload, and `next/image` remote loading all work in production.
 
-**Twenty-two commits are on `main` and unverified in production** (`dba94b9`..`e4b79c5`), including
-the secrets-scan fix itself, four deleted components, and several CMS schema changes. All build
-clean locally (26 routes, CMS tests green). Confirm the first Vercel deploy before assuming the
-site is fine.
+**Everything since late August is unverified in production** (`dba94b9`..`a1832f2` — the August
+round, the September trim, and the seven 2026-09-21 commits including the receipt system, the
+de-AI pass and the new crons). All build clean locally (26 routes, CMS tests green). Confirm the
+Vercel deploy and both cron jobs before assuming the site is fine.
 
 **Saved CMS overrides can shadow code changes.** Now that real saves exist, editing a default in
 `src/lib/cms/pages/*.ts` only shows where staff have not saved that field — the "Watch Videos"
@@ -546,6 +603,10 @@ restore from history.
    deliberate change rather than a rename.
 6. **"How We Serve"** — Get Help had no section by that name, so the four-step "How It Works"
    process was the one moved to About Us. Confirm that is the section they meant.
+7. **Receipt tax wording (2026-09-21)** — the new donation receipt PDF deliberately makes no
+   US 501(c)(3)/EIN claims: SWIFT receipts say tax treatment depends on the donor's country,
+   and check receipts point donors to First Baptist Sweetwater's own acknowledgment. The client
+   should read one and confirm the wording matches the real arrangement with the church.
 
 ---
 

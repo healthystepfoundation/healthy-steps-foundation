@@ -47,11 +47,6 @@ function str(value: unknown): string {
 export default function StatsSection({ content }: { content: HomeContent }): React.JSX.Element {
   return (
     <section className="relative overflow-hidden bg-white px-6 py-24 sm:py-28">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-amber-100/40 blur-3xl"
-      />
-
       <div className="relative z-10 container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-20">
           {/* Stats side */}
@@ -68,7 +63,8 @@ export default function StatsSection({ content }: { content: HomeContent }): Rea
               className="mb-10"
             />
 
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-warm-gray-200/70 ring-1 ring-warm-gray-200/70">
+            {/* Open grid, no card chrome — the numbers carry the section */}
+            <div className="grid grid-cols-2 gap-x-10 gap-y-12">
               {content.stats.map((stat, i) => {
                 const value = str(stat.value);
                 const suffix = str(stat.suffix);
@@ -84,9 +80,8 @@ export default function StatsSection({ content }: { content: HomeContent }): Rea
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-60px' }}
                     transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                    className="group bg-white p-6 transition-colors duration-500 hover:bg-warm-white sm:p-7"
                   >
-                    <div className="mb-1 font-serif text-4xl font-black text-forest-green-600 tabular-nums sm:text-5xl">
+                    <div className="mb-2 font-serif text-5xl font-black text-forest-green-600 tabular-nums sm:text-6xl">
                       {countsUp ? (
                         <AnimatedCounter end={numeric} suffix={suffix} />
                       ) : (
@@ -97,7 +92,6 @@ export default function StatsSection({ content }: { content: HomeContent }): Rea
                       )}
                     </div>
                     <div className="text-sm leading-snug font-medium text-warm-gray-500">{label}</div>
-                    <div className="mt-3 h-0.5 w-6 origin-left scale-x-0 rounded-full bg-amber-500 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
                   </motion.div>
                 );
               })}

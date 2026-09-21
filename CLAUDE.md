@@ -257,7 +257,8 @@ Shadows are tinted with the warm ink colour, not black — do **not** go back to
 ### Component classes (`@layer components`)
 - `.grain-overlay` — film-grain wash for photo heroes. Needs `position: relative` on the element.
 - `.link-sweep` — underline that draws in from the left on hover/focus.
-- `.sheen` — light sweep across a button on hover (already baked into `Button`).
+- `.sheen` — light sweep on hover. **No longer used by `Button`** (2026-09-21 de-AI pass); only add
+  it back deliberately, never to CTAs.
 
 ### Primitives — reach for these first
 | Need | Use | Notes |
@@ -272,9 +273,24 @@ Shadows are tinted with the warm ink colour, not black — do **not** go back to
 Buttons are **pill-shaped** (`rounded-full`) site-wide. Primary CTAs are dark text on amber, not
 white on amber — white on amber-500 failed contrast.
 
+⚠️ **De-AI pass (2026-09-21): buttons are flat.** The amber gradient, `.sheen` sweep,
+`shadow-glow-*` hovers and the hover lift/scale were removed from `Button` — solid fills with
+plain colour transitions only. Also removed: the homepage hero's SCROLL cue and chip-styled trust
+tags (now a quiet dotted text line), the header's reading-progress bar, and the stats section's
+boxed grid + amber blur blob. Do not re-add decorative gloss to CTAs or the header.
+
+⚠️ **`cn()` does not resolve Tailwind conflicts** (it is a plain join, no tailwind-merge). Never
+pass a class to `Button`/`ButtonLink` that fights one already in `buttonStyles` — e.g.
+`className="hidden sm:inline-flex"` lost to the base `inline-flex`, which kept the header's
+Donate button visible on phones and forced ~55px of horizontal scroll site-wide. Hide a button by
+wrapping it (`<span className="hidden sm:block">`).
+
 ### Header behaviour (`layout/Header.tsx`)
-- Sticky; compresses (logo + padding shrink) and switches to frosted glass past 12px of scroll.
-- Reading-progress bar along the bottom edge, driven by `useScroll`.
+- Sticky; compresses (logo + padding shrink) and switches to frosted glass on scroll, with
+  hysteresis (compress past 96px, expand under 8px) so the ~56px height change cannot flip the
+  state back and shake the bar.
+- ~~Reading-progress bar~~ removed 2026-09-21 (blog gimmick; its spring overshoot also left an
+  amber sliver at the left edge).
 - `About` and `Programs` are Framer Motion dropdowns that open on hover **and** on click/focus, and
   close on Escape, outside blur, or route change. The old CSS `group-hover` version was unreachable
   by keyboard.

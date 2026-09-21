@@ -9,7 +9,6 @@ import {
   useTransform,
   type Variants,
 } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
 import type { HomeContent } from '@/lib/cms/pages/home';
 
@@ -50,9 +49,10 @@ export default function HeroSection({ content }: { content: HomeContent }): Reac
         />
       </motion.div>
 
-      {/* Layered gradients — readable on all screen sizes */}
-      <div className="absolute inset-0 bg-gradient-to-r from-forest-green-900/95 via-forest-green-900/70 to-forest-green-900/15" />
-      <div className="absolute inset-0 bg-gradient-to-t from-forest-green-900/70 via-transparent to-forest-green-900/25" />
+      {/* Layered gradients — dark enough behind the text, light enough that the
+          photo keeps its real colour instead of a green wash */}
+      <div className="absolute inset-0 bg-gradient-to-r from-forest-green-900/90 via-forest-green-900/50 to-forest-green-900/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-forest-green-900/60 via-transparent to-forest-green-900/20" />
 
       {/* Content */}
       <motion.div
@@ -66,7 +66,7 @@ export default function HeroSection({ content }: { content: HomeContent }): Reac
             variants={rise}
             initial="hidden"
             animate="visible"
-            className="mb-8 font-serif text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl"
+            className="mb-8 font-serif text-4xl leading-tight font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             {content.heroHeadline}
           </motion.h1>
@@ -77,7 +77,7 @@ export default function HeroSection({ content }: { content: HomeContent }): Reac
             variants={rise}
             initial="hidden"
             animate="visible"
-            className="mb-10 max-w-xl text-lg leading-relaxed text-white/80 sm:text-xl"
+            className="mb-10 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl"
           >
             {content.heroLead}
           </motion.p>
@@ -95,39 +95,21 @@ export default function HeroSection({ content }: { content: HomeContent }): Reac
             </ButtonLink>
           </motion.div>
 
-          {/* Trust indicators */}
-          <motion.div
+          {/* Trust indicators — a quiet line of text, not a row of chips */}
+          <motion.ul
             custom={3}
             variants={rise}
             initial="hidden"
             animate="visible"
-            className="mt-12 flex flex-wrap items-center gap-2.5"
+            className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white/80"
           >
-            {content.heroTrustPoints.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs text-white/75 backdrop-blur-sm transition-colors duration-300 hover:border-white/30 hover:text-white"
-              >
+            {content.heroTrustPoints.map((item, i) => (
+              <li key={item} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-amber-400/80" />}
                 {item}
-              </span>
+              </li>
             ))}
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 sm:block"
-        aria-hidden="true"
-      >
-        <div className="flex flex-col items-center gap-2 text-white/50">
-          <span className="text-[0.65rem] font-medium tracking-[0.2em] uppercase">Scroll</span>
-          <span className="flex h-9 w-9 animate-float-slow items-center justify-center rounded-full border border-white/20">
-            <ArrowDown size={15} />
-          </span>
+          </motion.ul>
         </div>
       </motion.div>
     </section>

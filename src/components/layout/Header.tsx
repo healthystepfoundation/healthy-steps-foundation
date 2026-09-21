@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { AnimatePresence, motion, useScroll, useSpring, type Variants } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { Menu, X, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
 import type { ProgramView } from '@/types';
@@ -133,10 +133,6 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
   const [mobileGroup, setMobileGroup] = useState<'about' | 'programs' | null>(null);
   const [openMenu, setOpenMenu] = useState<'about' | 'programs' | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Reading-progress bar along the bottom edge of the bar
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 240, damping: 40, mass: 0.3 });
 
   // Hysteresis on the compress threshold: collapsing removes ~56px of header
   // height, which itself shifts scrollY (scroll anchoring, short pages). A
@@ -325,10 +321,16 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
 
         {/* Donate CTA + hamburger */}
         <div className="flex shrink-0 items-center gap-2">
-          <ButtonLink href="/donate" size="sm" className="hidden sm:inline-flex">
-            <Heart size={15} className="fill-current" />
-            Donate
-          </ButtonLink>
+          {/* The wrapper does the hiding: `hidden` on the ButtonLink itself
+              loses to the `inline-flex` in buttonStyles, since cn() does not
+              resolve Tailwind conflicts — the button stayed visible on phones
+              and pushed the header wider than the viewport. */}
+          <span className="hidden sm:block">
+            <ButtonLink href="/donate" size="sm">
+              <Heart size={15} className="fill-current" />
+              Donate
+            </ButtonLink>
+          </span>
 
           <button
             className="rounded-xl p-2.5 text-warm-gray-700 transition-colors hover:bg-warm-gray-100 lg:hidden"
@@ -341,12 +343,6 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
         </div>
       </div>
 
-      {/* Reading progress */}
-      <motion.div
-        aria-hidden="true"
-        style={{ scaleX: progress }}
-        className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-gradient-to-r from-amber-400 via-amber-500 to-forest-green-500"
-      />
     </header>
 
       {/* Mobile drawer — deliberately a sibling of <header>, not a child. The

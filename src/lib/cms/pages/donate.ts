@@ -115,12 +115,13 @@ const defaults: DonateContent = {
   checkFeeText:
     'Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift reaches families in Wakiso, Uganda.',
   checkStepsTitle: 'Giving Details for US Donors',
-  checkSteps: ['Mail it to First Baptist Sweetwater'],
+  checkSteps: ['By Mail'],
   checkPayableTo: US_CHECK_DETAILS.payableTo,
   checkMemo: US_CHECK_DETAILS.memo,
   checkMailingAddress: US_CHECK_DETAILS.mailingAddress,
-  checkLinkLabel: '',
-  checkLinkUrl: '',
+  checkLinkLabel: 'Online at: First Baptist Sweetwater giving form',
+  checkLinkUrl:
+    'https://forms.ministryforms.net/embed.aspx?formId=5a264585-c054-4504-a484-32ce8dea6b00&custom-templates=',
   checkNoteTitle: '',
   checkNoteText: '',
   checkPledgeTitle: 'Confirm Your Pledge',
@@ -237,10 +238,10 @@ export const donateSchema: PageSchema<DonateContent> = {
         text('checkMailingAddress', 'Check details: mailing address', {
           help: 'Also prints on the pledge PDF and shows on the News page. If emptied, the original value from the code is used.',
         }),
-        text('checkLinkLabel', 'Check details: link text', {
-          help: 'Shown as a link under the check details, for example the church website.',
+        text('checkLinkLabel', 'Give-online link: text', {
+          help: 'Shown as a link between the check details box and the pledge step, and in the pledge confirmation.',
         }),
-        text('checkLinkUrl', 'Check details: link address', {
+        text('checkLinkUrl', 'Give-online link: address', {
           help: 'Full web address starting with https://. Leave empty to show no link.',
         }),
         text('checkNoteTitle', 'Extra box before the pledge: heading', {

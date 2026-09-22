@@ -74,6 +74,15 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 7, same evening**: step 1 renamed to "By Mail" (the old
+"Mail it to First Baptist Sweetwater" default was never stored as an override — verified
+against the live payload earlier — so the code-default change reaches the site), and the
+give-online link now has real defaults: "Online at: First Baptist Sweetwater giving form"
+pointing at the church's ministryforms.net giving form. The link moved from inside the
+check details box to between the box and the pledge step, where the client asked for it;
+it still repeats in the pledge success modal. Editor fields relabelled
+"Give-online link: text / address".
+
 **Follow-up 6, same evening**: the check panel is one numbered sequence now. Each
 instruction line ("Mail it to First Baptist Sweetwater") is a bold step with a green
 number, and the pledge and email steps continue the count dynamically

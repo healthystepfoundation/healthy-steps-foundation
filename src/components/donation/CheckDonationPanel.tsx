@@ -158,23 +158,25 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
           <CopyRow label="Make payable to" value={copy.checkPayableTo} />
           <CopyRow label="Memo / note line" value={copy.checkMemo} />
           <CopyRow label="Mailing address" value={copy.checkMailingAddress} />
-          {copy.checkLinkUrl && (
-            <div className="pt-3 text-center">
-              <a
-                href={copy.checkLinkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-green-600 hover:text-forest-green-700 transition-colors"
-              >
-                {copy.checkLinkLabel || copy.checkLinkUrl}
-                <ExternalLink size={14} />
-              </a>
-            </div>
-          )}
         </div>
         <p className="text-xs text-warm-gray-400 text-center mt-2">
           Click the copy icon next to each field to copy it.
         </p>
+
+        {/* Give-online link, between the check details box and the pledge step */}
+        {copy.checkLinkUrl && (
+          <div className="mt-5">
+            <a
+              href={copy.checkLinkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-forest-green-600 hover:text-forest-green-700 transition-colors"
+            >
+              {copy.checkLinkLabel || copy.checkLinkUrl}
+              <ExternalLink size={14} />
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Optional editor-written box between the check details and the pledge form */}

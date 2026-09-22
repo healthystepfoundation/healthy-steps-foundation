@@ -1,6 +1,7 @@
 import 'server-only';
 import { Document, Page, Text, View, Image, StyleSheet, renderToBuffer } from '@react-pdf/renderer';
-import { ORG, SWIFT_DETAILS, US_CHECK_DETAILS, FUND_LABELS } from '@/lib/constants';
+import { ORG, SWIFT_DETAILS, FUND_LABELS } from '@/lib/constants';
+import { getCheckDetails, type CheckDetails } from '@/lib/cms/collections';
 import { formatCurrency } from '@/lib/utils';
 import { HSF_LOGO_PNG_DATA_URI } from './logo';
 import type { DonationRecord } from '@/types';
@@ -110,7 +111,13 @@ function InstructionRow({ label, value }: { label: string; value: string }): Rea
   );
 }
 
-export function DonationPledgePdf({ record }: { record: DonationRecord }): React.JSX.Element {
+export function DonationPledgePdf({
+  record,
+  checkDetails,
+}: {
+  record: DonationRecord;
+  checkDetails: CheckDetails;
+}): React.JSX.Element {
   const donorName = `${record.firstName} ${record.lastName}`;
   const createdDate = new Date(record.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -183,9 +190,9 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
             </>
           ) : (
             <>
-              <InstructionRow label="Make payable to" value={US_CHECK_DETAILS.payableTo} />
-              <InstructionRow label="Memo / note line" value={US_CHECK_DETAILS.memo} />
-              <InstructionRow label="Mailing address" value={pendingOr(US_CHECK_DETAILS.mailingAddress)} />
+              <InstructionRow label="Make payable to" value={checkDetails.payableTo} />
+              <InstructionRow label="Memo / note line" value={checkDetails.memo} />
+              <InstructionRow label="Mailing address" value={pendingOr(checkDetails.mailingAddress)} />
             </>
           )}
         </View>
@@ -206,5 +213,6 @@ export function DonationPledgePdf({ record }: { record: DonationRecord }): React
 }
 
 export async function renderDonationPledgePdf(record: DonationRecord): Promise<Buffer> {
-  return renderToBuffer(<DonationPledgePdf record={record} />);
+  const checkDetails = await getCheckDetails();
+  return renderToBuffer(<DonationPledgePdf record={record} checkDetails={checkDetails} />);
 }

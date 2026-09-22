@@ -28,7 +28,10 @@ export const SWIFT_DETAILS = {
 
 export const BANK_FEE_USD = 45;
 
-// US donors: checks payable to First Baptist Sweetwater, designated to HSF
+// US donors: checks payable to First Baptist Sweetwater, designated to HSF.
+// Since 2026-09-22 these are the CMS defaults (and the fallback for emptied
+// fields): the donate page, the News give card and both donation PDFs all read
+// them through getCheckDetails() in cms/collections.ts, never directly.
 export const US_CHECK_DETAILS = {
   payableTo: 'First Baptist Sweetwater',
   memo: 'Healthy Steps Foundation',

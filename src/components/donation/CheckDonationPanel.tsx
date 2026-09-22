@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, Copy, CheckCircle, Mail, AlertCircle, Info } from 'lucide-react';
+import { Check, Copy, CheckCircle, Mail, AlertCircle, Info, ExternalLink } from 'lucide-react';
 import { donationSchema, type DonationFormValues } from '@/lib/validations';
 import { cn } from '@/lib/utils';
-import { US_CHECK_DETAILS, ORG, FUND_LABELS } from '@/lib/constants';
+import { ORG, FUND_LABELS } from '@/lib/constants';
 import AmountSelector from './AmountSelector';
 import FundSelector from './FundSelector';
 import Input from '@/components/ui/Input';
@@ -161,9 +161,22 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
           <h3 className="font-bold text-warm-gray-900">{copy.checkDetailsTitle}</h3>
         </div>
         <div className="bg-white border border-warm-gray-200 rounded-xl p-5 shadow-sm">
-          <CopyRow label="Make payable to" value={US_CHECK_DETAILS.payableTo} />
-          <CopyRow label="Memo / note line" value={US_CHECK_DETAILS.memo} />
-          <CopyRow label="Mailing address" value={US_CHECK_DETAILS.mailingAddress} />
+          <CopyRow label="Make payable to" value={copy.checkPayableTo} />
+          <CopyRow label="Memo / note line" value={copy.checkMemo} />
+          <CopyRow label="Mailing address" value={copy.checkMailingAddress} />
+          {copy.checkLinkUrl && (
+            <div className="pt-3 text-center">
+              <a
+                href={copy.checkLinkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-green-600 hover:text-forest-green-700 transition-colors"
+              >
+                {copy.checkLinkLabel || copy.checkLinkUrl}
+                <ExternalLink size={14} />
+              </a>
+            </div>
+          )}
         </div>
         <p className="text-xs text-warm-gray-400 text-center mt-2">
           Click the copy icon next to each field to copy it.
@@ -368,9 +381,22 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
             </div>
 
             <div className="bg-warm-gray-50 rounded-xl p-4 border border-warm-gray-100">
-              <CopyRow label="Make payable to" value={US_CHECK_DETAILS.payableTo} />
-              <CopyRow label="Memo / note line" value={US_CHECK_DETAILS.memo} />
-              <CopyRow label="Mailing address" value={US_CHECK_DETAILS.mailingAddress} />
+              <CopyRow label="Make payable to" value={copy.checkPayableTo} />
+              <CopyRow label="Memo / note line" value={copy.checkMemo} />
+              <CopyRow label="Mailing address" value={copy.checkMailingAddress} />
+              {copy.checkLinkUrl && (
+                <div className="pt-3 text-center">
+                  <a
+                    href={copy.checkLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-green-600 hover:text-forest-green-700 transition-colors"
+                  >
+                    {copy.checkLinkLabel || copy.checkLinkUrl}
+                    <ExternalLink size={14} />
+                  </a>
+                </div>
+              )}
             </div>
 
             {successData.type === 'recurring' && (

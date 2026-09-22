@@ -1,6 +1,7 @@
 import 'server-only';
 import { Document, Page, Text, View, Image, StyleSheet, renderToBuffer } from '@react-pdf/renderer';
-import { ORG, US_CHECK_DETAILS, FUND_LABELS } from '@/lib/constants';
+import { ORG, FUND_LABELS } from '@/lib/constants';
+import { getCheckDetails } from '@/lib/cms/collections';
 import { formatCurrency } from '@/lib/utils';
 import { HSF_LOGO_PNG_DATA_URI } from './logo';
 import type { DonationRecord } from '@/types';
@@ -229,7 +230,13 @@ function formatDate(iso: string): string {
   });
 }
 
-export function DonationReceiptPdf({ record }: { record: DonationRecord }): React.JSX.Element {
+export function DonationReceiptPdf({
+  record,
+  payableTo,
+}: {
+  record: DonationRecord;
+  payableTo: string;
+}): React.JSX.Element {
   const donorName = `${record.firstName} ${record.lastName}`;
   const receivedDate = formatDate(record.receivedAt ?? new Date().toISOString());
   const pledgedDate = formatDate(record.createdAt);
@@ -296,7 +303,7 @@ export function DonationReceiptPdf({ record }: { record: DonationRecord }): Reac
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Method</Text>
               <Text style={styles.infoValue}>
-                {isSwift ? 'SWIFT bank transfer' : `Check (payable to ${US_CHECK_DETAILS.payableTo})`}
+                {isSwift ? 'SWIFT bank transfer' : `Check (payable to ${payableTo})`}
               </Text>
             </View>
             <View style={styles.infoRow}>
@@ -350,7 +357,7 @@ export function DonationReceiptPdf({ record }: { record: DonationRecord }): Reac
         <Text style={styles.statementMuted}>
           {isSwift
             ? `${ORG.name} is a community-based organization registered in Uganda. This receipt acknowledges your gift; whether it qualifies for a tax deduction depends on the laws of your country. Please consult your tax advisor.`
-            : `Checks are made payable to ${US_CHECK_DETAILS.payableTo}, which receives US check gifts on behalf of ${ORG.name}. For US tax purposes, please retain the acknowledgment issued by ${US_CHECK_DETAILS.payableTo}; this receipt confirms how your gift was designated and applied.`}
+            : `Checks are made payable to ${payableTo}, which receives US check gifts on behalf of ${ORG.name}. For US tax purposes, please retain the acknowledgment issued by ${payableTo}; this receipt confirms how your gift was designated and applied.`}
         </Text>
 
         <Text style={[styles.statement, { marginTop: 14 }]}>
@@ -383,5 +390,6 @@ export function DonationReceiptPdf({ record }: { record: DonationRecord }): Reac
 }
 
 export async function renderDonationReceiptPdf(record: DonationRecord): Promise<Buffer> {
-  return renderToBuffer(<DonationReceiptPdf record={record} />);
+  const { payableTo } = await getCheckDetails();
+  return renderToBuffer(<DonationReceiptPdf record={record} payableTo={payableTo} />);
 }

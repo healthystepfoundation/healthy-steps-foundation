@@ -49,6 +49,35 @@ Everything else needed for launch is built.
 
 ## Timeline
 
+### 2026-09-22 (evening) — Check Details box editable + optional link (client request)
+
+The client messaged: they want to add a link in the Check Details box on the Donate page
+(the box with "Make payable to / Memo / Mailing address") and "I don't have access to that
+box. I need access to it."
+
+Both delivered, without giving up the no-divergence rule that had kept those values in code:
+
+- **The check details are now editable** at `/admin/content` → Donate → Check giving panel:
+  payable-to, memo / note line, and mailing address, plus two new link fields (link text +
+  link address). When the link address is set, a link (with external-link icon, opens in a
+  new tab) renders under the three rows in the Check Details box **and** in the pledge
+  success modal's repeat of that box. Empty link address = no link, exactly as before.
+- **Single source preserved a new way.** A new `getCheckDetails()` in `cms/collections.ts`
+  merges the CMS value over `US_CHECK_DETAILS` and is now the only read path: the donate
+  page (passed down through `DonateFormCopy`), the News give card, the pledge PDF and the
+  receipt PDF all use it, so an edit in the admin reaches every surface at once, including
+  the PDFs emailed to donors. The editor help text says so.
+- **Emptied fields fall back to the code values** (`US_CHECK_DETAILS` stays in
+  `constants.ts` as default + fallback): blank payment instructions on a mailed-check PDF
+  would be worse than stale ones. The donate page passes the resolved values so the on-page
+  box can never disagree with the PDFs either.
+- All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
+  details are not in the CMS" claims updated.
+
+Verified: `npm run test:cms` green (35), TypeScript clean, production build green (26 routes).
+⚠️ Not yet done: telling the client where the new fields live (Donate → Check giving panel,
+under the Step 2 heading) — they asked for this by message and will go looking.
+
 ### 2026-09-22 (later) — Horizontal logo + removable sections in the content editor
 
 **Logo, take two.** The user supplied a horizontal lockup (mark left, wordmark right, 1848×851)

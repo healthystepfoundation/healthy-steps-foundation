@@ -1,5 +1,5 @@
 import 'server-only';
-import { PROGRAMS } from '@/lib/constants';
+import { PROGRAMS, US_CHECK_DETAILS } from '@/lib/constants';
 import type { ProgramView, Testimonial, UpcomingEvent, NewsUpdate } from '@/types';
 import { getPageContent, getPagesContent } from './content';
 import { sectionHidden } from './merge';
@@ -7,6 +7,7 @@ import { PROGRAM_SCHEMAS } from './pages/program';
 import { testimonialsSchema } from './pages/testimonials';
 import { eventsSchema } from './pages/events';
 import { newsSchema } from './pages/news';
+import { donateSchema } from './pages/donate';
 import type { ContentItem, MediaValue } from './types';
 
 /**
@@ -66,6 +67,28 @@ export async function getPrograms(): Promise<ProgramView[]> {
 export async function getProgram(slug: string): Promise<ProgramView | undefined> {
   const programs = await getPrograms();
   return programs.find((program) => program.slug === slug);
+}
+
+export interface CheckDetails {
+  payableTo: string;
+  memo: string;
+  mailingAddress: string;
+}
+
+/**
+ * The US check giving details, with editor changes applied.
+ *
+ * The donate page, the News give card and both donation PDFs all read through
+ * here so they can never disagree. An emptied field falls back to the value in
+ * code: blank payment instructions are worse than stale ones.
+ */
+export async function getCheckDetails(): Promise<CheckDetails> {
+  const content = await getPageContent(donateSchema);
+  return {
+    payableTo: content.checkPayableTo.trim() || US_CHECK_DETAILS.payableTo,
+    memo: content.checkMemo.trim() || US_CHECK_DETAILS.memo,
+    mailingAddress: content.checkMailingAddress.trim() || US_CHECK_DETAILS.mailingAddress,
+  };
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {

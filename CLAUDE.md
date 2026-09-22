@@ -509,7 +509,12 @@ un-cached client.
 email address, phone numbers and physical address, because the same values go into donation
 receipts, pledge PDFs and reminder emails. Editing them in one place only would leave the site and
 the emails disagreeing. One line in `constants.ts` changes all of them at once. Same reasoning for
-`SWIFT_DETAILS`, `US_CHECK_DETAILS` and `BANK_FEE_USD` — they must match what the bank says.
+`SWIFT_DETAILS` and `BANK_FEE_USD` — they must match what the bank says.
+**Exception (2026-09-22): the US check details ARE editable** (Donate → Check giving panel), at
+the client's request. The no-divergence rule is kept a different way: the donate page, the News
+give card and both donation PDFs all read them through `getCheckDetails()` in
+`cms/collections.ts`, which merges the CMS value over `US_CHECK_DETAILS` (the fallback for
+emptied fields). Never read `US_CHECK_DETAILS` directly in a page or PDF.
 
 ⚠️ **A program's `slug`, `fund` and `relatedSlugs` are not editable.** They are routing and
 donation-fund keys, not copy; a typo would break a URL or misdirect a gift. `getPrograms()` always
@@ -694,7 +699,7 @@ Still a code change, deliberately:
 |---------|-------|--------------------|
 | Email, phone numbers, address | `ORG` in `constants.ts` | Also used in receipts, PDFs and reminder emails — must not diverge |
 | SWIFT bank details | `SWIFT_DETAILS` | Must match the bank and the confirmation emails |
-| US check details | `US_CHECK_DETAILS` | Same |
+| ~~US check details~~ | Editable since 2026-09-22 at `/admin/content` → Donate → Check giving panel | PDFs and the News card read the same CMS value via `getCheckDetails()` |
 | Bank fee amount | `BANK_FEE_USD` | Feeds the donation total calculation |
 | Donation amount buttons | `DONATION_AMOUNTS` | Feeds form validation |
 | Program URL / fund keys | `PROGRAMS` → `slug`, `fund`, `relatedSlugs` | Routing and fund routing, not copy |

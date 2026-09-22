@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Mail, Phone } from 'lucide-react';
-import { US_CHECK_DETAILS, ORG } from '@/lib/constants';
+import { ORG } from '@/lib/constants';
 import FadeUp from '@/components/ui/FadeUp';
 import { buttonStyles } from '@/components/ui/Button';
-import { getNewsUpdates } from '@/lib/cms/collections';
+import { getNewsUpdates, getCheckDetails } from '@/lib/cms/collections';
 import { getPageContent } from '@/lib/cms/content';
 import { sectionHidden } from '@/lib/cms/merge';
 import { newsSchema } from '@/lib/cms/pages/news';
@@ -27,7 +27,11 @@ function formatDate(iso: string): string {
 }
 
 export default async function NewsPage(): Promise<React.JSX.Element> {
-  const [content, updates] = await Promise.all([getPageContent(newsSchema), getNewsUpdates()]);
+  const [content, updates, checkDetails] = await Promise.all([
+    getPageContent(newsSchema),
+    getNewsUpdates(),
+    getCheckDetails(),
+  ]);
 
   const [latest, ...earlier] = updates;
   // The schema keeps at least one post, so this only trips if the data is edited
@@ -162,11 +166,11 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
                   {content.giveCheckTitle}
                 </h3>
                 <p className="text-warm-gray-600 text-sm leading-relaxed mb-4">
-                  {content.giveCheckIntro} <strong>{US_CHECK_DETAILS.payableTo}</strong>, with{' '}
-                  <strong>{US_CHECK_DETAILS.memo}</strong> on the FOR line, and mail to:
+                  {content.giveCheckIntro} <strong>{checkDetails.payableTo}</strong>, with{' '}
+                  <strong>{checkDetails.memo}</strong> on the FOR line, and mail to:
                 </p>
                 <p className="text-warm-gray-900 text-sm font-medium leading-relaxed">
-                  {US_CHECK_DETAILS.mailingAddress}
+                  {checkDetails.mailingAddress}
                 </p>
               </div>
             </FadeUp>

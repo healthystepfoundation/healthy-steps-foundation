@@ -6,6 +6,7 @@ import DonatePageClient from './DonatePageClient';
 import { ORG } from '@/lib/constants';
 import { ContentIcon } from '@/lib/icons';
 import { getPageContent } from '@/lib/cms/content';
+import { getCheckDetails } from '@/lib/cms/collections';
 import { sectionHidden } from '@/lib/cms/merge';
 import { donateSchema } from '@/lib/cms/pages/donate';
 import { cn } from '@/lib/utils';
@@ -21,6 +22,15 @@ function str(value: unknown): string {
 
 export default async function DonatePage(): Promise<React.JSX.Element> {
   const content = await getPageContent(donateSchema);
+  // Emptied check-detail fields fall back to the code values in getCheckDetails,
+  // so the box always matches what the pledge and receipt PDFs print.
+  const checkDetails = await getCheckDetails();
+  const formCopy = {
+    ...content,
+    checkPayableTo: checkDetails.payableTo,
+    checkMemo: checkDetails.memo,
+    checkMailingAddress: checkDetails.mailingAddress,
+  };
   const showSidebar = !sectionHidden(content, 'sidebar');
 
   return (
@@ -70,7 +80,7 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
                   <RefreshCw size={20} className="animate-spin mr-2" /> Loading...
                 </div>
               }>
-                <DonatePageClient copy={content} />
+                <DonatePageClient copy={formCopy} />
               </Suspense>
             </div>
 

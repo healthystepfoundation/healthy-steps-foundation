@@ -1,3 +1,4 @@
+import { US_CHECK_DETAILS } from '@/lib/constants';
 import { icon, image, list, strings, text, textarea, media } from '../fields';
 import type { ContentItem, MediaValue, PageSchema } from '../types';
 
@@ -27,6 +28,11 @@ export type DonateContent = {
   checkStepsTitle: string;
   checkSteps: string[];
   checkDetailsTitle: string;
+  checkPayableTo: string;
+  checkMemo: string;
+  checkMailingAddress: string;
+  checkLinkLabel: string;
+  checkLinkUrl: string;
   checkPledgeTitle: string;
   checkPledgeText: string;
   checkSubmitLabel: string;
@@ -64,6 +70,11 @@ export type DonateFormCopy = Pick<
   | 'checkStepsTitle'
   | 'checkSteps'
   | 'checkDetailsTitle'
+  | 'checkPayableTo'
+  | 'checkMemo'
+  | 'checkMailingAddress'
+  | 'checkLinkLabel'
+  | 'checkLinkUrl'
   | 'checkPledgeTitle'
   | 'checkPledgeText'
   | 'checkSubmitLabel'
@@ -104,6 +115,11 @@ const defaults: DonateContent = {
   checkStepsTitle: 'How Check Giving Works',
   checkSteps: ['Mail it to First Baptist Sweetwater'],
   checkDetailsTitle: 'Check Details',
+  checkPayableTo: US_CHECK_DETAILS.payableTo,
+  checkMemo: US_CHECK_DETAILS.memo,
+  checkMailingAddress: US_CHECK_DETAILS.mailingAddress,
+  checkLinkLabel: '',
+  checkLinkUrl: '',
   checkPledgeTitle: 'Confirm Your Pledge',
   checkPledgeText:
     "Tell us what you're giving so we can send you an invoice for your records and follow up once your check arrives.",
@@ -195,7 +211,7 @@ export const donateSchema: PageSchema<DonateContent> = {
       id: 'check',
       label: 'Check giving panel',
       description:
-        'The boxes shown when a donor picks check giving. The payable-to, memo and mailing address are set in the code, since they must match the church.',
+        'The boxes shown when a donor picks check giving. The payable-to, memo and mailing address also print on the pledge and receipt PDFs emailed to donors, so keep them exactly as the church expects.',
       fields: [
         text('checkFeeTitle', 'Green box: title'),
         textarea('checkFeeText', 'Green box: text', {
@@ -208,6 +224,21 @@ export const donateSchema: PageSchema<DonateContent> = {
           help: 'Each instruction shows as its own numbered line.',
         }),
         text('checkDetailsTitle', 'Step 2 heading'),
+        text('checkPayableTo', 'Check details: make payable to', {
+          help: 'Also prints on the pledge and receipt PDFs and shows on the News page. If emptied, the original value from the code is used.',
+        }),
+        text('checkMemo', 'Check details: memo / note line', {
+          help: 'Also prints on the pledge PDF and shows on the News page. If emptied, the original value from the code is used.',
+        }),
+        text('checkMailingAddress', 'Check details: mailing address', {
+          help: 'Also prints on the pledge PDF and shows on the News page. If emptied, the original value from the code is used.',
+        }),
+        text('checkLinkLabel', 'Check details: link text', {
+          help: 'Shown as a link under the check details, for example the church website.',
+        }),
+        text('checkLinkUrl', 'Check details: link address', {
+          help: 'Full web address starting with https://. Leave empty to show no link.',
+        }),
         text('checkPledgeTitle', 'Step 3 heading'),
         textarea('checkPledgeText', 'Step 3 text', { rows: 3 }),
         text('checkSubmitLabel', 'Submit button'),

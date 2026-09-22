@@ -74,6 +74,14 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 3, same evening**: the "Check Details" step is gone entirely, per the client.
+The white details box (payable to / memo / mailing address / optional link) now sits
+directly under the "Mail it to First Baptist Sweetwater" instruction inside the
+"Giving Details for US Donors" section, with no heading or green circle of its own; the
+remaining steps renumbered to 1 (Confirm Your Pledge) and 2 (Prefer to Just Email Us).
+The `checkDetailsTitle` field was removed with its element (orphaning any saved override
+for it, by design — the heading no longer renders).
+
 **Follow-up 2, same evening**: "Giving Details for US Donors" is now the check panel's
 heading, per the client. The first section's green "1" circle is gone: the old
 "How Check Giving Works" step heading is now a plain serif panel heading (new default

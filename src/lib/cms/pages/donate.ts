@@ -27,7 +27,6 @@ export type DonateContent = {
   checkFeeText: string;
   checkStepsTitle: string;
   checkSteps: string[];
-  checkDetailsTitle: string;
   checkPayableTo: string;
   checkMemo: string;
   checkMailingAddress: string;
@@ -71,7 +70,6 @@ export type DonateFormCopy = Pick<
   | 'checkFeeText'
   | 'checkStepsTitle'
   | 'checkSteps'
-  | 'checkDetailsTitle'
   | 'checkPayableTo'
   | 'checkMemo'
   | 'checkMailingAddress'
@@ -118,7 +116,6 @@ const defaults: DonateContent = {
     'Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift reaches families in Wakiso, Uganda.',
   checkStepsTitle: 'Giving Details for US Donors',
   checkSteps: ['Mail it to First Baptist Sweetwater'],
-  checkDetailsTitle: 'Check Details',
   checkPayableTo: US_CHECK_DETAILS.payableTo,
   checkMemo: US_CHECK_DETAILS.memo,
   checkMailingAddress: US_CHECK_DETAILS.mailingAddress,
@@ -231,7 +228,6 @@ export const donateSchema: PageSchema<DonateContent> = {
           input: 'text',
           help: 'Each instruction shows as its own numbered line.',
         }),
-        text('checkDetailsTitle', 'Step 1 heading'),
         text('checkPayableTo', 'Check details: make payable to', {
           help: 'Also prints on the pledge and receipt PDFs and shows on the News page. If emptied, the original value from the code is used.',
         }),
@@ -254,11 +250,11 @@ export const donateSchema: PageSchema<DonateContent> = {
           rows: 4,
           help: 'A blank line starts a new paragraph.',
         }),
-        text('checkPledgeTitle', 'Step 2 heading'),
-        textarea('checkPledgeText', 'Step 2 text', { rows: 3 }),
+        text('checkPledgeTitle', 'Step 1 heading'),
+        textarea('checkPledgeText', 'Step 1 text', { rows: 3 }),
         text('checkSubmitLabel', 'Submit button'),
-        text('checkEmailTitle', 'Step 3 heading'),
-        textarea('checkEmailText', 'Step 3 text', {
+        text('checkEmailTitle', 'Step 2 heading'),
+        textarea('checkEmailText', 'Step 2 text', {
           rows: 3,
           help: 'The email address and phone numbers below it come from the site contact details.',
         }),

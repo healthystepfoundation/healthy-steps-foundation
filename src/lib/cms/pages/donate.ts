@@ -222,7 +222,7 @@ export const donateSchema: PageSchema<DonateContent> = {
           help: 'If this mentions the transfer fee amount, keep it matching the real fee.',
         }),
         text('checkStepsTitle', 'Panel heading', {
-          help: 'Shown as a heading at the top of the check giving panel, above the instructions.',
+          help: 'Shown as a heading at the top of the check giving panel, above the instructions. If emptied, the original heading from the code is used.',
         }),
         strings('checkSteps', 'Instructions', 'instruction', {
           input: 'text',

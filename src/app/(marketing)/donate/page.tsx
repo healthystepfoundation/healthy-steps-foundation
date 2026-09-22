@@ -30,6 +30,9 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
     checkPayableTo: checkDetails.payableTo,
     checkMemo: checkDetails.memo,
     checkMailingAddress: checkDetails.mailingAddress,
+    // The check panel needs its heading; an emptied save (the live override is
+    // "" from before this was the panel heading) falls back to the default.
+    checkStepsTitle: content.checkStepsTitle.trim() || donateSchema.defaults.checkStepsTitle,
   };
   const showSidebar = !sectionHidden(content, 'sidebar');
 

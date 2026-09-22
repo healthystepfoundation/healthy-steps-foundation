@@ -74,6 +74,14 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 5, same evening**: the heading wasn't showing on the live site. Diagnosed by
+fetching the production page: the saved donate override has `checkStepsTitle: ""` — the
+client emptied the field back when it was the "How Check Giving Works" step heading, and
+the empty save shadowed the new default. (The saved instructions list is clean: just
+"Mail it to First Baptist Sweetwater".) Fix: an emptied panel heading now falls back to
+the code default in `donate/page.tsx`, same philosophy as the check-details fallback —
+the panel needs its heading. Live check also confirmed today's deploys are all live.
+
 **Follow-up 4, same evening**: the instruction lines ("Mail it to First Baptist
 Sweetwater") lost their amber numbered circles and are now plain bold text under the
 panel heading, per the client.

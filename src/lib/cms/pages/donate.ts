@@ -119,7 +119,7 @@ const defaults: DonateContent = {
   checkPayableTo: US_CHECK_DETAILS.payableTo,
   checkMemo: US_CHECK_DETAILS.memo,
   checkMailingAddress: US_CHECK_DETAILS.mailingAddress,
-  checkLinkLabel: 'Online at: First Baptist Sweetwater giving form',
+  checkLinkLabel: 'First Baptist Sweetwater giving form',
   checkLinkUrl:
     'https://forms.ministryforms.net/embed.aspx?formId=5a264585-c054-4504-a484-32ce8dea6b00&custom-templates=',
   checkNoteTitle: '',
@@ -239,7 +239,7 @@ export const donateSchema: PageSchema<DonateContent> = {
           help: 'Also prints on the pledge PDF and shows on the News page. If emptied, the original value from the code is used.',
         }),
         text('checkLinkLabel', 'Give-online link: text', {
-          help: 'Shown as a link between the check details box and the pledge step, and in the pledge confirmation.',
+          help: 'The link text in the "Online at" row of the check details box, also shown in the pledge confirmation.',
         }),
         text('checkLinkUrl', 'Give-online link: address', {
           help: 'Full web address starting with https://. Leave empty to show no link.',

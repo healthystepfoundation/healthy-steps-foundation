@@ -74,6 +74,12 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 8, same evening**: the give-online link moved into the check details box as a
+fourth aligned row — "Online at" label on the left, the link text
+("First Baptist Sweetwater giving form", opens in a new tab) right-aligned with the other
+values. Same row in the pledge success modal. The "Online at:" prefix left the editable
+link text since it is now the row label in code.
+
 **Follow-up 7, same evening**: step 1 renamed to "By Mail" (the old
 "Mail it to First Baptist Sweetwater" default was never stored as an override — verified
 against the live payload earlier — so the code-default change reaches the site), and the

@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   logo: {
-    width: 150,
-    height: 50,
+    width: 62,
+    height: 62,
     objectFit: 'contain',
   },
   letterheadRight: {

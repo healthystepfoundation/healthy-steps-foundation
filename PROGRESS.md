@@ -49,6 +49,26 @@ Everything else needed for launch is built.
 
 ## Timeline
 
+### 2026-09-22 — New stacked logo (client request)
+
+The client supplied a new logo: the leaf-footprint mark stacked above "HEALTHY STEPS
+Foundation / A path to mental wellness", square (500×500) where the old lockup was horizontal
+(1600×538). Supplied as identical png and webp; the webp won (86KB vs 118KB, same pixels) and
+replaced `public/HSF_logo.webp` at the same path, so every reference (header, drawer, footer,
+media manifest, any saved CMS override) keeps working with no orphaned keys.
+
+Because the aspect ratio changed, the `next/image` width/height props were corrected to square
+in the header (224×224), drawer (112×112, shown h-12) and footer (160×160, shown h-20 so the
+wordmark stays legible in the white pill). The PDF letterheads were updated too: `pdf/logo.ts`
+regenerated from the new artwork (300px PNG data URI) and the logo boxes in the receipt and
+pledge PDFs made square (62×62 / 56×56, `objectFit: contain`).
+
+Verified with CDP-emulated screenshots at 1440px and 390px: header at rest and compressed on
+both, mobile drawer, footer pill, and a 390px overflow measurement (scrollWidth 390, no
+horizontal scroll). The favicon already uses the same leaf-footprint mark, unchanged.
+`public/HSFlogo.png` (an old lockup, still pickable in the editor's media list) was left in
+place in case a saved override references it — worth deleting once confirmed unused.
+
 ### 2026-09-22 — Donate page: the giving-form boxes are now editable in the CMS
 
 The client asked for more of the Donate page to be editable than the admin panel allowed. The

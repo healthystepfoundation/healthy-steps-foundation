@@ -219,8 +219,8 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
           <Image
             src="/HSF_logo.webp"
             alt="Healthy Steps Foundation, a path to mental wellness"
-            width={440}
-            height={148}
+            width={224}
+            height={224}
             priority
             className={cn(
               'w-auto object-contain transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
@@ -375,9 +375,9 @@ export default function Header({ programs }: { programs: ProgramView[] }): React
                   <Image
                     src="/HSF_logo.webp"
                     alt="Healthy Steps Foundation"
-                    width={200}
-                    height={67}
-                    className="h-11 w-auto object-contain"
+                    width={112}
+                    height={112}
+                    className="h-12 w-auto object-contain"
                   />
                 </Link>
                 <button

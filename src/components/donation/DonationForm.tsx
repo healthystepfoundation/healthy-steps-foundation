@@ -14,6 +14,7 @@ import CurrencyConverter from './CurrencyConverter';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
+import type { DonateFormCopy } from '@/lib/cms/pages/donate';
 import type { DonationFund } from '@/types';
 
 interface SuccessData {
@@ -65,10 +66,12 @@ function SwiftRow({ label, value }: { label: string; value: string }): React.JSX
 }
 
 export default function DonationForm({
+  copy,
   defaultAmount,
   defaultFund,
   defaultType,
 }: {
+  copy: DonateFormCopy;
   defaultAmount?: number;
   defaultFund?: DonationFund;
   defaultType?: 'one-time' | 'recurring';
@@ -152,7 +155,7 @@ export default function DonationForm({
         <div className="space-y-6">
           <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100">
             <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</div>
-            <h3 className="font-bold text-warm-gray-900">Gift Details</h3>
+            <h3 className="font-bold text-warm-gray-900">{copy.swiftStep1Title}</h3>
           </div>
 
           {/* Donation Type Toggle */}
@@ -230,7 +233,7 @@ export default function DonationForm({
         <div className="space-y-4">
           <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100">
             <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</div>
-            <h3 className="font-bold text-warm-gray-900">Bank Transfer Fee</h3>
+            <h3 className="font-bold text-warm-gray-900">{copy.swiftStep2Title}</h3>
           </div>
           <BankFeeCheckbox
             checked={watchCoverBankFee}
@@ -274,7 +277,7 @@ export default function DonationForm({
         <div className="space-y-4">
           <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100">
             <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">3</div>
-            <h3 className="font-bold text-warm-gray-900">Your Information</h3>
+            <h3 className="font-bold text-warm-gray-900">{copy.swiftStep3Title}</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input id="firstName" label="First Name" placeholder="Jane"
@@ -305,12 +308,11 @@ export default function DonationForm({
         )}
 
         <Button type="submit" variant="primary" size="lg" className="w-full text-base" disabled={isSubmitting}>
-          {isSubmitting ? 'Processing...' : 'Get Transfer Instructions →'}
+          {isSubmitting ? 'Processing...' : `${copy.swiftSubmitLabel} →`}
         </Button>
 
         <p className="text-xs text-warm-gray-400 text-center">
-          By proceeding, you agree to complete a SWIFT bank transfer using the instructions provided.
-          No payment is taken through this website.
+          {copy.swiftDisclaimer}
         </p>
       </form>
 

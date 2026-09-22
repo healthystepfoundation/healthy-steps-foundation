@@ -1,4 +1,4 @@
-import { icon, image, list, text, textarea, media } from '../fields';
+import { icon, image, list, strings, text, textarea, media } from '../fields';
 import type { ContentItem, MediaValue, PageSchema } from '../types';
 
 export type DonateContent = {
@@ -10,6 +10,29 @@ export type DonateContent = {
   formTitle: string;
   formLead: string;
 
+  methodPrompt: string;
+  methodSwiftLabel: string;
+  methodSwiftSublabel: string;
+  methodCheckLabel: string;
+  methodCheckSublabel: string;
+
+  swiftStep1Title: string;
+  swiftStep2Title: string;
+  swiftStep3Title: string;
+  swiftSubmitLabel: string;
+  swiftDisclaimer: string;
+
+  checkFeeTitle: string;
+  checkFeeText: string;
+  checkStepsTitle: string;
+  checkSteps: string[];
+  checkDetailsTitle: string;
+  checkPledgeTitle: string;
+  checkPledgeText: string;
+  checkSubmitLabel: string;
+  checkEmailTitle: string;
+  checkEmailText: string;
+
   secureTitle: string;
   secureText: string;
 
@@ -18,6 +41,35 @@ export type DonateContent = {
 
   trustPoints: ContentItem[];
 };
+
+/**
+ * The slice of the donate content that the client-side giving form needs.
+ * The server page fetches once and passes this down as a prop, since the
+ * form components are 'use client' and cannot call getPageContent themselves.
+ */
+export type DonateFormCopy = Pick<
+  DonateContent,
+  | 'methodPrompt'
+  | 'methodSwiftLabel'
+  | 'methodSwiftSublabel'
+  | 'methodCheckLabel'
+  | 'methodCheckSublabel'
+  | 'swiftStep1Title'
+  | 'swiftStep2Title'
+  | 'swiftStep3Title'
+  | 'swiftSubmitLabel'
+  | 'swiftDisclaimer'
+  | 'checkFeeTitle'
+  | 'checkFeeText'
+  | 'checkStepsTitle'
+  | 'checkSteps'
+  | 'checkDetailsTitle'
+  | 'checkPledgeTitle'
+  | 'checkPledgeText'
+  | 'checkSubmitLabel'
+  | 'checkEmailTitle'
+  | 'checkEmailText'
+>;
 
 const defaults: DonateContent = {
   heroEyebrow: 'Give Today',
@@ -32,6 +84,33 @@ const defaults: DonateContent = {
   formTitle: 'Make Your Gift',
   formLead:
     "Choose how you'd like to give below. US donors can give by check or by SWIFT bank transfer. International donors must use SWIFT bank transfer.",
+
+  methodPrompt: 'How would you like to give?',
+  methodSwiftLabel: 'International Transfer',
+  methodSwiftSublabel: 'SWIFT bank transfer, available worldwide',
+  methodCheckLabel: 'US Donors: Give by Check',
+  methodCheckSublabel: 'Zero transfer fee when you donate by check',
+
+  swiftStep1Title: 'Gift Details',
+  swiftStep2Title: 'Bank Transfer Fee',
+  swiftStep3Title: 'Your Information',
+  swiftSubmitLabel: 'Get Transfer Instructions',
+  swiftDisclaimer:
+    'By proceeding, you agree to complete a SWIFT bank transfer using the instructions provided. No payment is taken through this website.',
+
+  checkFeeTitle: 'Zero Transfer Fees',
+  checkFeeText:
+    'Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift reaches families in Wakiso, Uganda.',
+  checkStepsTitle: 'How Check Giving Works',
+  checkSteps: ['Mail it to First Baptist Sweetwater'],
+  checkDetailsTitle: 'Check Details',
+  checkPledgeTitle: 'Confirm Your Pledge',
+  checkPledgeText:
+    "Tell us what you're giving so we can send you an invoice for your records and follow up once your check arrives.",
+  checkSubmitLabel: 'Confirm Pledge',
+  checkEmailTitle: 'Prefer to Just Email Us?',
+  checkEmailText:
+    "Once your check is in the mail, you can also reach us directly and we'll confirm receipt and send a personal thank-you within 2 business days.",
 
   secureTitle: 'Secure Giving',
   secureText: 'SWIFT or check. No card data is ever stored.',
@@ -81,10 +160,62 @@ export const donateSchema: PageSchema<DonateContent> = {
       id: 'form',
       label: 'Giving form',
       description:
-        'Only the wording above the form. The bank details, amounts and fee are set in the code, since they must match what the bank and the confirmation emails say.',
+        'The wording above the form. The bank details, amounts and fee are set in the code, since they must match what the bank and the confirmation emails say.',
       fields: [
         text('formTitle', 'Heading'),
         textarea('formLead', 'Body text', { rows: 3 }),
+      ],
+    },
+    {
+      id: 'method',
+      label: 'How to give boxes',
+      description: 'The two boxes where a donor picks between SWIFT transfer and check.',
+      fields: [
+        text('methodPrompt', 'Question above the boxes'),
+        text('methodSwiftLabel', 'International Transfer box: title'),
+        text('methodSwiftSublabel', 'International Transfer box: small text'),
+        text('methodCheckLabel', 'Check box: title'),
+        text('methodCheckSublabel', 'Check box: small text'),
+      ],
+    },
+    {
+      id: 'swift-form',
+      label: 'SWIFT transfer form',
+      description:
+        'The wording inside the international transfer form. The field labels, amounts, fee and the bank details in the confirmation are set in the code.',
+      fields: [
+        text('swiftStep1Title', 'Step 1 heading'),
+        text('swiftStep2Title', 'Step 2 heading'),
+        text('swiftStep3Title', 'Step 3 heading'),
+        text('swiftSubmitLabel', 'Submit button'),
+        textarea('swiftDisclaimer', 'Small print under the button', { rows: 3 }),
+      ],
+    },
+    {
+      id: 'check',
+      label: 'Check giving panel',
+      description:
+        'The boxes shown when a donor picks check giving. The payable-to, memo and mailing address are set in the code, since they must match the church.',
+      fields: [
+        text('checkFeeTitle', 'Green box: title'),
+        textarea('checkFeeText', 'Green box: text', {
+          rows: 3,
+          help: 'If this mentions the transfer fee amount, keep it matching the real fee.',
+        }),
+        text('checkStepsTitle', 'Step 1 heading'),
+        strings('checkSteps', 'Instructions', 'instruction', {
+          input: 'text',
+          help: 'Each instruction shows as its own numbered line.',
+        }),
+        text('checkDetailsTitle', 'Step 2 heading'),
+        text('checkPledgeTitle', 'Step 3 heading'),
+        textarea('checkPledgeText', 'Step 3 text', { rows: 3 }),
+        text('checkSubmitLabel', 'Submit button'),
+        text('checkEmailTitle', 'Step 4 heading'),
+        textarea('checkEmailText', 'Step 4 text', {
+          rows: 3,
+          help: 'The email address and phone numbers below it come from the site contact details.',
+        }),
       ],
     },
     {

@@ -4,7 +4,7 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-21
+**Last updated**: 2026-09-22
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 **Domain**: healthystepsfoundation.org — bought, pointed at Vercel, and verified in Resend
@@ -48,6 +48,34 @@ Everything else needed for launch is built.
 ---
 
 ## Timeline
+
+### 2026-09-22 — Donate page: the giving-form boxes are now editable in the CMS
+
+The client asked for more of the Donate page to be editable than the admin panel allowed. The
+donate schema previously covered only the hero, the two headings above the form, the sidebar
+cards and the bottom strip; everything inside the giving area was hardcoded. Now editable, in
+three new editor groups on `/admin/content` → Donate:
+
+- **How to give boxes** — the "How would you like to give?" prompt and both method boxes
+  (title + small text for International Transfer and US check).
+- **SWIFT transfer form** — the three step headings, the submit button label, and the
+  small print under the button.
+- **Check giving panel** — the Zero Transfer Fees box (title + text), the numbered
+  instructions (a strings list, so more steps can be added), the four step headings, the
+  pledge intro text, the submit button label, and the "Prefer to Just Email Us?" text.
+
+Deliberately still in code: the payable-to / memo / mailing address, the SWIFT bank details,
+the amounts and the $45 fee (must match the bank and the emails), the form field labels and
+validation messages, and both success modals (their wording parallels the confirmation
+emails). The check fee text default mentions "$45" — the editor field carries a help note to
+keep it matching the real fee if it ever changes.
+
+Plumbing: the form components are `'use client'`, so `donate/page.tsx` fetches once and
+passes a `DonateFormCopy` slice (exported from `cms/pages/donate.ts`) down through
+`DonatePageClient` into `DonationForm` and `CheckDonationPanel`. All keys are new, so no
+saved override is orphaned.
+
+Verified: production build green (26 routes), `npm run test:cms` green.
 
 ### 2026-09-21 — Receipts, de-AI polish, keep-alive cron, new logo + favicon (`575fade`..`a1832f2`, 7 commits)
 

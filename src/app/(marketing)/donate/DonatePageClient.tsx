@@ -6,6 +6,7 @@ import { Globe, FileText } from 'lucide-react';
 import DonationForm from '@/components/donation/DonationForm';
 import CheckDonationPanel from '@/components/donation/CheckDonationPanel';
 import { cn } from '@/lib/utils';
+import type { DonateFormCopy } from '@/lib/cms/pages/donate';
 import type { DonationFund } from '@/types';
 
 type PaymentMethod = 'swift' | 'us-check';
@@ -17,29 +18,33 @@ interface MethodOption {
   sublabel: string;
 }
 
+interface DonatePageClientProps {
+  copy: DonateFormCopy;
+}
+
 const VALID_FUNDS: DonationFund[] = [
   'food-closet', 'clothing-closet', 'children-tuition',
   'adult-vocation', 'family-medical', 'resource-materials', 'where-needed-most',
 ];
 
-const METHODS: MethodOption[] = [
-  {
-    id: 'swift',
-    icon: Globe,
-    label: 'International Transfer',
-    sublabel: 'SWIFT bank transfer, available worldwide',
-  },
-  {
-    id: 'us-check',
-    icon: FileText,
-    label: 'US Donors: Give by Check',
-    sublabel: 'Zero transfer fee when you donate by check',
-  },
-];
-
-export default function DonatePageClient(): React.JSX.Element {
+export default function DonatePageClient({ copy }: DonatePageClientProps): React.JSX.Element {
   const params = useSearchParams();
   const [method, setMethod] = useState<PaymentMethod>('swift');
+
+  const methods: MethodOption[] = [
+    {
+      id: 'swift',
+      icon: Globe,
+      label: copy.methodSwiftLabel,
+      sublabel: copy.methodSwiftSublabel,
+    },
+    {
+      id: 'us-check',
+      icon: FileText,
+      label: copy.methodCheckLabel,
+      sublabel: copy.methodCheckSublabel,
+    },
+  ];
 
   const amount = Number(params.get('amount')) || undefined;
   const rawFund = params.get('fund');
@@ -53,9 +58,9 @@ export default function DonatePageClient(): React.JSX.Element {
 
       {/* Payment method picker */}
       <div>
-        <p className="text-sm font-semibold text-warm-gray-700 mb-3">How would you like to give?</p>
+        <p className="text-sm font-semibold text-warm-gray-700 mb-3">{copy.methodPrompt}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {METHODS.map(({ id, icon: Icon, label, sublabel }) => {
+          {methods.map(({ id, icon: Icon, label, sublabel }) => {
             const isActive = method === id;
             return (
               <button
@@ -102,9 +107,9 @@ export default function DonatePageClient(): React.JSX.Element {
 
       {/* Active payment panel */}
       {method === 'swift' ? (
-        <DonationForm defaultAmount={amount} defaultFund={fund} defaultType={type} />
+        <DonationForm copy={copy} defaultAmount={amount} defaultFund={fund} defaultType={type} />
       ) : (
-        <CheckDonationPanel />
+        <CheckDonationPanel copy={copy} />
       )}
 
     </div>

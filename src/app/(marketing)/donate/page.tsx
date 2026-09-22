@@ -67,7 +67,7 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
                   <RefreshCw size={20} className="animate-spin mr-2" /> Loading...
                 </div>
               }>
-                <DonatePageClient />
+                <DonatePageClient copy={content} />
               </Suspense>
             </div>
 

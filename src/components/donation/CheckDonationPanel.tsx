@@ -12,6 +12,7 @@ import FundSelector from './FundSelector';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
+import type { DonateFormCopy } from '@/lib/cms/pages/donate';
 
 interface CheckSuccessData {
   firstName: string;
@@ -63,13 +64,7 @@ function CopyRow({ label, value }: { label: string; value: string }): React.JSX.
   );
 }
 
-// Trimmed to the single instruction the client asked to keep — the check
-// details immediately below carry the rest of what a donor needs.
-const CHECK_STEPS = [
-  { step: '1', text: 'Mail it to First Baptist Sweetwater' },
-] as const;
-
-export default function CheckDonationPanel(): React.JSX.Element {
+export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): React.JSX.Element {
   const [successData, setSuccessData] = useState<CheckSuccessData | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -134,10 +129,9 @@ export default function CheckDonationPanel(): React.JSX.Element {
           <CheckCircle size={20} className="text-white" />
         </div>
         <div>
-          <p className="font-bold text-forest-green-900 mb-1">Zero Transfer Fees</p>
+          <p className="font-bold text-forest-green-900 mb-1">{copy.checkFeeTitle}</p>
           <p className="text-sm text-warm-gray-600 leading-relaxed">
-            Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift
-            reaches families in Wakiso, Uganda.
+            {copy.checkFeeText}
           </p>
         </div>
       </div>
@@ -146,13 +140,13 @@ export default function CheckDonationPanel(): React.JSX.Element {
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-5">
           <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</div>
-          <h3 className="font-bold text-warm-gray-900">How Check Giving Works</h3>
+          <h3 className="font-bold text-warm-gray-900">{copy.checkStepsTitle}</h3>
         </div>
         <ol className="space-y-4">
-          {CHECK_STEPS.map(({ step, text }) => (
-            <li key={step} className="flex gap-4 items-start">
+          {copy.checkSteps.map((text, i) => (
+            <li key={i} className="flex gap-4 items-start">
               <span className="shrink-0 w-7 h-7 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                {step}
+                {i + 1}
               </span>
               <span className="text-warm-gray-600 text-sm leading-relaxed pt-0.5">{text}</span>
             </li>
@@ -164,7 +158,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-4">
           <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</div>
-          <h3 className="font-bold text-warm-gray-900">Check Details</h3>
+          <h3 className="font-bold text-warm-gray-900">{copy.checkDetailsTitle}</h3>
         </div>
         <div className="bg-white border border-warm-gray-200 rounded-xl p-5 shadow-sm">
           <CopyRow label="Make payable to" value={US_CHECK_DETAILS.payableTo} />
@@ -181,11 +175,10 @@ export default function CheckDonationPanel(): React.JSX.Element {
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-5">
           <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">3</div>
-          <h3 className="font-bold text-warm-gray-900">Confirm Your Pledge</h3>
+          <h3 className="font-bold text-warm-gray-900">{copy.checkPledgeTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-5">
-          Tell us what you&apos;re giving so we can send you an invoice for your records and
-          follow up once your check arrives.
+          {copy.checkPledgeText}
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
@@ -292,7 +285,7 @@ export default function CheckDonationPanel(): React.JSX.Element {
           )}
 
           <Button type="submit" variant="primary" size="lg" className="w-full text-base" disabled={isSubmitting}>
-            {isSubmitting ? 'Processing...' : 'Confirm Pledge →'}
+            {isSubmitting ? 'Processing...' : `${copy.checkSubmitLabel} →`}
           </Button>
         </form>
       </div>
@@ -301,11 +294,10 @@ export default function CheckDonationPanel(): React.JSX.Element {
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-4">
           <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">4</div>
-          <h3 className="font-bold text-warm-gray-900">Prefer to Just Email Us?</h3>
+          <h3 className="font-bold text-warm-gray-900">{copy.checkEmailTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-4">
-          Once your check is in the mail, you can also reach us directly and we&apos;ll confirm receipt
-          and send a personal thank-you within 2 business days.
+          {copy.checkEmailText}
         </p>
         <a
           href={`mailto:${ORG.email}?subject=Check%20Donation%20-%20Healthy%20Steps%20Foundation`}

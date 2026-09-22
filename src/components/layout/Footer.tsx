@@ -34,9 +34,9 @@ export default function Footer({ content }: FooterProps): React.JSX.Element {
                 <Image
                   src="/HSF_logo.webp"
                   alt="Healthy Steps Foundation"
-                  width={160}
-                  height={160}
-                  className="h-20 w-auto object-contain"
+                  width={231}
+                  height={106}
+                  className="h-14 w-auto object-contain"
                 />
               </div>
             </Link>

@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   logo: {
-    width: 56,
-    height: 56,
+    width: 126,
+    height: 58,
     objectFit: 'contain',
   },
   orgBlock: {

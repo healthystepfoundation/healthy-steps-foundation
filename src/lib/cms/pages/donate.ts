@@ -33,6 +33,8 @@ export type DonateContent = {
   checkMailingAddress: string;
   checkLinkLabel: string;
   checkLinkUrl: string;
+  checkNoteTitle: string;
+  checkNoteText: string;
   checkPledgeTitle: string;
   checkPledgeText: string;
   checkSubmitLabel: string;
@@ -75,6 +77,8 @@ export type DonateFormCopy = Pick<
   | 'checkMailingAddress'
   | 'checkLinkLabel'
   | 'checkLinkUrl'
+  | 'checkNoteTitle'
+  | 'checkNoteText'
   | 'checkPledgeTitle'
   | 'checkPledgeText'
   | 'checkSubmitLabel'
@@ -120,6 +124,8 @@ const defaults: DonateContent = {
   checkMailingAddress: US_CHECK_DETAILS.mailingAddress,
   checkLinkLabel: '',
   checkLinkUrl: '',
+  checkNoteTitle: '',
+  checkNoteText: '',
   checkPledgeTitle: 'Confirm Your Pledge',
   checkPledgeText:
     "Tell us what you're giving so we can send you an invoice for your records and follow up once your check arrives.",
@@ -238,6 +244,13 @@ export const donateSchema: PageSchema<DonateContent> = {
         }),
         text('checkLinkUrl', 'Check details: link address', {
           help: 'Full web address starting with https://. Leave empty to show no link.',
+        }),
+        text('checkNoteTitle', 'Extra box before the pledge: heading', {
+          help: 'An optional box shown between the check details and the pledge form. Leave both fields empty to show no box.',
+        }),
+        textarea('checkNoteText', 'Extra box before the pledge: text', {
+          rows: 4,
+          help: 'A blank line starts a new paragraph.',
         }),
         text('checkPledgeTitle', 'Step 3 heading'),
         textarea('checkPledgeText', 'Step 3 text', { rows: 3 }),

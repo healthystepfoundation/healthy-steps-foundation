@@ -74,6 +74,13 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up, same evening**: the client also asked "can something be added before confirm
+your pledge". Two more fields in the same editor group ("Extra box before the pledge:
+heading / text") render an amber note box between the Check Details box and the Confirm
+Your Pledge form. Both default to empty, so nothing shows until the client writes
+something; blank lines in the text become paragraphs. The client hasn't said what they
+want the box to say, so it ships empty for them to fill in.
+
 Verified: `npm run test:cms` green (35), TypeScript clean, production build green (26 routes).
 ⚠️ Not yet done: telling the client where the new fields live (Donate → Check giving panel,
 under the Step 2 heading) — they asked for this by message and will go looking.

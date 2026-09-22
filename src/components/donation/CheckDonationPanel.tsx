@@ -183,6 +183,23 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
         </p>
       </div>
 
+      {/* Optional editor-written box between the check details and the pledge form */}
+      {(copy.checkNoteTitle.trim() !== '' || copy.checkNoteText.trim() !== '') && (
+        <div className="bg-amber-50 border border-amber-100 rounded-xl p-5">
+          {copy.checkNoteTitle.trim() !== '' && (
+            <p className="font-bold text-warm-gray-900 mb-2">{copy.checkNoteTitle}</p>
+          )}
+          {copy.checkNoteText
+            .split(/\n\s*\n/)
+            .map((paragraph) => paragraph.trim())
+            .filter(Boolean)
+            .map((paragraph, i) => (
+              <p key={i} className="text-sm text-warm-gray-600 leading-relaxed mt-2 first:mt-0">
+                {paragraph}
+              </p>
+            ))}
+        </div>
+      )}
 
       {/* Pledge form */}
       <div>

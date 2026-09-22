@@ -141,16 +141,13 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
         <div className="pb-3 border-b border-warm-gray-100 mb-5">
           <h3 className="text-lg font-bold font-serif text-warm-gray-900">{copy.checkStepsTitle}</h3>
         </div>
-        <ol className="space-y-4">
+        <ul className="space-y-2">
           {copy.checkSteps.map((text, i) => (
-            <li key={i} className="flex gap-4 items-start">
-              <span className="shrink-0 w-7 h-7 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                {i + 1}
-              </span>
-              <span className="text-warm-gray-600 text-sm leading-relaxed pt-0.5">{text}</span>
+            <li key={i} className="text-warm-gray-900 text-sm font-bold leading-relaxed">
+              {text}
             </li>
           ))}
-        </ol>
+        </ul>
 
         {/* Check details box, directly under the instructions (client request:
             no "Check Details" step heading of its own) */}

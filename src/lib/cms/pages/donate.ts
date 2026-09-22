@@ -226,7 +226,7 @@ export const donateSchema: PageSchema<DonateContent> = {
         }),
         strings('checkSteps', 'Instructions', 'instruction', {
           input: 'text',
-          help: 'Each instruction shows as its own numbered line.',
+          help: 'Each instruction shows as its own bold line under the heading.',
         }),
         text('checkPayableTo', 'Check details: make payable to', {
           help: 'Also prints on the pledge and receipt PDFs and shows on the News page. If emptied, the original value from the code is used.',

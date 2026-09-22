@@ -74,6 +74,10 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 4, same evening**: the instruction lines ("Mail it to First Baptist
+Sweetwater") lost their amber numbered circles and are now plain bold text under the
+panel heading, per the client.
+
 **Follow-up 3, same evening**: the "Check Details" step is gone entirely, per the client.
 The white details box (payable to / memo / mailing address / optional link) now sits
 directly under the "Mail it to First Baptist Sweetwater" instruction inside the

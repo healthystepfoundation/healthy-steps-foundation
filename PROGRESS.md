@@ -74,6 +74,17 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 2, same evening**: "Giving Details for US Donors" is now the check panel's
+heading, per the client. The first section's green "1" circle is gone: the old
+"How Check Giving Works" step heading is now a plain serif panel heading (new default
+"Giving Details for US Donors"), and the remaining green circles renumbered 2/3/4 →
+1/2/3 (editor labels updated to match). ⚠️ The client appears to have typed
+"Giving Details for US Donors" as a line in the Instructions list in the editor — a
+saved override we cannot change from code. After deploy they (or the user) must open
+`/admin/content` → Donate → Check giving panel, delete that instruction line, and check
+the "Panel heading" field shows the new text (re-save or reset if an old override
+shadows it).
+
 **Follow-up, same evening**: the client also asked "can something be added before confirm
 your pledge". Two more fields in the same editor group ("Extra box before the pledge:
 heading / text") render an amber note box between the Check Details box and the Confirm

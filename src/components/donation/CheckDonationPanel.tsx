@@ -136,11 +136,10 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
         </div>
       </div>
 
-      {/* Steps */}
+      {/* Panel heading + instructions (a heading, not a numbered step — client request) */}
       <div>
-        <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-5">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</div>
-          <h3 className="font-bold text-warm-gray-900">{copy.checkStepsTitle}</h3>
+        <div className="pb-3 border-b border-warm-gray-100 mb-5">
+          <h3 className="text-lg font-bold font-serif text-warm-gray-900">{copy.checkStepsTitle}</h3>
         </div>
         <ol className="space-y-4">
           {copy.checkSteps.map((text, i) => (
@@ -157,7 +156,7 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
       {/* Check details */}
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-4">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</div>
+          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</div>
           <h3 className="font-bold text-warm-gray-900">{copy.checkDetailsTitle}</h3>
         </div>
         <div className="bg-white border border-warm-gray-200 rounded-xl p-5 shadow-sm">
@@ -204,7 +203,7 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
       {/* Pledge form */}
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-5">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">3</div>
+          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</div>
           <h3 className="font-bold text-warm-gray-900">{copy.checkPledgeTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-5">
@@ -323,7 +322,7 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
       {/* Confirm by email / phone (fallback) */}
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-4">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">4</div>
+          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">3</div>
           <h3 className="font-bold text-warm-gray-900">{copy.checkEmailTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-4">

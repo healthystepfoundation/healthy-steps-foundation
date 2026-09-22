@@ -116,7 +116,7 @@ const defaults: DonateContent = {
   checkFeeTitle: 'Zero Transfer Fees',
   checkFeeText:
     'Giving by check avoids the $45 SWIFT transfer fee, so every dollar of your gift reaches families in Wakiso, Uganda.',
-  checkStepsTitle: 'How Check Giving Works',
+  checkStepsTitle: 'Giving Details for US Donors',
   checkSteps: ['Mail it to First Baptist Sweetwater'],
   checkDetailsTitle: 'Check Details',
   checkPayableTo: US_CHECK_DETAILS.payableTo,
@@ -224,12 +224,14 @@ export const donateSchema: PageSchema<DonateContent> = {
           rows: 3,
           help: 'If this mentions the transfer fee amount, keep it matching the real fee.',
         }),
-        text('checkStepsTitle', 'Step 1 heading'),
+        text('checkStepsTitle', 'Panel heading', {
+          help: 'Shown as a heading at the top of the check giving panel, above the instructions.',
+        }),
         strings('checkSteps', 'Instructions', 'instruction', {
           input: 'text',
           help: 'Each instruction shows as its own numbered line.',
         }),
-        text('checkDetailsTitle', 'Step 2 heading'),
+        text('checkDetailsTitle', 'Step 1 heading'),
         text('checkPayableTo', 'Check details: make payable to', {
           help: 'Also prints on the pledge and receipt PDFs and shows on the News page. If emptied, the original value from the code is used.',
         }),
@@ -252,11 +254,11 @@ export const donateSchema: PageSchema<DonateContent> = {
           rows: 4,
           help: 'A blank line starts a new paragraph.',
         }),
-        text('checkPledgeTitle', 'Step 3 heading'),
-        textarea('checkPledgeText', 'Step 3 text', { rows: 3 }),
+        text('checkPledgeTitle', 'Step 2 heading'),
+        textarea('checkPledgeText', 'Step 2 text', { rows: 3 }),
         text('checkSubmitLabel', 'Submit button'),
-        text('checkEmailTitle', 'Step 4 heading'),
-        textarea('checkEmailText', 'Step 4 text', {
+        text('checkEmailTitle', 'Step 3 heading'),
+        textarea('checkEmailText', 'Step 3 text', {
           rows: 3,
           help: 'The email address and phone numbers below it come from the site contact details.',
         }),

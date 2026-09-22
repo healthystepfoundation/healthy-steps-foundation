@@ -141,13 +141,16 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
         <div className="pb-3 border-b border-warm-gray-100 mb-5">
           <h3 className="text-lg font-bold font-serif text-warm-gray-900">{copy.checkStepsTitle}</h3>
         </div>
-        <ul className="space-y-2">
+        <ol className="space-y-4">
           {copy.checkSteps.map((text, i) => (
-            <li key={i} className="text-warm-gray-900 text-sm font-bold leading-relaxed">
-              {text}
+            <li key={i} className="flex gap-3 items-center">
+              <span className="shrink-0 w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center">
+                {i + 1}
+              </span>
+              <span className="text-warm-gray-900 text-sm font-bold leading-relaxed">{text}</span>
             </li>
           ))}
-        </ul>
+        </ol>
 
         {/* Check details box, directly under the instructions (client request:
             no "Check Details" step heading of its own) */}
@@ -195,7 +198,9 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
       {/* Pledge form */}
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-5">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">1</div>
+          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">
+            {copy.checkSteps.length + 1}
+          </div>
           <h3 className="font-bold text-warm-gray-900">{copy.checkPledgeTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-5">
@@ -314,7 +319,9 @@ export default function CheckDonationPanel({ copy }: { copy: DonateFormCopy }): 
       {/* Confirm by email / phone (fallback) */}
       <div>
         <div className="flex items-center gap-3 pb-3 border-b border-warm-gray-100 mb-4">
-          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">2</div>
+          <div className="w-7 h-7 rounded-full bg-forest-green-500 text-white text-xs font-bold flex items-center justify-center shrink-0">
+            {copy.checkSteps.length + 2}
+          </div>
           <h3 className="font-bold text-warm-gray-900">{copy.checkEmailTitle}</h3>
         </div>
         <p className="text-sm text-warm-gray-600 leading-relaxed mb-4">

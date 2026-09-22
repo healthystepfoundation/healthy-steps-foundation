@@ -226,7 +226,7 @@ export const donateSchema: PageSchema<DonateContent> = {
         }),
         strings('checkSteps', 'Instructions', 'instruction', {
           input: 'text',
-          help: 'Each instruction shows as its own bold line under the heading.',
+          help: 'Each instruction is a bold numbered step under the heading; the pledge and email steps continue the numbering after them.',
         }),
         text('checkPayableTo', 'Check details: make payable to', {
           help: 'Also prints on the pledge and receipt PDFs and shows on the News page. If emptied, the original value from the code is used.',
@@ -250,11 +250,11 @@ export const donateSchema: PageSchema<DonateContent> = {
           rows: 4,
           help: 'A blank line starts a new paragraph.',
         }),
-        text('checkPledgeTitle', 'Step 1 heading'),
-        textarea('checkPledgeText', 'Step 1 text', { rows: 3 }),
+        text('checkPledgeTitle', 'Pledge step heading'),
+        textarea('checkPledgeText', 'Pledge step text', { rows: 3 }),
         text('checkSubmitLabel', 'Submit button'),
-        text('checkEmailTitle', 'Step 2 heading'),
-        textarea('checkEmailText', 'Step 2 text', {
+        text('checkEmailTitle', 'Email step heading'),
+        textarea('checkEmailText', 'Email step text', {
           rows: 3,
           help: 'The email address and phone numbers below it come from the site contact details.',
         }),

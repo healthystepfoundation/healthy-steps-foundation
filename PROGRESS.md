@@ -74,6 +74,13 @@ Both delivered, without giving up the no-divergence rule that had kept those val
 - All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
   details are not in the CMS" claims updated.
 
+**Follow-up 6, same evening**: the check panel is one numbered sequence now. Each
+instruction line ("Mail it to First Baptist Sweetwater") is a bold step with a green
+number, and the pledge and email steps continue the count dynamically
+(`checkSteps.length + 1/+ 2`), so adding an instruction in the editor renumbers
+everything correctly. Editor labels renamed to "Pledge step" / "Email step" since the
+numbers are no longer fixed.
+
 **Follow-up 5, same evening**: the heading wasn't showing on the live site. Diagnosed by
 fetching the production page: the saved donate override has `checkStepsTitle: ""` — the
 client emptied the field back when it was the "How Check Giving Works" step heading, and

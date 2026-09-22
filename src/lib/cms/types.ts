@@ -107,6 +107,14 @@ export interface FieldGroup<K extends string = string> {
   /** Section name as it appears on the live page, e.g. "Our Story". */
   label: string;
   description?: string;
+  /**
+   * Marks a section staff may remove from the live page in the editor.
+   * Only set on sections the page renders fine without — never a hero,
+   * a form, or the section that is the page's reason to exist. Hidden ids
+   * are stored under the reserved `hiddenSections` content key, and the
+   * page component must gate the section with `sectionHidden()`.
+   */
+  removable?: boolean;
   fields: Field<K>[];
 }
 

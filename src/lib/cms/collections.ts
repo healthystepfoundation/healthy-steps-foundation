@@ -2,6 +2,7 @@ import 'server-only';
 import { PROGRAMS } from '@/lib/constants';
 import type { ProgramView, Testimonial, UpcomingEvent, NewsUpdate } from '@/types';
 import { getPageContent, getPagesContent } from './content';
+import { sectionHidden } from './merge';
 import { PROGRAM_SCHEMAS } from './pages/program';
 import { testimonialsSchema } from './pages/testimonials';
 import { eventsSchema } from './pages/events';
@@ -57,6 +58,7 @@ export async function getPrograms(): Promise<ProgramView[]> {
       imageAlt: photo.alt || content.name,
       whoWeServe: content.whoWeServe,
       donateBlurb: content.donateBlurb,
+      donateStripHidden: sectionHidden(content, 'donate'),
     };
   });
 }

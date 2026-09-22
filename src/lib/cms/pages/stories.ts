@@ -67,6 +67,7 @@ export const storiesSchema: PageSchema<StoriesContent> = {
     },
     {
       id: 'programs',
+      removable: true,
       label: 'Programs section',
       fields: [
         text('programsEyebrow', 'Heading'),

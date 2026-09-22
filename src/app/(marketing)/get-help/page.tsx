@@ -4,6 +4,7 @@ import { ORG } from '@/lib/constants';
 import FadeUp from '@/components/ui/FadeUp';
 import { buttonStyles } from '@/components/ui/Button';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { getHelpSchema } from '@/lib/cms/pages/get-help';
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default async function GetHelpPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Hours of Operation */}
+      {!sectionHidden(content, 'hours') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="mb-12">
@@ -80,8 +82,10 @@ export default async function GetHelpPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Our Promise */}
+      {!sectionHidden(content, 'promise') && (
       <section className="py-20 px-6 bg-forest-green-900 text-white">
         <div className="container mx-auto max-w-6xl">
           <FadeUp className="text-center mb-14">
@@ -110,8 +114,10 @@ export default async function GetHelpPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Contact CTA */}
+      {!sectionHidden(content, 'cta') && (
       <section className="py-20 px-6 bg-warm-white">
         <div className="container mx-auto max-w-3xl text-center">
           <FadeUp>
@@ -143,6 +149,7 @@ export default async function GetHelpPage(): Promise<React.JSX.Element> {
           </FadeUp>
         </div>
       </section>
+      )}
     </>
   );
 }

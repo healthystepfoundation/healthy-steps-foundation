@@ -105,6 +105,7 @@ export const staffSchema: PageSchema<StaffPageContent> = {
     },
     {
       id: 'strip',
+      removable: true,
       label: 'Numbers strip',
       description: 'The three large green numbers under the team cards.',
       fields: [
@@ -125,6 +126,7 @@ export const staffSchema: PageSchema<StaffPageContent> = {
     },
     {
       id: 'photo',
+      removable: true,
       label: 'Team photo',
       fields: [image('teamImage', 'Wide team photo')],
     },

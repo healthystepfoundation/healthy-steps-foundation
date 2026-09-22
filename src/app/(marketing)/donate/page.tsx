@@ -6,7 +6,9 @@ import DonatePageClient from './DonatePageClient';
 import { ORG } from '@/lib/constants';
 import { ContentIcon } from '@/lib/icons';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { donateSchema } from '@/lib/cms/pages/donate';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Donate',
@@ -19,6 +21,7 @@ function str(value: unknown): string {
 
 export default async function DonatePage(): Promise<React.JSX.Element> {
   const content = await getPageContent(donateSchema);
+  const showSidebar = !sectionHidden(content, 'sidebar');
 
   return (
     <>
@@ -55,8 +58,8 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
 
-            {/* Donation Form — takes 2/3 width */}
-            <div className="lg:col-span-2 bg-white rounded-2xl shadow-md p-8">
+            {/* Donation Form — takes 2/3 width, or all of it without the sidebar */}
+            <div className={cn('bg-white rounded-2xl shadow-md p-8', showSidebar ? 'lg:col-span-2' : 'lg:col-span-3')}>
               <div className="w-10 h-0.5 bg-amber-500 mb-4" />
               <h2 className="text-2xl font-bold font-serif text-warm-gray-900 mb-2">
                 {content.formTitle}
@@ -72,6 +75,7 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
             </div>
 
             {/* Sidebar — takes 1/3 width */}
+            {showSidebar && (
             <div className="space-y-6">
 
               {/* Secure Giving — replaces the former "Two Ways to Give" and
@@ -111,11 +115,13 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
               </div>
 
             </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* Bottom trust bar */}
+      {!sectionHidden(content, 'trust') && (
       <section className="py-10 px-6 bg-forest-green-900 text-white">
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
@@ -129,6 +135,7 @@ export default async function DonatePage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
     </>
   );
 }

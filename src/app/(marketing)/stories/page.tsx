@@ -4,6 +4,7 @@ import FadeUp from '@/components/ui/FadeUp';
 import StoriesGrid from '@/components/stories/StoriesGrid';
 import { getPrograms, getTestimonials } from '@/lib/cms/collections';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { storiesSchema } from '@/lib/cms/pages/stories';
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default async function StoriesPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Programs that create stories */}
+      {!sectionHidden(content, 'programs') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="text-center mb-10">
@@ -96,6 +98,7 @@ export default async function StoriesPage(): Promise<React.JSX.Element> {
           </FadeUp>
         </div>
       </section>
+      )}
 
     </>
   );

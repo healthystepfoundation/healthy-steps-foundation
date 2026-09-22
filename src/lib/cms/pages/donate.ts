@@ -220,6 +220,7 @@ export const donateSchema: PageSchema<DonateContent> = {
     },
     {
       id: 'sidebar',
+      removable: true,
       label: 'Sidebar',
       fields: [
         text('secureTitle', 'Green card heading'),
@@ -233,6 +234,7 @@ export const donateSchema: PageSchema<DonateContent> = {
     },
     {
       id: 'trust',
+      removable: true,
       label: 'Bottom strip',
       fields: [
         list('trustPoints', 'Points', {

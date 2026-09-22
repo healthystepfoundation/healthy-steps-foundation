@@ -102,6 +102,7 @@ export const getHelpSchema: PageSchema<GetHelpContent> = {
     },
     {
       id: 'hours',
+      removable: true,
       label: 'Hours of operation',
       fields: [
         text('hoursEyebrow', 'Heading'),
@@ -117,6 +118,7 @@ export const getHelpSchema: PageSchema<GetHelpContent> = {
     },
     {
       id: 'promise',
+      removable: true,
       label: 'Our promise',
       fields: [
         text('promiseEyebrow', 'Heading'),
@@ -134,6 +136,7 @@ export const getHelpSchema: PageSchema<GetHelpContent> = {
     },
     {
       id: 'cta',
+      removable: true,
       label: 'Closing call to action',
       description: 'The phone buttons and email address come from the site contact details.',
       fields: [

@@ -89,6 +89,7 @@ export default async function ProgramPage({ params }: Props): Promise<React.JSX.
       </section>
 
       {/* Donate CTA */}
+      {!program.donateStripHidden && (
       <section className="py-16 px-6 bg-forest-green-900 text-white">
         <div className="container mx-auto max-w-4xl">
           <FadeUp>
@@ -114,6 +115,7 @@ export default async function ProgramPage({ params }: Props): Promise<React.JSX.
           </FadeUp>
         </div>
       </section>
+      )}
 
     </>
   );

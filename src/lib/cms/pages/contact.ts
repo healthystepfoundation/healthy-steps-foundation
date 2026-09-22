@@ -57,6 +57,7 @@ export const contactSchema: PageSchema<ContactContent> = {
     },
     {
       id: 'strip',
+      removable: true,
       label: 'Green contact strip',
       description:
         'The email address, phone numbers and address are not edited here. They also appear in donation receipts and reminder emails, so they are changed once in the code and update everywhere at the same time.',

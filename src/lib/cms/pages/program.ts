@@ -76,6 +76,7 @@ export function makeProgramSchema(program: Program): PageSchema<ProgramContent> 
       },
       {
         id: 'donate',
+        removable: true,
         label: 'Support strip',
         description: 'The dark donate band at the bottom of the page.',
         fields: [

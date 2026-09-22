@@ -4,6 +4,7 @@ import StatsSection from '@/components/home/StatsSection';
 import VideoSection from '@/components/home/VideoSection';
 import { getPageContent } from '@/lib/cms/content';
 import { getEventsBanner, getUpcomingEvents } from '@/lib/cms/collections';
+import { sectionHidden } from '@/lib/cms/merge';
 import { homeSchema } from '@/lib/cms/pages/home';
 
 // EventsBanner picks "the next upcoming event" from today's date — without
@@ -22,8 +23,11 @@ export default async function HomePage(): Promise<React.JSX.Element> {
     <>
       <EventsBanner events={events} label={banner.label} headline={banner.headline} />
       <HeroSection content={content} />
-      <StatsSection content={content} />
-      <VideoSection content={content} />
+      {!sectionHidden(content, 'stats') && <StatsSection content={content} />}
+      {/* The video and gallery share one section; it only goes when both are removed */}
+      {!(sectionHidden(content, 'video') && sectionHidden(content, 'gallery')) && (
+        <VideoSection content={content} />
+      )}
     </>
   );
 }

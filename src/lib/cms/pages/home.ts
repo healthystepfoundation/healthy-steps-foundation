@@ -137,6 +137,7 @@ export const homeSchema: PageSchema<HomeContent> = {
     {
       id: 'stats',
       label: 'Impact numbers',
+      removable: true,
       fields: [
         text('statsEyebrow', 'Heading'),
         textarea('statsTitle', 'Text under the heading', {
@@ -162,6 +163,7 @@ export const homeSchema: PageSchema<HomeContent> = {
     {
       id: 'video',
       label: 'Video',
+      removable: true,
       fields: [
         text('videoEyebrow', 'Heading'),
         text('videoTitle', 'Text under the heading', {
@@ -178,6 +180,7 @@ export const homeSchema: PageSchema<HomeContent> = {
       id: 'gallery',
       label: 'Photo gallery',
       description: 'The photo mosaic shown with the video in the Videos and Pictures section.',
+      removable: true,
       fields: [
         list('galleryPhotos', 'Photos', {
           itemNoun: 'photo',

@@ -113,5 +113,40 @@ check('valuesEqual: identical lists', valuesEqual(defaults.rows, JSON.parse(JSON
 check('valuesEqual: reordered lists differ', !valuesEqual(defaults.rows, reordered));
 check('valuesEqual: string lists', valuesEqual(['a', 'b'], ['a', 'b']) && !valuesEqual(['a'], ['b']));
 
+// 8. Removable sections: the reserved hiddenSections key.
+const removableSchema: PageSchema<C> = {
+  ...schema,
+  groups: [
+    { id: 'g', label: 'G', fields: schema.groups[0]!.fields },
+    { id: 'extra', label: 'Extra', removable: true, fields: [] },
+    { id: 'also', label: 'Also', removable: true, fields: [] },
+  ],
+};
+
+// The reserved key is not part of the page's declared content type.
+const hs = (merged: unknown): string =>
+  JSON.stringify((merged as Record<string, unknown>).hiddenSections);
+
+const h0 = mergeContent(removableSchema, {});
+check('no removable groups on plain schema: key absent', !('hiddenSections' in m0));
+check('removable schema always carries the key', hs(h0) === '[]');
+
+const h1 = mergeContent(removableSchema, { hiddenSections: ['extra'] });
+check('hidden section survives the merge', hs(h1) === '["extra"]');
+const hd1 = diffFromDefaults(removableSchema, h1);
+check('hidden section stored in the diff', hs(hd1) === '["extra"]');
+const h1rt = mergeContent(removableSchema, hd1);
+check('hidden section save round-trip', hs(h1rt) === '["extra"]');
+
+const h2 = mergeContent(removableSchema, { hiddenSections: ['g', 'bogus', 'also', 42] });
+check('non-removable and unknown ids are dropped', hs(h2) === '["also"]', hs(h2));
+
+const h3 = mergeContent(removableSchema, { hiddenSections: 'nope' });
+check('junk hiddenSections falls back to none', hs(h3) === '[]');
+check('empty hiddenSections stays out of the diff', !('hiddenSections' in diffFromDefaults(removableSchema, h3)));
+
+const h4 = mergeContent(schema, { hiddenSections: ['g'] });
+check('schema without removable groups drops the key entirely', !('hiddenSections' in h4));
+
 console.log(failures === 0 ? '\nALL PASS' : `\n${failures} FAILURE(S)`);
 process.exit(failures === 0 ? 0 : 1);

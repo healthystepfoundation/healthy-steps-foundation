@@ -176,6 +176,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
     },
     {
       id: 'story',
+      removable: true,
       label: 'Our Story',
       fields: [
         text('storyEyebrow', 'Heading'),
@@ -188,6 +189,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
     },
     {
       id: 'purpose',
+      removable: true,
       label: 'Vision & Mission',
       description: 'The two white cards side by side.',
       fields: [
@@ -201,6 +203,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
     },
     {
       id: 'who',
+      removable: true,
       label: 'Who We Serve',
       fields: [
         text('whoEyebrow', 'Heading'),
@@ -212,6 +215,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
     },
     {
       id: 'process',
+      removable: true,
       label: 'How We Serve',
       description: 'Numbering follows the order here automatically.',
       fields: [
@@ -228,6 +232,7 @@ export const aboutSchema: PageSchema<AboutContent> = {
     },
     {
       id: 'values',
+      removable: true,
       label: 'Our Core Values',
       description: 'The dark green section of value cards.',
       fields: [

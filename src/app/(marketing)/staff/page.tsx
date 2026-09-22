@@ -3,6 +3,7 @@ import Image from 'next/image';
 import StaffCard from '@/components/staff/StaffCard';
 import FadeUp from '@/components/ui/FadeUp';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { staffSchema } from '@/lib/cms/pages/staff';
 import type { ContentItem, MediaValue } from '@/lib/cms/types';
 import type { StaffMember } from '@/types';
@@ -84,6 +85,7 @@ export default async function StaffPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Values strip */}
+      {!sectionHidden(content, 'strip') && (
       <section className="py-16 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-5xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
@@ -101,8 +103,10 @@ export default async function StaffPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Team photo */}
+      {!sectionHidden(content, 'photo') && (
       <section className="py-20 px-6 bg-warm-white">
         <div className="container mx-auto max-w-5xl">
           <FadeUp>
@@ -119,6 +123,7 @@ export default async function StaffPage(): Promise<React.JSX.Element> {
           </FadeUp>
         </div>
       </section>
+      )}
 
     </>
   );

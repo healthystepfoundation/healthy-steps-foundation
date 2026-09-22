@@ -30,6 +30,28 @@ export function schemaFields<T extends PageContent>(schema: PageSchema<T>): Fiel
   return schema.groups.flatMap((group) => group.fields);
 }
 
+/**
+ * Reserved content key holding the ids of sections staff have removed from the
+ * page. It is not a declared field — the merge handles it directly, and only
+ * ids of groups marked `removable` survive, so bad data can never hide a hero.
+ */
+export const HIDDEN_SECTIONS_KEY = 'hiddenSections';
+
+function removableIds<T extends PageContent>(schema: PageSchema<T>): string[] {
+  return schema.groups.filter((group) => group.removable).map((group) => group.id);
+}
+
+function coerceHidden(raw: unknown, removable: string[]): string[] {
+  if (!Array.isArray(raw)) return [];
+  return removable.filter((id) => raw.includes(id));
+}
+
+/** Whether staff have removed this section in the editor. */
+export function sectionHidden(content: PageContent, groupId: string): boolean {
+  const hidden = content[HIDDEN_SECTIONS_KEY];
+  return Array.isArray(hidden) && (hidden as unknown[]).includes(groupId);
+}
+
 function coerceLeaf(field: LeafField, raw: unknown, fallback: LeafValue): LeafValue {
   switch (field.type) {
     case 'text':
@@ -95,6 +117,11 @@ export function mergeContent<T extends PageContent>(schema: PageSchema<T>, store
     merged[field.key] = coerceField(field, overrides[field.key], fallback);
   }
 
+  const removable = removableIds(schema);
+  if (removable.length > 0) {
+    merged[HIDDEN_SECTIONS_KEY] = coerceHidden(overrides[HIDDEN_SECTIONS_KEY], removable);
+  }
+
   return merged as T;
 }
 
@@ -138,5 +165,9 @@ export function diffFromDefaults<T extends PageContent>(
     if (value === undefined || fallback === undefined) continue;
     if (!valuesEqual(value, fallback)) diff[field.key] = value;
   }
+
+  const hidden = coerceHidden(content[HIDDEN_SECTIONS_KEY], removableIds(schema));
+  if (hidden.length > 0) diff[HIDDEN_SECTIONS_KEY] = hidden;
+
   return diff;
 }

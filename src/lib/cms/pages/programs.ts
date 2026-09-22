@@ -83,6 +83,7 @@ export const programsIndexSchema: PageSchema<ProgramsIndexContent> = {
     },
     {
       id: 'why',
+      removable: true,
       label: 'Why six programs',
       fields: [
         text('whyEyebrow', 'Heading'),
@@ -114,6 +115,7 @@ export const programsIndexSchema: PageSchema<ProgramsIndexContent> = {
     },
     {
       id: 'connect',
+      removable: true,
       label: 'How they connect',
       fields: [
         text('connectEyebrow', 'Heading'),

@@ -132,6 +132,7 @@ export const newsSchema: PageSchema<NewsContent> = {
     },
     {
       id: 'give',
+      removable: true,
       label: 'Give in response',
       description: 'The two white cards. Bank and mailing details come from the Donate page.',
       fields: [
@@ -147,6 +148,7 @@ export const newsSchema: PageSchema<NewsContent> = {
     },
     {
       id: 'cta',
+      removable: true,
       label: 'Closing call to action',
       fields: [
         text('ctaEyebrow', 'Heading'),

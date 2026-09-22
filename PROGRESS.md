@@ -49,6 +49,40 @@ Everything else needed for launch is built.
 
 ## Timeline
 
+### 2026-09-22 (later) — Horizontal logo + removable sections in the content editor
+
+**Logo, take two.** The user supplied a horizontal lockup (mark left, wordmark right, 1848×851)
+that reads better in a navbar than the morning's square version. Re-encoded to webp
+(ImageMagick lossy; ⚠️ a first attempt with `cwebp` produced a palette-mode webp that made
+sharp/`next/image` hang forever on large transforms — logo and heroes rendered blank; if images
+ever vanish site-wide after replacing an image, suspect the encoding and re-encode with
+`magick`). Same `/HSF_logo.webp` path; header/drawer/footer `next/image` dims corrected to the
+2.17:1 ratio (drawer back to h-11, footer back to h-14); PDF letterhead regenerated with wide
+logo boxes again. Verified with CDP screenshots at 1440/390: header at rest, mobile, footer
+pill, no overflow.
+
+**Removable sections (client request: edit more than the admin allowed).** Staff can now remove
+whole sections from a page in `/admin/content`, and bring them back later, without a developer:
+
+- A group marked `removable: true` in its schema shows a "Remove from page" / "Put back on the
+  page" toggle in the editor; removed sections get a dashed border, struck-through label and a
+  "Removed from page" badge, and their fields keep their text so nothing is lost.
+- Hidden ids are stored under a reserved `hiddenSections` key in the page's saved diff. The
+  merge only accepts ids of groups actually marked removable, so bad data can never hide a
+  hero or a form (8 new assertions in `npm run test:cms`, 35 total).
+- Pages gate rendering with `sectionHidden(content, '<groupId>')` from `merge.ts`; programs
+  carry it as `ProgramView.donateStripHidden`.
+- Removable now: homepage stats / video / gallery (video+gallery are one on-page section that
+  only disappears when both are removed); About story / purpose / who / process / values;
+  Staff numbers strip / team photo; Programs why / connect; each program's donate strip;
+  Donate sidebar (form widens to full width) / bottom strip; Contact green strip; Get Help
+  hours / promise / cta; Stories programs chips; News give / cta.
+- Deliberately NOT removable: every hero, the giving/contact forms, the staff grid, the
+  program cards grid, the news posts, and the footer.
+
+Verified: build green (26 routes), CMS tests green, editor toggle exercised in a logged-in
+browser session (not saved).
+
 ### 2026-09-22 — New stacked logo (client request)
 
 The client supplied a new logo: the leaf-footprint mark stacked above "HEALTHY STEPS

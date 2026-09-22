@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Check, ChevronDown, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Check, ChevronDown, ExternalLink, Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { valuesEqual } from '@/lib/cms/merge';
+import { HIDDEN_SECTIONS_KEY, valuesEqual } from '@/lib/cms/merge';
 import type { ContentValue, PageContent, PageSchema } from '@/lib/cms/types';
 import FieldInput from './FieldInput';
 
@@ -26,12 +26,19 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
   );
 
   const dirty = useMemo(
-    () => schema.groups.flatMap((g) => g.fields).some((field) => {
-      const current = content[field.key];
-      const saved = baseline[field.key];
-      if (current === undefined || saved === undefined) return current !== saved;
-      return !valuesEqual(current, saved);
-    }),
+    () => {
+      const fieldsDirty = schema.groups.flatMap((g) => g.fields).some((field) => {
+        const current = content[field.key];
+        const saved = baseline[field.key];
+        if (current === undefined || saved === undefined) return current !== saved;
+        return !valuesEqual(current, saved);
+      });
+      const hiddenDirty = !valuesEqual(
+        content[HIDDEN_SECTIONS_KEY] ?? [],
+        baseline[HIDDEN_SECTIONS_KEY] ?? [],
+      );
+      return fieldsDirty || hiddenDirty;
+    },
     [content, baseline, schema],
   );
 
@@ -47,6 +54,23 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
 
   const setField = useCallback((key: string, value: ContentValue): void => {
     setContent((prev) => ({ ...prev, [key]: value }));
+    setStatus('idle');
+  }, []);
+
+  const hiddenSections = useMemo(() => {
+    const raw = content[HIDDEN_SECTIONS_KEY];
+    return Array.isArray(raw) ? (raw as string[]) : [];
+  }, [content]);
+
+  const toggleSectionHidden = useCallback((groupId: string): void => {
+    setContent((prev) => {
+      const raw = prev[HIDDEN_SECTIONS_KEY];
+      const current = Array.isArray(raw) ? (raw as string[]) : [];
+      const next = current.includes(groupId)
+        ? current.filter((id) => id !== groupId)
+        : [...current, groupId];
+      return { ...prev, [HIDDEN_SECTIONS_KEY]: next };
+    });
     setStatus('idle');
   }, []);
 
@@ -119,6 +143,7 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
       <div className="space-y-3">
         {schema.groups.map((group) => {
           const open = openGroups.includes(group.id);
+          const hidden = hiddenSections.includes(group.id);
           const changed = group.fields.filter((field) => {
             const value = content[field.key];
             const original = schema.defaults[field.key];
@@ -128,7 +153,10 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
           return (
             <section
               key={group.id}
-              className="overflow-hidden rounded-2xl border border-warm-gray-200 bg-white shadow-soft"
+              className={cn(
+                'overflow-hidden rounded-2xl border bg-white shadow-soft',
+                hidden ? 'border-warm-gray-300 border-dashed' : 'border-warm-gray-200',
+              )}
             >
               <h2>
                 <button
@@ -138,14 +166,27 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
                   className="flex w-full items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-warm-white"
                 >
                   <span className="min-w-0 flex-1">
-                    <span className="block font-semibold text-warm-gray-900">{group.label}</span>
+                    <span
+                      className={cn(
+                        'block font-semibold',
+                        hidden ? 'text-warm-gray-400 line-through decoration-warm-gray-300' : 'text-warm-gray-900',
+                      )}
+                    >
+                      {group.label}
+                    </span>
                     {group.description && (
                       <span className="mt-0.5 block text-sm text-warm-gray-500">
                         {group.description}
                       </span>
                     )}
                   </span>
-                  {changed > 0 && (
+                  {hidden && (
+                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-warm-gray-100 px-2.5 py-1 text-xs font-semibold text-warm-gray-500">
+                      <EyeOff size={12} />
+                      Removed from page
+                    </span>
+                  )}
+                  {changed > 0 && !hidden && (
                     <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">
                       {changed} changed
                     </span>
@@ -162,6 +203,35 @@ export default function ContentEditor({ schema, initial }: ContentEditorProps): 
 
               {open && (
                 <div className="space-y-6 border-t border-warm-gray-100 p-5">
+                  {group.removable && (
+                    <div
+                      className={cn(
+                        'flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3 text-sm',
+                        hidden
+                          ? 'bg-warm-gray-50 text-warm-gray-600'
+                          : 'bg-forest-green-50 text-forest-green-800',
+                      )}
+                    >
+                      <span>
+                        {hidden
+                          ? 'This section is removed from the page. Its text and photos are kept, so you can bring it back any time.'
+                          : 'This section is shown on the page.'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(): void => toggleSectionHidden(group.id)}
+                        className={cn(
+                          'inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-colors',
+                          hidden
+                            ? 'bg-forest-green-600 text-white hover:bg-forest-green-700'
+                            : 'border border-warm-gray-300 bg-white text-warm-gray-600 hover:border-warm-gray-400 hover:text-warm-gray-800',
+                        )}
+                      >
+                        {hidden ? <Eye size={13} /> : <EyeOff size={13} />}
+                        {hidden ? 'Put back on the page' : 'Remove from page'}
+                      </button>
+                    </div>
+                  )}
                   {group.fields.map((field) => {
                     const value = content[field.key] ?? '';
                     const original = schema.defaults[field.key] ?? '';

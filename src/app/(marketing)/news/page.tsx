@@ -7,6 +7,7 @@ import FadeUp from '@/components/ui/FadeUp';
 import { buttonStyles } from '@/components/ui/Button';
 import { getNewsUpdates } from '@/lib/cms/collections';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { newsSchema } from '@/lib/cms/pages/news';
 
 export const metadata: Metadata = {
@@ -130,6 +131,7 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* How to give in response to this update */}
+      {!sectionHidden(content, 'give') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="text-center mb-12">
@@ -171,8 +173,10 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA */}
+      {!sectionHidden(content, 'cta') && (
       <section className="py-20 px-6 bg-forest-green-900 text-white">
         <div className="container mx-auto max-w-3xl text-center">
           <FadeUp>
@@ -204,6 +208,7 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
           </FadeUp>
         </div>
       </section>
+      )}
     </>
   );
 }

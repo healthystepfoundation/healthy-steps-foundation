@@ -5,6 +5,7 @@ import { ORG } from '@/lib/constants';
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/contact/ContactForm';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { contactSchema } from '@/lib/cms/pages/contact';
 
 export const metadata: Metadata = {
@@ -48,6 +49,7 @@ export default async function ContactPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Quick-contact strip */}
+      {!sectionHidden(content, 'strip') && (
       <section className="bg-forest-green-900 border-t border-forest-green-700 py-5 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -103,6 +105,7 @@ export default async function ContactPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Message form */}
       <section className="py-20 px-6 bg-warm-white">

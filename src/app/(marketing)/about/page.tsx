@@ -4,6 +4,7 @@ import { CheckCircle, Eye, Target } from 'lucide-react';
 import FadeUp from '@/components/ui/FadeUp';
 import { ContentIcon } from '@/lib/icons';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { aboutSchema } from '@/lib/cms/pages/about';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Our Story */}
+      {!sectionHidden(content, 'story') && (
       <section className="py-20 px-6 bg-warm-white">
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -81,8 +83,10 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Vision & Mission */}
+      {!sectionHidden(content, 'purpose') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="mb-10">
@@ -131,8 +135,10 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </FadeUp>
         </div>
       </section>
+      )}
 
       {/* Who We Serve */}
+      {!sectionHidden(content, 'who') && (
       <section className="py-20 px-6 bg-warm-white">
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -169,8 +175,10 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* How We Serve */}
+      {!sectionHidden(content, 'process') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-4xl">
           <FadeUp className="mb-12">
@@ -204,8 +212,10 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Our Values */}
+      {!sectionHidden(content, 'values') && (
       <section className="py-20 px-6 bg-forest-green-900 text-white">
         <div className="container mx-auto max-w-6xl">
           <FadeUp className="mb-14">
@@ -235,6 +245,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
     </>
   );

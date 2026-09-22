@@ -90,6 +90,8 @@ export interface ProgramView {
   imageAlt: string;
   whoWeServe: string;
   donateBlurb: string;
+  /** Staff removed the donate strip for this program in the content editor. */
+  donateStripHidden: boolean;
 }
 
 export interface StaffMember {

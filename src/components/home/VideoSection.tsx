@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { Play, X } from 'lucide-react';
 import SectionHeading from '@/components/ui/SectionHeading';
+import { sectionHidden } from '@/lib/cms/merge';
 import type { HomeContent } from '@/lib/cms/pages/home';
 import type { MediaValue } from '@/lib/cms/types';
 
@@ -40,6 +41,11 @@ export default function VideoSection({ content }: { content: HomeContent }): Rea
     setPlaying(true);
   }
 
+  // Staff can remove either half of this section in the editor; the page
+  // itself only skips the whole section when both are removed.
+  const showVideo = !sectionHidden(content, 'video');
+  const showGallery = !sectionHidden(content, 'gallery');
+
   return (
     <section className="relative overflow-hidden bg-forest-green-900 py-24 px-6">
       {/* Soft ambient glow */}
@@ -72,6 +78,7 @@ export default function VideoSection({ content }: { content: HomeContent }): Rea
           className="grid auto-rows-[150px] grid-cols-2 gap-3 sm:auto-rows-[190px] lg:grid-cols-4"
         >
           {/* Video tile — same size as the photo tiles */}
+          {showVideo && (
           <motion.div
             variants={galleryItem}
             className="group relative overflow-hidden rounded-2xl shadow-float ring-1 ring-white/10"
@@ -120,9 +127,10 @@ export default function VideoSection({ content }: { content: HomeContent }): Rea
             </button>
           )}
           </motion.div>
+          )}
 
           {/* Photo tiles — all the same size; tap one to see it full size */}
-          {content.galleryPhotos.map((entry, i) => {
+          {showGallery && content.galleryPhotos.map((entry, i) => {
             const photo = entry.photo as MediaValue | undefined;
             if (!photo?.src) return null;
 

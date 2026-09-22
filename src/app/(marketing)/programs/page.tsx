@@ -6,6 +6,7 @@ import FadeUp from '@/components/ui/FadeUp';
 import { ProgramIcon, ContentIcon } from '@/lib/icons';
 import { getPrograms } from '@/lib/cms/collections';
 import { getPageContent } from '@/lib/cms/content';
+import { sectionHidden } from '@/lib/cms/merge';
 import { programsIndexSchema } from '@/lib/cms/pages/programs';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default async function ProgramsPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* Why 6 programs — white section, not amber */}
+      {!sectionHidden(content, 'why') && (
       <section className="py-20 px-6 bg-white">
         <div className="container mx-auto max-w-5xl">
           <FadeUp className="mb-12">
@@ -81,6 +83,7 @@ export default async function ProgramsPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
       {/* Program Cards Grid */}
       <section className="py-20 px-6 bg-warm-white">
@@ -106,6 +109,7 @@ export default async function ProgramsPage(): Promise<React.JSX.Element> {
       </section>
 
       {/* How they connect */}
+      {!sectionHidden(content, 'connect') && (
       <section className="py-20 px-6 bg-forest-green-50">
         <div className="container mx-auto max-w-5xl">
           <FadeUp className="mb-12">
@@ -138,6 +142,7 @@ export default async function ProgramsPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+      )}
 
     </>
   );

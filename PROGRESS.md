@@ -4,7 +4,7 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-22
+**Last updated**: 2026-09-23
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 **Domain**: healthystepsfoundation.org — bought, pointed at Vercel, and verified in Resend
@@ -49,90 +49,56 @@ Everything else needed for launch is built.
 
 ## Timeline
 
-### 2026-09-22 (evening) — Check Details box editable + optional link (client request)
+### 2026-09-22 (evening) — Donate check panel rebuilt live with the client (`a5657a8`..`f5622ab`, 8 commits)
 
-The client messaged: they want to add a link in the Check Details box on the Donate page
-(the box with "Make payable to / Memo / Mailing address") and "I don't have access to that
-box. I need access to it."
+A live round of the client's messages, relayed one at a time, all about the check giving
+panel on the Donate page. It opened with "I don't have access to that box. I need access
+to it" (the Check Details box) and ended with a fully restructured, fully editable panel.
+Every commit was pushed and deployed as it landed, verified against the production site.
 
-Both delivered, without giving up the no-divergence rule that had kept those values in code:
+**The panel now reads, top to bottom:**
 
-- **The check details are now editable** at `/admin/content` → Donate → Check giving panel:
-  payable-to, memo / note line, and mailing address, plus two new link fields (link text +
-  link address). When the link address is set, a link (with external-link icon, opens in a
-  new tab) renders under the three rows in the Check Details box **and** in the pledge
-  success modal's repeat of that box. Empty link address = no link, exactly as before.
-- **Single source preserved a new way.** A new `getCheckDetails()` in `cms/collections.ts`
-  merges the CMS value over `US_CHECK_DETAILS` and is now the only read path: the donate
-  page (passed down through `DonateFormCopy`), the News give card, the pledge PDF and the
-  receipt PDF all use it, so an edit in the admin reaches every surface at once, including
-  the PDFs emailed to donors. The editor help text says so.
-- **Emptied fields fall back to the code values** (`US_CHECK_DETAILS` stays in
-  `constants.ts` as default + fallback): blank payment instructions on a mailed-check PDF
-  would be worse than stale ones. The donate page passes the resolved values so the on-page
-  box can never disagree with the PDFs either.
-- All five CMS keys are new, so no saved override is orphaned. `CLAUDE.md`'s "US check
-  details are not in the CMS" claims updated.
+1. **"Giving Details for US Donors"** — a serif panel heading (was the "How Check Giving
+   Works" step heading with a green ①).
+2. **① By Mail** — each instruction line is a bold step with a green number (renamed from
+   "Mail it to First Baptist Sweetwater").
+3. **The check details box**, directly under the instructions with no step heading of its
+   own, now four aligned rows: payable-to, memo, mailing address, and an **"Online at"
+   link row** ("First Baptist Sweetwater giving form" → the church's ministryforms.net
+   giving form, opens in a new tab).
+4. An **optional amber note box** (heading + text, blank lines become paragraphs) that
+   renders only when filled in — the client asked for "something before confirm your
+   pledge" but hasn't said what; it ships empty for them to write.
+5. **② Confirm Your Pledge** and **③ Prefer to Just Email Us?** — numbered dynamically
+   (`checkSteps.length + 1/+ 2`), so instruction lines added in the editor renumber the
+   later steps automatically. The success modal repeats the four-row details box.
 
-**Follow-up 8, same evening**: the give-online link moved into the check details box as a
-fourth aligned row — "Online at" label on the left, the link text
-("First Baptist Sweetwater giving form", opens in a new tab) right-aligned with the other
-values. Same row in the pledge success modal. The "Online at:" prefix left the editable
-link text since it is now the row label in code.
+**Check details are now CMS-editable without giving up the no-divergence rule.** A new
+`getCheckDetails()` in `cms/collections.ts` merges the CMS value over `US_CHECK_DETAILS`
+and is the only read path: the donate page (via `DonateFormCopy`), the News give card,
+the pledge PDF and the receipt PDF all use it, so an admin edit reaches every surface at
+once, including the PDFs emailed to donors. Emptied fields fall back to the code values
+(blank payment instructions would be worse than stale ones), and the same fallback covers
+the panel heading. `CLAUDE.md`'s "US check details are not in the CMS" claims updated.
 
-**Follow-up 7, same evening**: step 1 renamed to "By Mail" (the old
-"Mail it to First Baptist Sweetwater" default was never stored as an override — verified
-against the live payload earlier — so the code-default change reaches the site), and the
-give-online link now has real defaults: "Online at: First Baptist Sweetwater giving form"
-pointing at the church's ministryforms.net giving form. The link moved from inside the
-check details box to between the box and the pledge step, where the client asked for it;
-it still repeats in the pledge success modal. Editor fields relabelled
-"Give-online link: text / address".
+**Live-site debugging worth remembering:** when the new heading didn't show, fetching the
+production page and grepping the serialized RSC payload revealed the saved donate
+override had `checkStepsTitle: ""` — the client had emptied the field back when it was a
+step heading, and the empty save shadowed every new code default. That is what motivated
+the heading fallback, and the same payload check confirmed the instructions list held no
+stray overrides (so renaming its default to "By Mail" reaches the site). With no Supabase
+credentials in `.env.local`, reading the production payload is currently the only way to
+inspect saved overrides from this machine.
 
-**Follow-up 6, same evening**: the check panel is one numbered sequence now. Each
-instruction line ("Mail it to First Baptist Sweetwater") is a bold step with a green
-number, and the pledge and email steps continue the count dynamically
-(`checkSteps.length + 1/+ 2`), so adding an instruction in the editor renumbers
-everything correctly. Editor labels renamed to "Pledge step" / "Email step" since the
-numbers are no longer fixed.
+**Orphaned by design:** `checkDetailsTitle` ("Check Details") was removed with its
+heading; any saved override for it is dropped. All other keys are new or unchanged.
 
-**Follow-up 5, same evening**: the heading wasn't showing on the live site. Diagnosed by
-fetching the production page: the saved donate override has `checkStepsTitle: ""` — the
-client emptied the field back when it was the "How Check Giving Works" step heading, and
-the empty save shadowed the new default. (The saved instructions list is clean: just
-"Mail it to First Baptist Sweetwater".) Fix: an emptied panel heading now falls back to
-the code default in `donate/page.tsx`, same philosophy as the check-details fallback —
-the panel needs its heading. Live check also confirmed today's deploys are all live.
+New editor fields, all under `/admin/content` → Donate → Check giving panel: panel
+heading, instructions list, payable-to / memo / mailing address, give-online link text +
+address, and the extra-box heading + text.
 
-**Follow-up 4, same evening**: the instruction lines ("Mail it to First Baptist
-Sweetwater") lost their amber numbered circles and are now plain bold text under the
-panel heading, per the client.
-
-**Follow-up 3, same evening**: the "Check Details" step is gone entirely, per the client.
-The white details box (payable to / memo / mailing address / optional link) now sits
-directly under the "Mail it to First Baptist Sweetwater" instruction inside the
-"Giving Details for US Donors" section, with no heading or green circle of its own; the
-remaining steps renumbered to 1 (Confirm Your Pledge) and 2 (Prefer to Just Email Us).
-The `checkDetailsTitle` field was removed with its element (orphaning any saved override
-for it, by design — the heading no longer renders).
-
-**Follow-up 2, same evening**: "Giving Details for US Donors" is now the check panel's
-heading, per the client. The first section's green "1" circle is gone: the old
-"How Check Giving Works" step heading is now a plain serif panel heading (new default
-"Giving Details for US Donors"), and the remaining green circles renumbered 2/3/4 →
-1/2/3 (editor labels updated to match). ⚠️ The client appears to have typed
-"Giving Details for US Donors" as a line in the Instructions list in the editor — a
-saved override we cannot change from code. After deploy they (or the user) must open
-`/admin/content` → Donate → Check giving panel, delete that instruction line, and check
-the "Panel heading" field shows the new text (re-save or reset if an old override
-shadows it).
-
-**Follow-up, same evening**: the client also asked "can something be added before confirm
-your pledge". Two more fields in the same editor group ("Extra box before the pledge:
-heading / text") render an amber note box between the Check Details box and the Confirm
-Your Pledge form. Both default to empty, so nothing shows until the client writes
-something; blank lines in the text become paragraphs. The client hasn't said what they
-want the box to say, so it ships empty for them to fill in.
+Verified per commit: `npm run test:cms` green (35), TypeScript clean, production build
+green (26 routes); final state confirmed rendering on healthystepsfoundation.org.
 
 Verified: `npm run test:cms` green (35), TypeScript clean, production build green (26 routes).
 ⚠️ Not yet done: telling the client where the new fields live (Donate → Check giving panel,

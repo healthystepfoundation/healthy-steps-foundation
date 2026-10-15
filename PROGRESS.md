@@ -4,7 +4,7 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-09-23
+**Last updated**: 2026-10-15
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 **Domain**: healthystepsfoundation.org — bought, pointed at Vercel, and verified in Resend
@@ -18,10 +18,11 @@ timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *
 | 1 | Real impact statistics | Client | ⛔ Outstanding — placeholder numbers still live. Editable in the CMS (Homepage → Impact numbers), so this no longer needs a developer |
 | 2 | Supabase `site_content` table + `site-media` bucket | User | ✅ **Working** — confirmed indirectly on 2026-08-29: the live homepage renders a CMS-saved image served from Supabase Storage (that is what tripped Netlify's secrets scan). Saves and uploads are real |
 | 3 | Resend env vars in Vercel | User | 🟡 Nearly done — the API key exists and healthystepsfoundation.org is verified in Resend. Remaining: set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` (e.g. `Healthy Steps Foundation <giving@healthystepsfoundation.org>`) in the Vercel dashboard and redeploy. Claude cannot do this: the Vercel account connected to its session is a different one and does not contain this project |
-| 4 | Verify the first Vercel deploy is green | User | 🟡 The site moved from Netlify to Vercel on 2026-09-09; env vars are being moved to the Vercel dashboard by hand. Add `CRON_SECRET` while there — it now gates **two** cron routes (reminders + the Supabase keep-alive) — then confirm the deploy and both cron jobs appear green in Vercel |
+| 4 | Verify Vercel env vars + cron jobs | User | 🟡 Deploys themselves are proven: pushes to `main` reach healthystepsfoundation.org within ~1 minute (the Gallery commit `8a51164`, 2026-10-15; the 2026-09-22 donate commits before it). Still unconfirmed: `CRON_SECRET` is set — it gates **two** cron routes (reminders + the Supabase keep-alive) — and both cron jobs show green under Cron Jobs |
 | 5 | Final cross-device smoke test | User | ⚠️ Not started |
 | 6 | Update the saved "Watch Videos" heading in the editor | User / client | ⚠️ One manual edit: `/admin/content` → Homepage → Video → Heading → "Videos and Pictures". The saved override shadows the new code default |
-| 7 | Sync `CLAUDE.md` and `README.md` with the trimmed site | Developer | ⚠️ Both still describe the pre-September homepage, program pages, footer and Food Closet name |
+| 7 | Sync `CLAUDE.md` and `README.md` with the trimmed site | Developer | ⚠️ Both still describe the pre-September homepage, program pages, footer and Food Closet name, and neither mentions the new Gallery page (2026-10-15) |
+| 8 | Client sign-off on the Gallery page | Client | ⚠️ Live at /gallery. Confirm the two outreach summaries and that they want a "Gallery" item in the navbar |
 
 Everything else needed for launch is built.
 
@@ -43,13 +44,18 @@ Everything else needed for launch is built.
    The 2026-09-21 de-AI pass and horizontal-scroll fix were verified in emulation only.
 5. Get the real impact statistics and a clothing-market photograph from the client; both are
    theirs to enter in the editor, not a developer task.
-6. Bring `CLAUDE.md` and `README.md` in line with the site as it now is.
+6. Bring `CLAUDE.md` and `README.md` in line with the site as it now is (now including the
+   Gallery page, its CMS schema and the `public/images/events/` + `public/videos/` folders).
+7. **Show the client the Gallery page** and get the two outreach summaries confirmed. Tell them
+   where to edit it (`/admin/content` → Gallery) and how to rotate in the next outreach (move
+   slot 1 into slot 2, then replace slot 1). The 17 October outreach will be the first time
+   they do this.
 
 ---
 
 ## Timeline
 
-### 2026-10-15 — New Gallery page: October back-to-school outreaches
+### 2026-10-15 — New Gallery page: October back-to-school outreaches (`8a51164`, live)
 
 The client sent two Google Drive folders ("day 1", "day 2", ~130 photos + 2 videos) plus a few
 files dropped in the project root, described as the 10 October event at Humble Vessel. EXIF and
@@ -79,6 +85,11 @@ Humble Vessel Medical Center**. Both are on the page, each labelled with its own
 Verified: TypeScript clean, lint clean on new files, `npm run test:cms` green, production build
 green (`/gallery` static). Full-page CDP screenshots at 1440px and 390px (no horizontal scroll),
 lightbox opened and advanced by keyboard, both videos served with HTTP 206 range responses.
+**Deployed**: pushed to `main` and live on healthystepsfoundation.org/gallery about a minute
+later (HTTP 200; the 10 October video streams from production with a 206). Not checked on
+production: the 3 October video, the Gallery screen in `/admin/content`, and a real phone.
+Source: the Drive folders were read through their public links; the Google Drive connector in
+Claude's session lacks the read scope.
 ⚠️ Not yet confirmed with the client: the summary wording for each outreach (written only from
 what the photos and video subtitles show), and whether they want a "Gallery" item in the navbar.
 
@@ -724,10 +735,10 @@ actual phone: the video+photo lightbox, the drawer, and touch behaviour generall
 proved a saved CMS edit with an uploaded Supabase Storage photo is rendering on the live
 homepage. Save, upload, and `next/image` remote loading all work in production.
 
-**Everything since late August is unverified in production** (`dba94b9`..`a1832f2` — the August
-round, the September trim, and the seven 2026-09-21 commits including the receipt system, the
-de-AI pass and the new crons). All build clean locally (26 routes, CMS tests green). Confirm the
-Vercel deploy and both cron jobs before assuming the site is fine.
+**Production deploys work; crons and email are still unproven.** Commits through `8a51164`
+(2026-10-15) are deployed and the pages render on healthystepsfoundation.org. What has *not*
+been exercised in production: both cron jobs, and the receipt/pledge emails (waiting on the
+Resend env vars). Confirm those before assuming the backend is fine.
 
 **Saved CMS overrides can shadow code changes.** Now that real saves exist, editing a default in
 `src/lib/cms/pages/*.ts` only shows where staff have not saved that field — the "Watch Videos"

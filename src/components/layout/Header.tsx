@@ -20,6 +20,7 @@ const ABOUT_LINKS = [
 const SIMPLE_LINKS = [
   { href: '/get-help', label: 'Get Help' },
   { href: '/stories', label: 'Stories' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/news', label: 'News' },
   { href: '/contact', label: 'Contact' },
 ] as const;

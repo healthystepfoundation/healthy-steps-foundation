@@ -8,6 +8,7 @@ import { contactSchema } from './pages/contact';
 import { getHelpSchema } from './pages/get-help';
 import { storiesSchema } from './pages/stories';
 import { newsSchema } from './pages/news';
+import { gallerySchema } from './pages/gallery';
 import { siteSchema } from './pages/site';
 import { testimonialsSchema } from './pages/testimonials';
 import { eventsSchema } from './pages/events';
@@ -37,6 +38,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
   widen(programsIndexSchema),
   widen(getHelpSchema),
   widen(storiesSchema),
+  widen(gallerySchema),
   widen(newsSchema),
   widen(donateSchema),
   widen(contactSchema),

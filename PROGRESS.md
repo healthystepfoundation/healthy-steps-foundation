@@ -49,6 +49,39 @@ Everything else needed for launch is built.
 
 ## Timeline
 
+### 2026-10-15 — New Gallery page: October back-to-school outreaches
+
+The client sent two Google Drive folders ("day 1", "day 2", ~130 photos + 2 videos) plus a few
+files dropped in the project root, described as the 10 October event at Humble Vessel. EXIF and
+the videos show it is really **two outreaches**: **3 October at Ujumbe Wa Upendo** (a partner
+ministry, "Sharing God's Message of Love"; the video subtitles name it) and **10 October at
+Humble Vessel Medical Center**. Both are on the page, each labelled with its own date and place.
+
+- **New `/gallery` page** (top-level "Gallery" link in the header, between Stories and News).
+  Photo hero with jump links, then one "chapter" per outreach (dark, then light): a big date stamp,
+  title, place, short factual summary, a 16:9 video with poster, and an equal-tile photo grid
+  (8 shown, "Show all 18 photos" reveals the rest). Tapping a photo opens a full-screen viewer
+  showing it uncropped, with prev/next buttons, arrow keys, swipe, a counter and the alt text as
+  caption.
+- **18 curated photos per outreach** in `public/images/events/2026-10-{03,10}-*/` (from ~130:
+  near-duplicates and burst frames dropped). Resized to 2000px, **EXIF/GPS stripped**, HEIC
+  converted. Alt text describes each photo.
+- **Videos** re-encoded to 720p H.264 (the 10 Oct original is HEVC, which several browsers
+  cannot play), capped at ~1.1 Mbps: `public/videos/outreach-2026-10-10-humble-vessel.mp4`
+  (1:00, 9 MB) and `…-10-03-ujumbe-wa-upendo.mp4` (2:48, 22 MB). `preload="none"`, so nothing
+  downloads until someone presses play.
+- **Fully editable** at `/admin/content` → Gallery (`cms/pages/gallery.ts`): two fixed outreach
+  slots (lists cannot nest, so not a list of events), both removable. To feature a newer
+  outreach, staff move slot 1's content to slot 2 and replace slot 1.
+- The raw source files dropped in the project root (8 files, incl. two identical 88 MB M4Vs)
+  were deleted after processing; only the web versions above are in the repo.
+
+Verified: TypeScript clean, lint clean on new files, `npm run test:cms` green, production build
+green (`/gallery` static). Full-page CDP screenshots at 1440px and 390px (no horizontal scroll),
+lightbox opened and advanced by keyboard, both videos served with HTTP 206 range responses.
+⚠️ Not yet confirmed with the client: the summary wording for each outreach (written only from
+what the photos and video subtitles show), and whether they want a "Gallery" item in the navbar.
+
 ### 2026-09-22 (evening) — Donate check panel rebuilt live with the client (`a5657a8`..`f5622ab`, 8 commits)
 
 A live round of the client's messages, relayed one at a time, all about the check giving

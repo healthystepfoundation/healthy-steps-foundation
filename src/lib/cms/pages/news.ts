@@ -38,10 +38,7 @@ const defaults: NewsContent = {
     title: post.title,
     date: post.date,
     excerpt: post.excerpt,
-    image: media(
-      post.image,
-      'Healthy Steps Foundation volunteers distributing staple food bags in Kampala, Uganda',
-    ),
+    image: media(post.image, post.imageAlt ?? post.title),
     body: post.body,
     signOffName: post.signOff.name,
     signOffTitle: post.signOff.title,

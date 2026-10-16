@@ -4,7 +4,7 @@ Running log of what has shipped, what is blocked, and what is next.
 `CLAUDE.md` is the project brief (architecture, design rules, conventions); this file is the
 timeline. When they disagree, trust this file for *status* and `CLAUDE.md` for *how things work*.
 
-**Last updated**: 2026-10-15
+**Last updated**: 2026-10-16
 **Phase**: 1 — feature complete, pre-launch
 **Deployed to**: Vercel, via the GitHub integration on `main` (moved off Netlify 2026-09-09)
 **Domain**: healthystepsfoundation.org — bought, pointed at Vercel, and verified in Resend
@@ -54,6 +54,30 @@ Everything else needed for launch is built.
 ---
 
 ## Timeline
+
+### 2026-10-16 — "Dear Friends" letter on the News page (October back-to-school recap)
+
+The client sent a newsletter letter (`Dear Friends.docx`, signed Isaac Oyirwoth, Director)
+recapping the 3 and 10 October Back to School outreaches in Ndejje and Bukasa-Wakiso. Added as
+the newest entry in `NEWS_UPDATES`, so `/news` now shows it in full as the letter and uses its
+photo (`children-new-backpacks.jpg` from the Ujumbe Wa Upendo set) as the hero; the June letter
+moved to "Earlier Updates".
+
+- Wording kept as sent, with three light fixes: a missing comma in the supplies list, the
+  sentence fragment "Which is a major part of our core mission." joined to the sentence before
+  it, and the raw ministryforms.net URL replaced with "give online through the First Baptist
+  Sweetwater giving form, linked below" (a 120-character URL would overflow on a phone).
+- The News page's Give by Check card gained an "Or give online:" link. It reads
+  `checkLinkLabel` / `checkLinkUrl` from the Donate CMS content, so it is the same editable value
+  the Donate page uses, not a second copy.
+- `news.ts` defaults now use each post's own `imageAlt`; previously every post got the June
+  food-distribution alt text.
+- Dated 2026-10-16 (the letter itself is undated; that is the day it arrived).
+
+Checked before adding: the live `/news` serves the code default posts, so there is no saved
+`posts` override to shadow the new letter.
+Verified: TypeScript clean, lint clean on changed files, `npm run test:cms` green, production
+build green, CDP-emulated screenshots at 390px (no horizontal scroll) and 1440px.
 
 ### 2026-10-15 — New Gallery page: October back-to-school outreaches (`8a51164`, live)
 

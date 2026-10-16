@@ -9,6 +9,7 @@ import { getNewsUpdates, getCheckDetails } from '@/lib/cms/collections';
 import { getPageContent } from '@/lib/cms/content';
 import { sectionHidden } from '@/lib/cms/merge';
 import { newsSchema } from '@/lib/cms/pages/news';
+import { donateSchema } from '@/lib/cms/pages/donate';
 
 export const metadata: Metadata = {
   title: 'News | Healthy Steps Foundation',
@@ -27,10 +28,12 @@ function formatDate(iso: string): string {
 }
 
 export default async function NewsPage(): Promise<React.JSX.Element> {
-  const [content, updates, checkDetails] = await Promise.all([
+  // The donate page owns the give-online link, so the News card reads the same saved value.
+  const [content, updates, checkDetails, donate] = await Promise.all([
     getPageContent(newsSchema),
     getNewsUpdates(),
     getCheckDetails(),
+    getPageContent(donateSchema),
   ]);
 
   const [latest, ...earlier] = updates;
@@ -172,6 +175,19 @@ export default async function NewsPage(): Promise<React.JSX.Element> {
                 <p className="text-warm-gray-900 text-sm font-medium leading-relaxed">
                   {checkDetails.mailingAddress}
                 </p>
+                {donate.checkLinkUrl && (
+                  <p className="text-warm-gray-600 text-sm leading-relaxed mt-4">
+                    Or give online:{' '}
+                    <a
+                      href={donate.checkLinkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-sweep font-medium text-forest-green-700"
+                    >
+                      {donate.checkLinkLabel || 'giving form'}
+                    </a>
+                  </p>
+                )}
               </div>
             </FadeUp>
           </div>

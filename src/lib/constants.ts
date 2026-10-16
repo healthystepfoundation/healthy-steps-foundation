@@ -234,12 +234,30 @@ export const UPCOMING_EVENTS: UpcomingEvent[] = [
 // ─── News & Fundraising Updates ────────────────────────────────────────────────
 export const NEWS_UPDATES: NewsUpdate[] = [
   {
+    slug: 'october-2026-back-to-school',
+    title: 'Back to School in Ndejje and Bukasa-Wakiso',
+    date: '2026-10-16',
+    excerpt:
+      'On October 3rd and 10th, Healthy Steps held Back to School events in Ndejje and Bukasa-Wakiso, reaching our goal of 100 families per community hours before the start time.',
+    image: '/images/events/2026-10-03-ujumbe-wa-upendo/children-new-backpacks.jpg',
+    imageAlt: 'A large group of children waving and wearing their new backpacks',
+    body: [
+      'On October 3rd and 10th Healthy Steps held Back to School events in Ndejje and Bukasa-Wakiso. The events were well received by both communities. To our surprise, our goal of 100 families per community was reached and exceeded 2 to 3 hours before our start time of 10 am. Meeting our goal so quickly was amazing.',
+      'The event provided paper, pencils, pens, folders, notebooks, backpacks and binders to smiley children and grateful parents. In addition to school supplies the children received deworming medications, hair salon services, and sweet treats/party blowers. It was a fun time for everyone.',
+      'Healthy Steps was also able to engage in face-to-face meetings with families requesting mental health assistance, which is a major part of our core mission. As a result of these meetings, we hope to enroll two mothers in a tailoring program and four individuals in an agricultural farming program starting January 2027.',
+      'It is our hope that with each outreach opportunity the number of families served increases. All of these wonderful events are successful because of your continued prayers, love, and support.',
+      'If you would like to pray and donate, please make your checks out to First Baptist Sweetwater Church and put Healthy Steps Foundation on the FOR line. You can also give online through the First Baptist Sweetwater giving form, linked below.',
+    ],
+    signOff: { name: 'Isaac Oyirwoth', title: 'Director' },
+  },
+  {
     slug: 'summer-2026-events',
     title: 'Healthy Steps Foundation Events',
     date: '2026-06-13',
     excerpt:
       'From a drumming and paint night in Longwood, Florida to a staple food distribution for 100 villagers in Kampala: recapping recent HSF events, and what is next for back-to-school and Christmas.',
     image: '/images/field/distribution-wide.jpg',
+    imageAlt: 'Healthy Steps Foundation volunteers distributing staple food bags in Kampala, Uganda',
     body: [
       'Thank you for participating and donating to recent Healthy Steps Foundation (HSF) events. On May 23, 2026, our organization sponsored the African Drumming, and Paint and Refreshments events in Longwood, Florida. Both events showcased your talents and provided fun and laughter.',
       'On June 13, 2026, HSF held an event in Kampala, Uganda. The event provided staple food items such as sugar, posho (corn flour), oil, and soap for 100 villagers. Unfortunately, many had to be turned away due to limited inventory.',
